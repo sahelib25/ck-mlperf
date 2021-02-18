@@ -1,36 +1,39 @@
-# TensorFlow object-detection program
+# MLPerf Inference - Object Detection - ONNX
 
 ## Pre-requisites
 
-### Repositories
+### CK repository (this one)
 
-```bash
-$ ck pull repo:ck-mlperf
-```
+<pre>
+&dollar; ck pull repo --url=https://github.com/krai/ck-mlperf
+</pre>
 
 ### ONNX libraries
 
-```bash
-$ ck install package --tags=lib,onnx
-$ ck install package --tags=lib,onnxruntime
-```
+<pre>
+&dollar; ck install package --tags=python-package,onnx
+&dollar; ck install package --tags=python-package,onnxruntime
+</pre>
 
 ### ONNX Object Detection model
-Install one or more object detection model package:
-```bash
-$ ck install package --tags=model,object-detection,onnx
-```
+
+Install SSD-ResNet34:
+
+<pre>
+&dollar; ck install package --tags=model,onnx,mlperf,ssd-resnet
+</pre>
 
 ### Datasets
-```bash
-$ ck install package --tags=dataset,object-detection,preprocessed,side.1200
-```
+
+<pre>
+&dollar; ck install package --tags=dataset,object-detection,preprocessed,side.1200
+</pre>
 
 ## Running
 
-```bash
-$ ck run program:object-detection-onnx-py
-```
+<pre>
+&dollar; ck run program:object-detection-onnx-py --env.CK_BATCH_COUNT=5000
+</pre>
 
 ### Program parameters
 
@@ -38,10 +41,10 @@ $ ck run program:object-detection-onnx-py
 
 The number of images to be processed.
 
-Default: `1`
+Default: `1`.
 
 #### `CK_SKIP_IMAGES`
 
 The number of skipped images.
 
-Default: `0`
+Default: `0`.

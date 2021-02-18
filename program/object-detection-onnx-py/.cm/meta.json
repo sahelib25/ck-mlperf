@@ -87,7 +87,7 @@
         "side.": [ "dataset" ]
       },
       "local": "yes",
-      "name": "TensorFlow Object Detection model",
+      "name": "ONNX Object Detection model",
       "sort": 20,
       "tags": "model,object-detection,onnx"
     }
@@ -110,5 +110,5 @@
     "lang-python"
   ],
   "template": "yes",
-  "template_type": "Object Detection via TensorFlow (Python)"
+  "template_type": "Object Detection via ONNX (Python)"
 }
