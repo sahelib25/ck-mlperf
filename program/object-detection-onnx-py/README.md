@@ -29,12 +29,16 @@
 &dollar; ck install package --tags=model,onnx,mlperf,ssd-resnet,downloaded
 </pre>
 
+### SSD-MobileNet-v1
+
 <pre>
 &dollar; ck install package --tags=model,onnx,mlperf,ssd-mobilenet,downloaded
 </pre>
 
 
 ## Datasets
+
+**NB:** Using OpenCV gives better accuracy than using Pillow.
 
 ### SSD-ResNet34
 
@@ -73,7 +77,8 @@ Default: `0`.
 
 <pre>
 &dollar; ck run program:object-detection-onnx-py --skip_print_timers \
---dep_add_tags.weights=ssd-resnet --dep_add_tags.dataset=preprocessed,side.1200 \
+--dep_add_tags.dataset=preprocessed,using-opencv,side.1200 \
+--dep_add_tags.weights=ssd-resnet \
 --env.CK_BATCH_COUNT=50
 ...
 Convert results to coco ...
@@ -123,7 +128,8 @@ Recall: 0.38062334131440473
 
 <pre>
 &dollar; ck run program:object-detection-onnx-py --skip_print_timers \
---dep_add_tags.weights=ssd-resnet --dep_add_tags.dataset=preprocessed,side.1200 \
+--dep_add_tags.dataset=preprocessed,using-opencv,side.1200 \
+--dep_add_tags.weights=ssd-resnet \
 --env.CK_BATCH_COUNT=5000
 ...
 Convert results to coco ...
