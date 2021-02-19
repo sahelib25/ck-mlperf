@@ -17,8 +17,7 @@ def user_conf_and_audit_config(i):
     env=i['env']
 
     # Try ML_MODEL_MODEL_NAME from the environment, then from the 'weights' model dependency, then try to find MODEL_NAME of its 'model-source' dependency:
-    model_name = ( env.get('ML_MODEL_MODEL_NAME')
-        or dep_env('model', 'ML_MODEL_MODEL_NAME')
+    model_name = env.get('ML_MODEL_MODEL_NAME') or dep_env('model', 'ML_MODEL_MODEL_NAME')
     print('\n-=-=-=-=-= Generating user.conf for model "{}" ...'.format(model_name))
     scenario            = env['CK_LOADGEN_SCENARIO']
     user_conf_rel_path  = env['CK_LOADGEN_USER_CONF']
