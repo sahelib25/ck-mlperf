@@ -82,6 +82,7 @@ def ck_postprocess(i):
     command = [ deps['python']['dict']['env']['CK_ENV_COMPILER_PYTHON_FILE'], BERT_CODE_ROOT+'/accuracy-squad.py',
               '--val_data', SQUAD_DATASET_ORIGINAL_PATH,
               '--features_cache_file', SQUAD_DATASET_TOKENIZED_PATH,
+              '--log_file', MLPERF_LOG_ACCURACY_JSON,
               '--out_file', 'predictions.json',
     ]
 
