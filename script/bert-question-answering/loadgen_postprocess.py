@@ -24,14 +24,15 @@ ACCURACY_TXT             = 'accuracy.txt'
 def ck_postprocess(i):
   print('\n--------------------------------')
 
-  env               = i['env']
-  deps              = i['deps']
-  SIDELOAD_JSON     = env.get('CK_LOADGEN_SIDELOAD_JSON', '')
-  include_trace     = env.get('CK_LOADGEN_INCLUDE_TRACE', '') in ('YES', 'Yes', 'yes', 'TRUE', 'True', 'true', 'ON', 'On', 'on', '1')
+  env                   = i['env']
+  deps                  = i['deps']
+  SIDELOAD_JSON         = env.get('CK_LOADGEN_SIDELOAD_JSON', '')
+  include_trace         = env.get('CK_LOADGEN_INCLUDE_TRACE', '') in ('YES', 'Yes', 'yes', 'TRUE', 'True', 'true', 'ON', 'On', 'on', '1')
+  LOADGEN_DATASET_SIZE  = env.get('CK_LOADGEN_DATASET_SIZE', '')
 
-  inference_src_env = deps['mlperf-inference-src']['dict']['env']
-  MLPERF_MAIN_CONF  = inference_src_env['CK_ENV_MLPERF_INFERENCE_MLPERF_CONF']
-  BERT_CODE_ROOT    = inference_src_env['CK_ENV_MLPERF_INFERENCE']+'/language/bert'
+  inference_src_env     = deps['mlperf-inference-src']['dict']['env']
+  MLPERF_MAIN_CONF      = inference_src_env['CK_ENV_MLPERF_INFERENCE_MLPERF_CONF']
+  BERT_CODE_ROOT        = inference_src_env['CK_ENV_MLPERF_INFERENCE']+'/language/bert'
   sys.path.insert(0, BERT_CODE_ROOT)
   sys.path.insert(0, BERT_CODE_ROOT + '/DeepLearningExamples/TensorFlow/LanguageModeling/BERT')
 
@@ -85,6 +86,8 @@ def ck_postprocess(i):
               '--log_file', MLPERF_LOG_ACCURACY_JSON,
               '--out_file', 'predictions.json',
     ]
+    if LOADGEN_DATASET_SIZE:
+        command.extend( [ '--max_examples', str(LOADGEN_DATASET_SIZE) ] )
 
     output = check_output(command).decode('ascii')
 
