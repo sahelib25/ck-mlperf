@@ -11,5 +11,5 @@
       "7"
     ]
   },
-  "data_name": "benchmark.tflite-loadgen"
+  "data_name": "benchmark.image-classification.tflite-loadgen"
 }

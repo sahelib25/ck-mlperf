@@ -19,7 +19,7 @@
 #### Performance
 
 ```bash
-$ ck run cmdgen:benchmark.tflite-loadgen --library=tflite-v2.2.0-ruy \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=tflite-v2.2.0-ruy \
 --model=resnet50 --scenario=singlestream --mode=performance --target_latency=88 \
 --verbose --sut=xavier
 ```
@@ -27,7 +27,7 @@ $ ck run cmdgen:benchmark.tflite-loadgen --library=tflite-v2.2.0-ruy \
 #### Accuracy
 
 ```bash
-$ ck run cmdgen:benchmark.tflite-loadgen --library=tflite-v2.2.0-ruy \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=tflite-v2.2.0-ruy \
 --model=resnet50 --scenario=singlestream --mode=accuracy --dataset_size=50000 \
 --verbose --sut=xavier
 ...
@@ -37,7 +37,7 @@ accuracy=76.442%, good=38221, total=50000
 #### Compliance
 
 ```bash
-$ ck run cmdgen:benchmark.tflite-loadgen --library=tflite-v2.2.0-ruy \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=tflite-v2.2.0-ruy \
 --model=resnet50 --scenario=singlestream --compliance,=TEST04-A,TEST04-B,TEST05,TEST01 \
 --verbose --sut=xavier
 ```
@@ -48,7 +48,7 @@ $ ck run cmdgen:benchmark.tflite-loadgen --library=tflite-v2.2.0-ruy \
 #### Performance
 
 ```bash
-$ ck run cmdgen:benchmark.tflite-loadgen --library=tflite-v2.2.0-ruy \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=tflite-v2.2.0-ruy \
 --model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v1 --variation_prefix=v1- --separator=:` \
 --model_extra_tags,=non-quantized,quantized \
 --scenario=singlestream --mode=performance --target_latency=5 \
@@ -58,7 +58,7 @@ $ ck run cmdgen:benchmark.tflite-loadgen --library=tflite-v2.2.0-ruy \
 #### Accuracy
 
 ```bash
-$ ck run cmdgen:benchmark.tflite-loadgen --library=tflite-v2.2.0-ruy \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=tflite-v2.2.0-ruy \
 --model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v1 --variation_prefix=v1- --separator=:` \
 --model_extra_tags,=non-quantized,quantized \
 --scenario=singlestream --mode=accuracy --dataset_size=50000 \
@@ -71,7 +71,7 @@ $ ck run cmdgen:benchmark.tflite-loadgen --library=tflite-v2.2.0-ruy \
 #### Performance
 
 ```bash
-$ ck run cmdgen:benchmark.tflite-loadgen --library=tflite-v2.2.0-ruy \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=tflite-v2.2.0-ruy \
 --model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v2 --variation_prefix=v2- --separator=:` \
 --model_extra_tags,=non-quantized,quantized \
 --scenario=singlestream --mode=performance --target_latency=3 \
@@ -81,7 +81,7 @@ $ ck run cmdgen:benchmark.tflite-loadgen --library=tflite-v2.2.0-ruy \
 #### Accuracy
 
 ```bash
-$ ck run cmdgen:benchmark.tflite-loadgen --library=tflite-v2.2.0-ruy \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=tflite-v2.2.0-ruy \
 --model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v2 --variation_prefix=v2- --separator=:` \
 --model_extra_tags,=non-quantized,quantized \
 --scenario=singlestream --mode=accuracy --dataset_size=50000 \
@@ -94,7 +94,7 @@ $ ck run cmdgen:benchmark.tflite-loadgen --library=tflite-v2.2.0-ruy \
 #### Performance
 
 ```bash
-$ ck run cmdgen:benchmark.tflite-loadgen --library=tflite-v2.2.0-ruy \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=tflite-v2.2.0-ruy \
 --model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v3 --variation_prefix=v3- --separator=:` \
 --scenario=singlestream --mode=performance --target_latency=6 \
 --verbose --sut=xavier
@@ -103,7 +103,7 @@ $ ck run cmdgen:benchmark.tflite-loadgen --library=tflite-v2.2.0-ruy \
 #### Accuracy
 
 ```bash
-$ ck run cmdgen:benchmark.tflite-loadgen --library=tflite-v2.2.0-ruy \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=tflite-v2.2.0-ruy \
 --model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v3 --variation_prefix=v3- --separator=:` \
 --scenario=singlestream --mode=accuracy --dataset_size=50000 \
 --verbose --sut=xavier
@@ -115,7 +115,7 @@ $ ck run cmdgen:benchmark.tflite-loadgen --library=tflite-v2.2.0-ruy \
 #### Performance
 
 ```bash
-$ ck run cmdgen:benchmark.tflite-loadgen --library=tflite-v2.2.0-ruy \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=tflite-v2.2.0-ruy \
 --model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,effnet --variation_prefix=lite --separator=:` \
 --model_extra_tags,=non-quantized,quantized \
 --scenario=singlestream --mode=performance --target_latency=20 \
@@ -125,7 +125,7 @@ $ ck run cmdgen:benchmark.tflite-loadgen --library=tflite-v2.2.0-ruy \
 #### Accuracy
 
 ```bash
-$ ck run cmdgen:benchmark.tflite-loadgen --library=tflite-v2.2.0-ruy \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=tflite-v2.2.0-ruy \
 --model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,effnet --variation_prefix=lite --separator=:` \
 --model_extra_tags,=non-quantized,quantized \
 --scenario=singlestream --mode=accuracy --dataset_size=50000 \

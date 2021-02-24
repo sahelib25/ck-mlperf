@@ -12,7 +12,7 @@
 ##### Neon
 
 ```bash
-$ ck run cmdgen:benchmark.tflite-loadgen --library=armnn-v20.08-neon \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v20.08-neon \
 --model=resnet50 --scenario=singlestream --mode=performance --target_latency=400 \
 --verbose --sut=firefly
 ```
@@ -20,7 +20,7 @@ $ ck run cmdgen:benchmark.tflite-loadgen --library=armnn-v20.08-neon \
 ##### OpenCL
 
 ```bash
-$ ck run cmdgen:benchmark.tflite-loadgen --library=armnn-v20.08-opencl \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v20.08-opencl \
 --model=resnet50 --scenario=singlestream --mode=performance --target_latency=400 \
 --verbose --sut=firefly
 ```
@@ -30,7 +30,7 @@ $ ck run cmdgen:benchmark.tflite-loadgen --library=armnn-v20.08-opencl \
 ##### Neon
 
 ```bash
-$ ck run cmdgen:benchmark.tflite-loadgen --library=armnn-v20.08-neon \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v20.08-neon \
 --model=resnet50 --scenario=singlestream --mode=accuracy --dataset_size=50000 \
 --verbose --sut=firefly
 ...
@@ -39,7 +39,7 @@ $ ck run cmdgen:benchmark.tflite-loadgen --library=armnn-v20.08-neon \
 ##### OpenCL
 
 ```bash
-$ ck run cmdgen:benchmark.tflite-loadgen --library=armnn-v20.08-opencl \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v20.08-opencl \
 --model=resnet50 --scenario=singlestream --mode=accuracy --dataset_size=50000 \
 --verbose --sut=firefly
 ...
@@ -50,7 +50,7 @@ $ ck run cmdgen:benchmark.tflite-loadgen --library=armnn-v20.08-opencl \
 ##### Neon
 
 ```bash
-$ ck run cmdgen:benchmark.tflite-loadgen --library=armnn-v20.08-neon \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v20.08-neon \
 --model=resnet50 --scenario=singlestream  --compliance,=TEST04-A,TEST04-B,TEST05,TEST01 \
 --verbose --sut=firefly
 ```
@@ -58,7 +58,7 @@ $ ck run cmdgen:benchmark.tflite-loadgen --library=armnn-v20.08-neon \
 ##### OpenCL
 
 ```bash
-$ ck run cmdgen:benchmark.tflite-loadgen --library=armnn-v20.08-opencl \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v20.08-opencl \
 --model=resnet50 --scenario=singlestream --compliance,=TEST04-A,TEST04-B,TEST05,TEST01 \
 --verbose --sut=firefly
 ```
@@ -69,7 +69,7 @@ $ ck run cmdgen:benchmark.tflite-loadgen --library=armnn-v20.08-opencl \
 #### Performance
 
 ```bash
-$ ck run cmdgen:benchmark.tflite-loadgen --library=armnn-v20.08-neon \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v20.08-neon \
 --model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v1 --variation_prefix=v1- --separator=:` \
 --model_extra_tags,=non-quantized,quantized \
 --scenario=singlestream --mode=performance --target_latency=5 \
@@ -79,7 +79,7 @@ $ ck run cmdgen:benchmark.tflite-loadgen --library=armnn-v20.08-neon \
 #### Accuracy
 
 ```bash
-$ ck run cmdgen:benchmark.tflite-loadgen --library=armnn-v20.08-neon \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v20.08-neon \
 --model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v1 --variation_prefix=v1- --separator=:` \
 --model_extra_tags,=non-quantized,quantized \
 --scenario=singlestream --mode=accuracy --dataset_size=50000 \
@@ -91,7 +91,7 @@ $ ck run cmdgen:benchmark.tflite-loadgen --library=armnn-v20.08-neon \
 #### Performance
 
 ```bash
-$ ck run cmdgen:benchmark.tflite-loadgen --library=armnn-v20.08-neon \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v20.08-neon \
 --model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v2 --variation_prefix=v2- --separator=:` \
 --model_extra_tags,=non-quantized,quantized \
 --scenario=singlestream --mode=performance --target_latency=5 \
@@ -101,7 +101,7 @@ $ ck run cmdgen:benchmark.tflite-loadgen --library=armnn-v20.08-neon \
 #### Accuracy
 
 ```bash
-$ ck run cmdgen:benchmark.tflite-loadgen --library=armnn-v20.08-neon \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v20.08-neon \
 --model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v2 --variation_prefix=v2- --separator=:` \
 --model_extra_tags,=non-quantized,quantized \
 --scenario=singlestream --mode=accuracy --dataset_size=50000 \
@@ -113,7 +113,7 @@ $ ck run cmdgen:benchmark.tflite-loadgen --library=armnn-v20.08-neon \
 #### Performance
 
 ```bash
-$ ck run cmdgen:benchmark.tflite-loadgen --library=armnn-v20.08-neon \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v20.08-neon \
 --model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v3 --variation_prefix=v3- --separator=:` \
 --scenario=singlestream --mode=performance --target_latency=6 \
 --verbose --sut=firefly
@@ -122,7 +122,7 @@ $ ck run cmdgen:benchmark.tflite-loadgen --library=armnn-v20.08-neon \
 #### Accuracy
 
 ```bash
-$ ck run cmdgen:benchmark.tflite-loadgen --library=armnn-v20.08-neon \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v20.08-neon \
 --model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v3 --variation_prefix=v3- --separator=:` \
 --scenario=singlestream --mode=accuracy --dataset_size=50000 \
 --verbose --sut=firefly
@@ -133,7 +133,7 @@ $ ck run cmdgen:benchmark.tflite-loadgen --library=armnn-v20.08-neon \
 #### Performance
 
 ```bash
-$ ck gen cmdgen:benchmark.tflite-loadgen --library=armnn-v20.08-neon \
+$ ck gen cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v20.08-neon \
 --model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,effnet --variation_prefix=lite --separator=:` \
 --model_extra_tags,=non-quantized,quantized \
 --scenario=singlestream --mode=performance --target_latency=10 \
@@ -143,7 +143,7 @@ $ ck gen cmdgen:benchmark.tflite-loadgen --library=armnn-v20.08-neon \
 #### Accuracy
 
 ```bash
-$ ck gen cmdgen:benchmark.tflite-loadgen --library=armnn-v20.08-neon \
+$ ck gen cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v20.08-neon \
 --model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,effnet --variation_prefix=lite --separator=:` \
 --model_extra_tags,=non-quantized,quantized \
 --scenario=singlestream --mode=accuracy --dataset_size=50000 \
