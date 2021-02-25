@@ -6,7 +6,7 @@
     "deps": [
       "--dep_add_tags.compiler=<<<compiler_tags>>>",
       "--dep_add_tags.python=v3",
-      "--dep_add_tags.mlperf-inference-src=r0.7",
+      "--dep_add_tags.mlperf-inference-src=r1.0",
       "--dep_add_tags.weights=<<<model_tags,>>>",
       "--dep_add_tags.images=crop.875,preprocessed,using-<<<preprocessed_using>>>"
     ],
@@ -89,6 +89,26 @@
       }
     },
     "library": {
+      "armnn-v21.02-neon": {
+        "ck_env": "--env.USE_NEON=1",
+        "deps": "--dep_add_tags.library=armnn,rel.21.02,neon",
+        "program_name": "image-classification-armnn-tflite-loadgen",
+        "record_tags": [
+          "inference_engine.armnn",
+          "inference_engine_version.v21.02",
+          "inference_engine_backend.neon"
+        ]
+      },
+      "armnn-v21.02-opencl": {
+        "ck_env": "--env.USE_OPENCL=1",
+        "deps": "--dep_add_tags.library=armnn,rel.21.02,opencl",
+        "program_name": "image-classification-armnn-tflite-loadgen",
+        "record_tags": [
+          "inference_engine.armnn",
+          "inference_engine_version.v21.02",
+          "inference_engine_backend.opencl"
+        ]
+      },
       "armnn-v20.08-neon": {
         "ck_env": "--env.USE_NEON=1",
         "deps": "--dep_add_tags.library=armnn,rel.20.08,neon",
@@ -109,12 +129,22 @@
           "inference_engine_backend.opencl"
         ]
       },
-      "tflite-v1.13.1": {
-        "deps": "--dep_add_tags.library=tflite,v1.13.1",
+      "tflite-v2.4.1": {
+        "deps": "--dep_add_tags.library=tflite,v2.4.1",
         "program_name": "image-classification-tflite-loadgen",
         "record_tags": [
           "inference_engine.tflite",
-          "inference_engine_version.v1.13.1"
+          "inference_engine_version.v2.4.1",
+          "inference_engine_backend.eigen"
+        ]
+      },
+      "tflite-v2.4.1-ruy": {
+        "deps": "--dep_add_tags.library=tflite,v2.4.1,with.ruy",
+        "program_name": "image-classification-tflite-loadgen",
+        "record_tags": [
+          "inference_engine.tflite",
+          "inference_engine_version.v2.4.1",
+          "inference_engine_backend.ruy"
         ]
       },
       "tflite-v2.4.0": {
@@ -123,7 +153,7 @@
         "record_tags": [
           "inference_engine.tflite",
           "inference_engine_version.v2.4.0",
-          "inference_engine_backend.ruy"
+          "inference_engine_backend.eigen"
         ]
       },
       "tflite-v2.4.0-ruy": {
@@ -169,6 +199,14 @@
           "inference_engine.tflite",
           "inference_engine_version.v2.3.0",
           "inference_engine_backend.xnnpack"
+        ]
+      },
+      "tflite-v1.13.1": {
+        "deps": "--dep_add_tags.library=tflite,v1.13.1",
+        "program_name": "image-classification-tflite-loadgen",
+        "record_tags": [
+          "inference_engine.tflite",
+          "inference_engine_version.v1.13.1"
         ]
       }
     },

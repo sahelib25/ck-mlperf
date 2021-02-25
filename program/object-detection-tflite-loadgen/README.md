@@ -1,4 +1,4 @@
-# MLPerf Inference - Object Detection - TFLite (with Coral EdgeTPU support)
+# MLPerf Inference v1.0 - Object Detection - TFLite (with Coral EdgeTPU support)
 
 ## Prerequisites
 
