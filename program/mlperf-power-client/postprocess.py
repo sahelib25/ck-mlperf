@@ -38,13 +38,15 @@ def load_dir(basename, raw=False):
 
 def main():
     result = {
-        "client.json": load_json("client.json"),
-        "client.log": load_lines("client.log"),
-        "ptd_logs.txt": load_lines("ptd_logs.txt"),
+        "power": {
+            "client.json": load_json("power/client.json"),
+            "client.log": load_lines("power/client.log"),
+            "ptd_logs.txt": load_lines("power/ptd_logs.txt"),
+            "server.json": load_json("power/server.json"),
+            "server.log": load_lines("power/server.log"),
+        },
         "ranging": load_dir("ranging"),
-        "server.json": load_json("server.json"),
-        "server.log": load_lines("server.log"),
-        "testing": load_dir("testing"),
+        "run_1": load_dir("run_1"),
         "raw": load_dir(".", True),
     }
 
