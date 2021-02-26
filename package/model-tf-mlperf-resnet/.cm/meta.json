@@ -110,9 +110,8 @@
       },
       "extra_env": {
         "_FIX_INPUT_SHAPE": "YES",
-        "_TENSORFLOW_MODEL_INPUT_LAYER_NAME": "input_tensor",
-	"_MODEL_INPUT_FILE_NAME": "resnet50_v1.pb",
-	"_MODEL_INPUT_FIXED_FILE_NAME": "resnet50_v1_fixed.pb"
+        "_MODEL_INPUT_FILE_NAME": "resnet50_v1.pb",
+        "_MODEL_INPUT_FIXED_FILE_NAME": "resnet50_v1_fixed.pb"
       },
       "extra_tags": [
         "fixed_input_shape"

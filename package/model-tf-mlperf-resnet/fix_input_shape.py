@@ -20,7 +20,7 @@ if __name__=='__main__':
 		required=False,
 		type=str, help="file name of input frozen graph")
 	parser.add_argument("--input_name", "-in", 
-		default='Inputs/mid_batch_ph',
+		default='input_tensor',
 		required=False,
 		type=str, help="input of tensorflow graph")
 	parser.add_argument("--output_graph", "-o", 
@@ -42,7 +42,7 @@ if __name__=='__main__':
 			outputGraph.node.extend([new_input.op.node_def])
 		else:
 			outputGraph.node.extend([copy.deepcopy(node)])
-	# save new graph
+	# Save the new graph.
 	with tf.compat.v1.Session() as sess:
 		sess.graph.as_default()
 		tf.import_graph_def(outputGraph, name="")
@@ -50,9 +50,9 @@ if __name__=='__main__':
 			tf.io.write_graph(sess.graph.as_graph_def(add_shapes=True), os.path.dirname(args.output_graph), os.path.basename(args.output_graph), as_text=False)
 		if(args.input_type == 't'):
 			tf.io.write_graph(sess.graph.as_graph_def(add_shapes=True), os.path.dirname(args.output_graph), os.path.basename(args.output_graph), as_text=True)
-	print("Input shape is fixed and Shape information is added successfully")
+	print("The input shape has been fixed successfully.")
 
-	#Cut the unwanted nodes
+	# Cut the unwanted nodes.
 	graph = tf.compat.v1.GraphDef()
 	with tf.gfile.Open(args.output_graph, 'rb') as f:
 		data = f.read()
@@ -64,6 +64,3 @@ if __name__=='__main__':
 	with tf.gfile.GFile(args.output_graph, 'w') as f:
 		os.remove(args.output_graph)
 		f.write(output_graph.SerializeToString())
-			
-
-		
