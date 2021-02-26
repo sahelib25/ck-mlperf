@@ -315,9 +315,7 @@
         "_power_log_helper": "mkdir -p \"$CK_MLPERF_POWER_CLIENT_LOADGEN_LOGS\" && cp \"$CK_MLPERF_POWER_CLIENT_LOADGEN_LOGS\"/../mlperf_log_* \"$CK_MLPERF_POWER_CLIENT_LOADGEN_LOGS\"/",
 
         "record_uoa": "<<<record_uoa_parts->>>-power.workload",
-        "record_tags_inner": "<<<record_tags,>>>,power.workload",
-
-        "power_server_port": "4950"
+        "record_tags_inner": "<<<record_tags,>>>,power.workload"
       },
       "###": {}
     }
@@ -345,6 +343,7 @@
     "record_uoa": "<<<record_uoa_parts->>>",
     "record_tags_inner": "<<<record_tags,>>>",
     "repetitions": "1",
+    "power_server_port": "4950",
     "screen_output": "--env.CK_SILENT_MODE=YES --skip_print_timers"
   }
 }
