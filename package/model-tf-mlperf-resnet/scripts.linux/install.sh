@@ -5,7 +5,8 @@ echo "Fix input shape? ${fix_input_shape}"
 echo
 
 if [ "${fix_input_shape}" == "YES" ]; then
-  "${CK_ENV_COMPILER_PYTHON_FILE}" "${ORIGINAL_PACKAGE_DIR}/fix_input_shape.py" --input_graph resnet50_v1.pb --type b --output_graph resnet50_v1.pb
+  echo "${CK_ENV_COMPILER_PYTHON_FILE} ${ORIGINAL_PACKAGE_DIR}/fix_input_shape.py --input_graph ${_MODEL_INPUT_FILE_NAME} --input_name ${_TENSORFLOW_MODEL_INPUT_LAYER_NAME} --type b --output_graph ${_MODEL_INPUT_FILE_NAME}"
+  "${CK_ENV_COMPILER_PYTHON_FILE}" "${ORIGINAL_PACKAGE_DIR}/fix_input_shape.py" --input_graph "${_MODEL_INPUT_FILE_NAME}" --input_name "${_TENSORFLOW_MODEL_INPUT_LAYER_NAME}" --type b --output_graph "${_MODEL_INPUT_FIXED_FILE_NAME}"
 fi
 
 echo "Done."
