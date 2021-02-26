@@ -23,11 +23,55 @@
     "skip_file_check": "yes", 
     "version": "1.5"
   }, 
+  "deps": {
+    "python": {
+      "enable_if_env": [
+        {
+          "_FIX_INPUT_SHAPE": [
+            "on",
+            "ON",
+            "yes",
+            "YES",
+            "true",
+            "TRUE",
+            "1"
+          ]
+        }
+      ],
+      "local": "yes",
+      "name": "Python interpreter",
+      "sort": 10,
+      "tags": "compiler,lang-python"
+    },
+    "tensorflow": {
+      "enable_if_env": [
+        {
+          "_FIX_INPUT_SHAPE": [
+            "on",
+            "ON",
+            "yes",
+            "YES",
+            "true",
+            "TRUE",
+            "1"
+          ]
+        }
+      ],
+      "local": "yes",
+      "name": "TensorFlow library",
+      "sort": 20,
+      "tags": "python-package,tensorflow"
+    }
+  },
   "end_full_path_universal": "resnet50_v1.pb", 
-  "only_for_host_os_tags": [], 
-  "only_for_target_os_tags": [], 
-  "package_extra_name": " (resnet50-v1.5)",
-  "process_script": "install", 
+  "only_for_host_os_tags": [
+    "linux"
+  ], 
+  "only_for_target_os_tags": [
+    "linux"
+  ], 
+  "package_name": "MLPerf ResNet50 TensorFlow model",
+  "process_script": "install",
   "soft_uoa": "439b9f1757f27091", 
   "suggested_path": "model-tf-mlperf-resnet-downloaded",
   "tags": [
@@ -59,6 +103,18 @@
       "extra_env": {
         "PACKAGE_URL": "https://www.dropbox.com/s/jo92dsoted1ha5q"
       }
+    },
+    "fix_input_shape": {
+      "extra_customize": {
+        "package_extra_name": " (fixed input shape)"
+      },
+      "extra_env": {
+        "_FIX_INPUT_SHAPE": "YES"
+      },
+      "extra_tags": [
+        "fixed_input_shape"
+      ],
+      "on_by_default": "no"
     }
   }
 }
