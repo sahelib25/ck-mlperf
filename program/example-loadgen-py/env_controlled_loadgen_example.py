@@ -53,16 +53,13 @@ def issue_queries(query_samples):
         predicted_label = predict_label(x_vector)
 
         predicted_results[query_index] = predicted_label
-    print("LG: predicted_results = {}".format(predicted_results))
 
-    response = []
-    for qs in query_samples:
-        query_index, query_id = qs.index, qs.id
-
-        response_array = array.array("B", np.array(predicted_results[query_index], np.float32).tobytes())
+        response_array = array.array("B", np.array(predicted_label, np.float32).tobytes())
         bi = response_array.buffer_info()
-        response.append(lg.QuerySampleResponse(query_id, bi[0], bi[1]))
-    lg.QuerySamplesComplete(response)
+        response = lg.QuerySampleResponse(query_id, bi[0], bi[1])
+        lg.QuerySamplesComplete([response])
+
+    print("LG: predicted_results = {}".format(predicted_results))
 
 
 def flush_queries():
