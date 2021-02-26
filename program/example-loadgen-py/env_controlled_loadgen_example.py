@@ -17,11 +17,16 @@ LOADGEN_BUFFER_SIZE     = int(os.getenv('CK_LOADGEN_BUFFER_SIZE'))          # se
 LOADGEN_DATASET_SIZE    = int(os.getenv('CK_LOADGEN_DATASET_SIZE'))         # set to how many total samples to choose from (0 = full set)
 LOADGEN_COUNT_OVERRIDE  = os.getenv('CK_LOADGEN_COUNT_OVERRIDE', '')        # if not set, use value from LoadGen's config file
 LOADGEN_MULTISTREAMNESS = os.getenv('CK_LOADGEN_MULTISTREAMNESS', '')       # if not set, use value from LoadGen's config file
-
+#
 MLPERF_CONF_PATH        = os.environ['CK_ENV_MLPERF_INFERENCE_MLPERF_CONF']
 USER_CONF_PATH          = os.environ['CK_LOADGEN_USER_CONF']
-
+#
 MODEL_NAME              = os.environ['ML_MODEL_MODEL_NAME']                 # an obligatory input parameter for now
+
+
+## Specific for this example:
+#
+LATENCY_SECONDS         = float(os.environ['CK_EXAMPLE_LATENCY_SEC'])       # fractional seconds
 
 
 ## Global input data and expected labels:
@@ -31,7 +36,7 @@ labelset                = [10*i+random.randint(0,1) for i in range(LOADGEN_DATAS
 
 
 def predict_label(x_vector):
-    time.sleep(0.030)   # fractional seconds
+    time.sleep(LATENCY_SECONDS)
     return int(x_vector/10)+1
 
 
