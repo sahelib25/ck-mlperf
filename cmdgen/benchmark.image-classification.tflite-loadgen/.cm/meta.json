@@ -281,6 +281,23 @@
       }
     },
 
+    "nvidia_power_mode": {
+      "###": {
+        "ck_env": "--env.CK_NVIDIA_POWER_MODE=###",
+        "record_tags": "nvpower.###"
+      }
+    },
+    "nvidia_fan_mode": {
+      "cool": {
+        "ck_env": "--env.CK_NVIDIA_FAN_MODE=###",
+        "record_tags": "nvfan.###"
+      },
+      "quiet": {
+        "ck_env": "--env.CK_NVIDIA_FAN_MODE=###",
+        "record_tags": "nvfan.###"
+      }
+    },
+
     "power": {
       "yes": {
         "wrapped_ck_benchmark_program": "if [ -n \"`ck list local:experiment:<<<record_uoa_parts->>>-power.client`\" ]; then echo 'Experiment <<<record_uoa_parts->>>-power.client exists, skipping' ; else ck rm --force local:experiment:<<<record_uoa>>>; _cmd=\"$(cat<<'EOF'\n<<<ck_benchmark_program>>> \"@@@{'meta': {'ck_benchmark_program': '<<<ck_benchmark_program>>>'}}\" <<<?print_output_file>>> && <<<_power_log_helper>>>\nEOF\n)\";_cmd=\"$(printf \"%s\\n\" \"$_cmd\" | sed \"s/'/'\\\\\\\\''/g; 1 s/^/'/; $ s/$/'/\" )\"; <<<power_command_args >>> ; fi",
