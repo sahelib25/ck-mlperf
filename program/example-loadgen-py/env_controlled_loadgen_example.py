@@ -26,7 +26,7 @@ MODEL_NAME              = os.environ['ML_MODEL_MODEL_NAME']                 # an
 
 ## Specific for this example:
 #
-LATENCY_SECONDS         = float(os.environ['CK_EXAMPLE_LATENCY_SEC'])       # fractional seconds
+LATENCY_MS              = float(os.environ['CK_EXAMPLE_LATENCY_MS'])       # fractional seconds
 
 
 ## Global input data and expected labels:
@@ -36,7 +36,7 @@ labelset                = [10*i+random.randint(0,1) for i in range(LOADGEN_DATAS
 
 
 def predict_label(x_vector):
-    time.sleep(LATENCY_SECONDS)
+    time.sleep(LATENCY_MS/1000)
     return int(x_vector/10)+1
 
 

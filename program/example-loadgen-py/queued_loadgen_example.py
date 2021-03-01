@@ -29,7 +29,9 @@ MODEL_NAME              = os.environ['ML_MODEL_MODEL_NAME']                 # an
 
 ## Specific for this example:
 #
-LATENCY_SECONDS         = float(os.environ['CK_EXAMPLE_LATENCY_SEC'])       # fractional seconds
+LATENCY_MS          = float(os.environ['CK_EXAMPLE_LATENCY_MS'])        # fractional milliseconds
+BATCH_CAPACITY      = int(os.environ['CK_EXAMPLE_BATCH_CAPACITY'])      # model's property
+TOPUP_TIME_MS       = float(os.environ['CK_EXAMPLE_TOPUP_TIME_MS'])     # fractional milliseconds
 
 
 ## Global input data and expected labels:
@@ -42,31 +44,56 @@ labelset                = [10*i+random.randint(0,1) for i in range(LOADGEN_DATAS
 task_queue              = queue.Queue(100)  # sent by issue_queries(), received by the worker
 
 
-def predict_label(x_vector):
-    time.sleep(LATENCY_SECONDS)
-    return int(x_vector/10)+1
-
+def predict_labels(batch_inputs):
+    time.sleep(LATENCY_MS/1000)
+    results = [int(one_input/10)+1 for one_input in batch_inputs]
+    return results
 
 
 def worker_code():
-
     while True:
-        job             = task_queue.get()
-        query_sample    = job['query_sample']
-        x_vector        = job['inputs']
-        ts_submitted    = job['ts_submitted']
+        ## Grab a new batch:
+        #
+        grabbed_count   = 0
+        deadline_ts     = None
+        batch_jobs      = []
+        batch_inputs    = []
+        for grabbed_count in range(BATCH_CAPACITY):  # may not run to the end due to the cumulative timeout
+            try:
+                grab_timeout    = None if deadline_ts==None else max(0, deadline_ts - time.time())    # no waiting limit on the first job
+                job             = task_queue.get(timeout = grab_timeout)
 
-        predicted_label = predict_label(x_vector)   # takes time
-        ts_predicted    = time.time()
+                batch_jobs.append(job)
+                batch_inputs.append(job['inputs'])
 
-        print(f"LG: worker predicted: {job} label={predicted_label} in {(ts_predicted-ts_submitted)*1000} ms")
+                if grabbed_count==0:
+                    deadline_ts = time.time() + TOPUP_TIME_MS/1000
 
-        response_array = array.array("B", np.array(predicted_label, np.float32).tobytes())
-        bi = response_array.buffer_info()
-        response = lg.QuerySampleResponse(query_sample.id, bi[0], bi[1])
-        lg.QuerySamplesComplete([response])
+            except queue.Empty:
+                break   # we ran out of TOPUP_TIME_MS
 
-        task_queue.task_done()
+        print(f"LG: worker grabbed and submitted {len(batch_jobs)} jobs")
+
+        ## Predict the whole batch:
+        #
+        predicted_labels    = predict_labels(batch_inputs)   # takes LATENCY_MS of time
+        ts_predicted        = time.time()
+
+        ## Report batch results:
+        #
+        for index_in_batch, job in enumerate(batch_jobs):
+            predicted_label = predicted_labels[index_in_batch]
+            one_input       = job['inputs']
+            query_sample    = job['query_sample']
+            ts_submitted    = job['ts_submitted']
+            print(f"LG: worker predicted: for input={one_input} label={predicted_label} in {(ts_predicted-ts_submitted)*1000} ms")
+
+            response_array = array.array("B", np.array(predicted_label, np.float32).tobytes())
+            bi = response_array.buffer_info()
+            response = lg.QuerySampleResponse(query_sample.id, bi[0], bi[1])
+            lg.QuerySamplesComplete([response])
+
+            task_queue.task_done()
 
 
 def issue_queries(query_samples):
@@ -84,7 +111,6 @@ def issue_queries(query_samples):
             'ts_submitted':     time.time(),
         }
         task_queue.put(submitted_job)
-        print(f"LG: issue_queries submitted: {submitted_job}")
 
 
 def flush_queries():
