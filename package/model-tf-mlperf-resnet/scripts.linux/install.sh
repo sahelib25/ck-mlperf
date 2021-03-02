@@ -11,9 +11,9 @@ echo
 if [ "${fix_input_shape}" != "NO" ]; then
   read -d '' CMD <<EO_CMD
 "${CK_ENV_COMPILER_PYTHON_FILE}" "${ORIGINAL_PACKAGE_DIR}/fix_input_shape.py" \
---input_name   "${MODEL_INPUT_LAYER_NAME}"       \
---input_graph  "${_MODEL_INPUT_FILE_NAME}"       \
---output_graph "${_MODEL_INPUT_FIXED_FILE_NAME}" \
+--input_name   "${MODEL_INPUT_LAYER_NAME}"   \
+--input_graph  "${PACKAGE_NAME}"             \
+--output_graph "${PACKAGE_NAME}"             \
 --type b
 EO_CMD
   echo ${CMD}
