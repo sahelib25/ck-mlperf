@@ -38,10 +38,10 @@ def user_conf_and_audit_config(i):
     for env_key in env_to_conf.keys():
         if env_key in env:
             orig_value = env[env_key]
-            (config_category_name, multiplier) = env_to_conf[env_key]
-            new_value = orig_value if multiplier==1 else float(orig_value)*multiplier
-            
-            user_conf.append("{}.{}.{} = {}\n".format(model_name, scenario, config_category_name, new_value))
+            if orig_value!="":
+                (config_category_name, multiplier) = env_to_conf[env_key]
+                new_value = orig_value if multiplier==1 else float(orig_value)*multiplier
+                user_conf.append("{}.{}.{} = {}\n".format(model_name, scenario, config_category_name, new_value))
 
     # Write 'user.conf' into the current directory ('tmp').
     user_conf_abs_path = os.path.join(os.path.abspath(os.path.curdir), user_conf_rel_path)
