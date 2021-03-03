@@ -21,7 +21,7 @@
     },
     "edgetpu-lib": {
       "local": "yes",
-      "name": "Coral edgetpu API",
+      "name": "Coral EdgeTpu API",
       "sort": 20,
       "tags": "lib,edgetpu",
       "enable_if_env": [
