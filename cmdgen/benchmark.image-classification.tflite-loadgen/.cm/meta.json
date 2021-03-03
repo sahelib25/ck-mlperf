@@ -300,10 +300,12 @@
 
     "fan_mode": {
       "cool": {
-        "record_tags": "fan.###"
+        "record_tags": "fan.###",
+        "record_uoa_parts": "fan.###"
       },
       "quiet": {
-        "record_tags": "fan.###"
+        "record_tags": "fan.###",
+        "record_uoa_parts": "fan.###"
       }
     },
 
