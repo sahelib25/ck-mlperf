@@ -67,7 +67,7 @@ def worker_code():
                 batch_inputs.append(job['inputs'])
 
                 if grabbed_count==0:
-                    deadline_ts = time.time() + TOPUP_TIME_MS/1000
+                    deadline_ts = job['ts_submitted'] + TOPUP_TIME_MS/1000
 
             except queue.Empty:
                 break   # we ran out of TOPUP_TIME_MS
