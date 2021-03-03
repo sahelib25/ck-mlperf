@@ -29,9 +29,9 @@ MODEL_NAME              = os.environ['ML_MODEL_MODEL_NAME']                 # an
 
 ## Specific for this example:
 #
-LATENCY_MS          = float(os.environ['CK_EXAMPLE_LATENCY_MS'])        # fractional milliseconds
-BATCH_CAPACITY      = int(os.environ['CK_EXAMPLE_BATCH_CAPACITY'])      # model's property
-TOPUP_TIME_MS       = float(os.environ['CK_EXAMPLE_TOPUP_TIME_MS'])     # fractional milliseconds
+LATENCY_S          = float(os.environ['CK_EXAMPLE_LATENCY_MS'])/1000        # fractional seconds
+BATCH_CAPACITY      = int(os.environ['CK_EXAMPLE_BATCH_CAPACITY'])          # model's property
+TOPUP_TIME_S        = float(os.environ['CK_EXAMPLE_TOPUP_TIME_MS'])/1000    # fractional seconds
 
 
 ## Global input data and expected labels:
@@ -45,7 +45,7 @@ task_queue              = queue.Queue(100)  # sent by issue_queries(), received 
 
 
 def predict_labels(batch_inputs):
-    time.sleep(LATENCY_MS/1000)
+    time.sleep(LATENCY_S)
     results = [int(one_input/10)+1 for one_input in batch_inputs]
     return results
 
@@ -67,16 +67,16 @@ def worker_code():
                 batch_inputs.append(job['inputs'])
 
                 if grabbed_count==0:
-                    deadline_ts = job['ts_submitted'] + TOPUP_TIME_MS/1000
+                    deadline_ts = job['ts_submitted'] + TOPUP_TIME_S
 
             except queue.Empty:
-                break   # we ran out of TOPUP_TIME_MS
+                break   # we ran out of TOPUP_TIME_S
 
         print(f"LG: worker grabbed and submitted {len(batch_jobs)} jobs")
 
         ## Predict the whole batch:
         #
-        predicted_labels    = predict_labels(batch_inputs)   # takes LATENCY_MS of time
+        predicted_labels    = predict_labels(batch_inputs)   # takes LATENCY_S of time
         ts_predicted        = time.time()
 
         ## Report batch results:
