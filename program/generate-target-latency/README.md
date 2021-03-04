@@ -9,12 +9,13 @@ TODO
 
 2. **Extract**.
    Use this script to extract results from the CK repo.
+   All arguments are optional.
 
    ```bash
-   $ ck run ck-mlperf:program:generate-target-latency --env.CK_MLPERF_SUBMISSION_REPO=local
+   $ ck run ck-mlperf:program:generate-target-latency --env.CK_MLPERF_SUBMISSION_REPO=local --env.CK_MLPERF_SUBMISSION_TAGS=foo,bar
 
    # or, alternatively
-   $ ./program/generate-target-latency/run.py --repo-uoa local
+   $ ./program/generate-target-latency/run.py --repo-uoa local --tags foo,bar
    ```
 
    Save the output into the text file.

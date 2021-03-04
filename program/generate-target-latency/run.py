@@ -38,12 +38,12 @@ def parse_mlperf_log_detail(lines):
     return result
 
 
-def main(repo_uoa):
+def main(repo_uoa, tags):
     experiments = ck_access(
         repo_uoa=repo_uoa,
         action="search",
         module_uoa="experiment",
-        tags="mlperf,scenario.range_singlestream",
+        tags="mlperf,scenario.range_singlestream" + ("," + tags if tags else ""),
     )["lst"]
 
     for experiment in experiments:
@@ -106,5 +106,11 @@ if __name__ == "__main__":
         default="local",
         help="defaults to 'local'",
     )
+    parser.add_argument(
+        "--tags",
+        metavar="TAGS",
+        type=str,
+        default="",
+    )
     args = parser.parse_args()
-    main(args.repo_uoa)
+    main(args.repo_uoa, args.tags or None)
