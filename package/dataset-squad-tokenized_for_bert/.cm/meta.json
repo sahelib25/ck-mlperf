@@ -53,7 +53,7 @@
       "local": "yes",
       "name": "MLPerf Inference source",
       "sort": 70,
-      "tags": "mlperf,inference,source,dividiti.bert"
+      "tags": "mlperf,inference,source"
     }
   },
   "end_full_path_universal": "bert_tokenized_squad_v1_1.pickle",

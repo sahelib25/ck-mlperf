@@ -60,7 +60,7 @@
       "local": "yes",
       "name": "MLPerf Inference source",
       "sort": 10,
-      "tags": "mlperf,inference,source,dividiti.bert"
+      "tags": "mlperf,inference,source"
     },
     "weights": {
       "local": "yes",
