@@ -36,6 +36,8 @@
       "<<<edgetpu_tags>>>",
       "<<<scenario>>>",
       "<<<mode>>><<<mode_extension>>>"
+    ],
+    "shell_preamble": [
     ]
   },
   "build_map": {
@@ -180,6 +182,10 @@
       "singlestream": {
         "ck_env": "--env.CK_LOADGEN_SCENARIO=SingleStream",
         "performance_mode_extension": "-target_latency.<<<target_latency>>>"
+      },
+      "range_singlestream": {
+        "ck_env": "--env.CK_LOADGEN_SCENARIO=SingleStream",
+        "performance_mode_extension": "-max_query_count.<<<max_query_count>>>"
       }
     },
     "sut": {
@@ -220,6 +226,20 @@
         "record_tags": "target_qps.###"
       }
     },
+    "target_latency_file": {
+      "###": {
+        "shell_preamble": "export CK_LOADGEN_TARGET_LATENCY=$(awk -vX=\"<<<sut>>>,<<<library>>>,<<<model>>>\" 'X==$1{print $2;exit}' < ###); [ \"$CK_LOADGEN_TARGET_LATENCY\" ] || exit 1; ",
+        "ck_env": "--env.CK_LOADGEN_TARGET_LATENCY=$CK_LOADGEN_TARGET_LATENCY",
+        "record_tags": "target_latency.$CK_LOADGEN_TARGET_LATENCY",
+        "target_latency": "$CK_LOADGEN_TARGET_LATENCY"
+      }
+    },
+    "max_query_count": {
+      "###": {
+        "ck_env": "--env.CK_LOADGEN_MAX_QUERY_COUNT=\"$(echo ###)\"",
+        "record_tags": "max_query_count.\"$(echo ###)\""
+      }
+    },
     "verbose": {
       "all": {
         "print_output_file": "<<<print_output_file_cmd>>>",
@@ -247,7 +267,7 @@
     "repetitions": "1",
     "run_or_benchmark_common": "program:<<<program_name>>> <<<screen_output>>> <<<?deps >>> <<<?ck_env >>>",
     "screen_output": "--env.CK_SILENT_MODE=YES --skip_print_timers",
-    "shell_wrapped_cmd": "<<<wrapped_ck_benchmark_program>>>",
+    "shell_wrapped_cmd": "<<<shell_preamble >>> <<<wrapped_ck_benchmark_program>>>",
     "wrapped_ck_benchmark_program": "if [ -n \"`ck list local:experiment:<<<record_uoa>>>`\" ]; then echo 'Experiment <<<record_uoa>>> exists, skipping' ; else <<<ck_benchmark_program>>> \"@@@{'meta': {'ck_benchmark_program': '<<<ck_benchmark_program>>>'}}\" <<<?print_output_file>>> ; fi",
     "wrapped_ck_run_program": "<<<ck_run_program>>> <<<?print_output_file>>>"
   }
