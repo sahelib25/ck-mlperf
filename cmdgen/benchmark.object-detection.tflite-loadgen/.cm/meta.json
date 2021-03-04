@@ -253,12 +253,14 @@
     "power_mode": {
       "###": {
         "ck_env": "--env.CK_POWER_MODE=###",
+        "record_uoa_parts": "power_mode.###",
         "record_tags": "power_mode.###"
       }
     },
     "fan_mode": {
       "###": {
         "ck_env": "--env.CK_FAN_MODE=###",
+        "record_uoa_parts": "fan_mode.###",
         "record_tags": "fan_mode.###"
       }
     },
