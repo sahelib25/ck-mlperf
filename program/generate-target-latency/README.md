@@ -12,13 +12,29 @@ TODO
    All arguments are optional.
 
    ```bash
-   $ ck run ck-mlperf:program:generate-target-latency --env.CK_MLPERF_SUBMISSION_REPO=local --env.CK_MLPERF_SUBMISSION_TAGS=foo,bar
+   $ ck run ck-mlperf:program:generate-target-latency \
+       --env.CK_MLPERF_SUBMISSION_REPO=local \
+       --env.CK_MLPERF_SUBMISSION_TAGS=foo,bar \
+       --env.CK_MLPERF_SUBMISSION_OUT="$PWD"/target_latency.txt
 
    # or, alternatively
-   $ ./program/generate-target-latency/run.py --repo-uoa local --tags foo,bar
+   $ ./program/generate-target-latency/run.py \
+       --repo-uoa local \
+       --tags foo,bar \
+       --out target_latency.txt
    ```
 
-   Save the output into the text file.
+## Tags
+
+   The tags are related to experiments, i.e. the following query matches the same experiments as `./run.py --tags=$tags`:
+   ```bash
+   ck search experiment --tags=mlperf,scenario.range_singlestream.$tags`
+   ```
+
+   You can use the following one-liner to list models with corresponding tags:
+   ```bash
+   for i in $(ck search experiment --tags=mlperf,scenario.range_singlestream); do echo $i; ck list_tags $i; echo; done
+   ```
 
 3. **Use**.
    Run `ck run cmdgen:benchmark.…` with `--target_latency_file=…` instead of `--target_latency=…`.

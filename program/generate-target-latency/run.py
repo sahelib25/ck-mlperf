@@ -5,6 +5,7 @@ import ck.kernel as ck
 import json
 import math
 import os.path
+import sys
 
 
 def ck_access(**kwargs):
@@ -38,12 +39,13 @@ def parse_mlperf_log_detail(lines):
     return result
 
 
-def main(repo_uoa, tags):
+def main(args):
     experiments = ck_access(
-        repo_uoa=repo_uoa,
+        repo_uoa=args.repo_uoa,
         action="search",
         module_uoa="experiment",
-        tags="mlperf,scenario.range_singlestream" + ("," + tags if tags else ""),
+        tags="mlperf,scenario.range_singlestream"
+        + ("," + args.tags if args.tags else ""),
     )["lst"]
 
     for experiment in experiments:
@@ -93,7 +95,8 @@ def main(repo_uoa, tags):
                         + tags["workload"],
                         latency_ms,
                         tags["max_query_count"],
-                    )
+                    ),
+                    file=args.out,
                 )
 
 
@@ -112,5 +115,10 @@ if __name__ == "__main__":
         type=str,
         default="",
     )
-    args = parser.parse_args()
-    main(args.repo_uoa, args.tags or None)
+    parser.add_argument(
+        "--out",
+        metavar="FILE",
+        type=argparse.FileType("w"),
+        default=sys.stdout,
+    )
+    main(parser.parse_args())

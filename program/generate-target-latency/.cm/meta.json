@@ -23,7 +23,7 @@
     "default": {
       "ignore_return_code": "no",
       "run_time": {
-        "run_cmd_main": "$<<CK_ENV_COMPILER_PYTHON_FILE>>$ ..$#dir_sep#$run.py --repo-uoa=$<<CK_MLPERF_SUBMISSION_REPO>>$ --tags=$<<CK_MLPERF_SUBMISSION_TAGS>>$",
+        "run_cmd_main": "$<<CK_ENV_COMPILER_PYTHON_FILE>>$ ..$#dir_sep#$run.py --repo-uoa=$<<CK_MLPERF_SUBMISSION_REPO>>$ --tags=$<<CK_MLPERF_SUBMISSION_TAGS>>$ --out=$<<CK_MLPERF_SUBMISSION_OUT>>$",
         "run_cmd_out1": "stdout.log",
         "run_cmd_out2": "stderr.log",
         "run_output_files": [
@@ -35,7 +35,8 @@
   },
   "run_vars": {
     "CK_MLPERF_SUBMISSION_REPO": "local",
-    "CK_MLPERF_SUBMISSION_TAGS": ""
+    "CK_MLPERF_SUBMISSION_TAGS": "",
+    "CK_MLPERF_SUBMISSION_OUT": "-"
   },
   "tags": [
     "program",

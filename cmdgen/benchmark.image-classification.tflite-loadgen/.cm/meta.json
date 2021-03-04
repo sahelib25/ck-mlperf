@@ -268,7 +268,7 @@
     },
     "target_latency_file": {
       "###": {
-        "shell_preamble": "export CK_LOADGEN_TARGET_LATENCY=$(awk -vX=\"<<<sut>>>,<<<library>>>,<<<model>>>\" 'X==$1{print $2;exit}' < ###); [ \"$CK_LOADGEN_TARGET_LATENCY\" ] || exit 1; ",
+        "shell_preamble": "export CK_LOADGEN_TARGET_LATENCY=$(awk -vX=\"<<<sut>>>,<<<library>>>,<<<model_readable>>>\" 'X==$1{print $2;exit}' < ###); [ \"$CK_LOADGEN_TARGET_LATENCY\" ] || { echo 'Error: entry <<<sut>>>,<<<library>>>,<<<model_readable>>> not found in ###, exiting'; exit 1; }; ",
         "ck_env": "--env.CK_LOADGEN_TARGET_LATENCY=$CK_LOADGEN_TARGET_LATENCY",
         "record_tags": "target_latency.$CK_LOADGEN_TARGET_LATENCY",
         "target_latency": "$CK_LOADGEN_TARGET_LATENCY"
