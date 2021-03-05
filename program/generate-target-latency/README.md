@@ -44,7 +44,7 @@ $ cd $(ck find program:generate-target-latency) && ./run.py \
 ### Example
 
 ```bash
-$ $(ck find program:generate-target-latency)/run.py | sort | tee $(ck find program:image-classification-tflite-loadgen)/target_latency.rpi4coral.txt
+$ $(ck find program:generate-target-latency)/run.py --tags=inference_engine.tflite | sort | tee $(ck find program:image-classification-tflite-loadgen)/target_latency.rpi4coral.txt
 rpi4coral,tflite-v2.4.1-ruy,efficientnet-lite0-non-quantized   70 # max_query_count=256
 rpi4coral,tflite-v2.4.1-ruy,efficientnet-lite0-quantized   34 # max_query_count=256
 rpi4coral,tflite-v2.4.1-ruy,efficientnet-lite1-non-quantized   99 # max_query_count=256
