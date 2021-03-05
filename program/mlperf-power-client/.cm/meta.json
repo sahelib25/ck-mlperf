@@ -20,7 +20,7 @@
       "local": "yes",
       "name": "MLCommons power",
       "sort": 40,
-      "tags": "power,source,upstream.master"
+      "tags": "power,source,r1.0"
     }
   },
   "run_cmds": {
