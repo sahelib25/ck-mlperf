@@ -301,31 +301,18 @@
       }
     },
 
-    "nvidia_power_mode": {
+    "power_mode": {
       "###": {
-        "ck_env": "--env.CK_NVIDIA_POWER_MODE=###",
-        "record_tags": "nvpower.###"
+        "ck_env": "--env.CK_POWER_MODE=###",
+        "record_uoa_parts": "power_mode.###",
+        "record_tags": "power_mode.###"
       }
     },
-    "nvidia_fan_mode": {
-      "cool": {
-        "ck_env": "--env.CK_NVIDIA_FAN_MODE=###",
-        "record_tags": "nvfan.###"
-      },
-      "quiet": {
-        "ck_env": "--env.CK_NVIDIA_FAN_MODE=###",
-        "record_tags": "nvfan.###"
-      }
-    },
-
     "fan_mode": {
-      "cool": {
-        "record_tags": "fan.###",
-        "record_uoa_parts": "fan.###"
-      },
-      "quiet": {
-        "record_tags": "fan.###",
-        "record_uoa_parts": "fan.###"
+      "###": {
+        "ck_env": "--env.CK_FAN_MODE=###",
+        "record_uoa_parts": "fan_mode.###",
+        "record_tags": "fan_mode.###"
       }
     },
 
