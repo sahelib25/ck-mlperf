@@ -13,10 +13,11 @@ Run `cmdgen:benchmark.*` with `--scenario=range_singlestream --max_query_count=<
 ### Example
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen \
---library=armnn-v21.02-neon --model=resnet50 --mode=performance \
---scenario=range_singlestream --max_query_count=100 \
---verbose --sut=xavier
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=tflite-v2.4.1-ruy \
+--model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,effnet --variation_prefix=lite --separator=:` \
+--model_extra_tags,=non-quantized,quantized \
+--mode=performance --scenario=range_singlestream --max_query_count=256 \
+--sut=rpi4coral --fan_mode=on
 ```
 
 ## Extract
@@ -34,8 +35,7 @@ $ ck run ck-mlperf:program:generate-target-latency \
 Alternatively:
 
 ```bash
-$ cd $(ck find program:generate-target-latency)
-$ python3 generate-target-latency/run.py \
+$ cd $(ck find program:generate-target-latency) && ./run.py \
   --repo-uoa local \
   --tags foo,bar \
   --out $(pwd)/target_latency.txt
@@ -44,10 +44,18 @@ $ python3 generate-target-latency/run.py \
 ### Example
 
 ```bash
-$ generate-target-latency/run.py | tee target_latency.txt
-xavier,armnn-v20.08-neon,resnet50     64 # max_query_count=100
+$ $(ck find program:generate-target-latency)/run.py | sort | tee $(ck find program:image-classification-tflite-loadgen)/target_latency.rpi4coral.txt
+rpi4coral,tflite-v2.4.1-ruy,efficientnet-lite0-non-quantized   70 # max_query_count=256
+rpi4coral,tflite-v2.4.1-ruy,efficientnet-lite0-quantized   34 # max_query_count=256
+rpi4coral,tflite-v2.4.1-ruy,efficientnet-lite1-non-quantized   99 # max_query_count=256
+rpi4coral,tflite-v2.4.1-ruy,efficientnet-lite1-quantized   49 # max_query_count=256
+rpi4coral,tflite-v2.4.1-ruy,efficientnet-lite2-non-quantized  136 # max_query_count=256
+rpi4coral,tflite-v2.4.1-ruy,efficientnet-lite2-quantized   67 # max_query_count=256
+rpi4coral,tflite-v2.4.1-ruy,efficientnet-lite3-non-quantized  203 # max_query_count=256
+rpi4coral,tflite-v2.4.1-ruy,efficientnet-lite3-quantized  101 # max_query_count=256
+rpi4coral,tflite-v2.4.1-ruy,efficientnet-lite4-non-quantized  342 # max_query_count=256
+rpi4coral,tflite-v2.4.1-ruy,efficientnet-lite4-quantized  169 # max_query_count=256
 ```
-
 
 ### Tags
 
@@ -57,7 +65,7 @@ The tags are related to experiments, i.e. the following query matches the same e
 $ ck search experiment --tags=mlperf,scenario.range_singlestream.$tags`
 ```
 
-You can use the following one-liner to list models with corresponding tags:
+You can use the following one-liner to list tags for particular ranging experiments:
 ```bash
  $ for i in $(ck search experiment --tags=mlperf,scenario.range_singlestream); do echo $i; ck list_tags $i; echo; done
 ```
@@ -69,8 +77,10 @@ Run `cmdgen:benchmark.*` with `--target_latency_file=<...>` instead of `--target
 ### Example
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen \
---library=armnn-v21.02-neon --model=resnet50 --mode=performance \
---scenario=singlestream --target_latency_file=target_latency.txt \
---verbose --sut=xavier
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=tflite-v2.4.1-ruy \
+--model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,effnet --variation_prefix=lite --separator=:` \
+--model_extra_tags,=non-quantized,quantized \
+--mode=performance --scenario=singlestream --sut=rpi4coral --fan_mode=on \
+--target_latency_file=$(ck find program:image-classification-tflite-loadgen)/target_latency.rpi4coral.txt \
+--power=yes --power_server_port=4951 --power_server_ip=192.168.0.3
 ```
