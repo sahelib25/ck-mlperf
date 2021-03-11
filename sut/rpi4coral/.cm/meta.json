@@ -36,6 +36,6 @@
     "framework": "",
     "operating_system": "Ubuntu 20.04.1; kernel 5.4.0-1018-raspi #20-Ubuntu SMP (Sun Sep 6 05:11:16 UTC 2020)",
     "other_software_stack": "GCC 9.3.0; Python 3.8.2",
-    "sw_notes": "Powered by Collective Knowledge v1.15.0"
+    "sw_notes": ""
   }
 }
