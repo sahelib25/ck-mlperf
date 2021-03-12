@@ -30,7 +30,7 @@ accuracy=76.442%, good=38221, total=50000
 
 ```bash
 $ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=tflite-v2.4.1-ruy \
---model=resnet50 --model=performance --scenario=singlestream --target_latency=500 \
+--model=resnet50 --mode=performance --scenario=singlestream --target_latency=500 \
 --verbose --sut=firefly
 ```
 
@@ -63,7 +63,7 @@ $ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=tflite-v
 $ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=tflite-v2.4.1-ruy \
 --model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,effnet --variation_prefix=lite --separator=:` \
 --model_extra_tags,=non-quantized,quantized \
---model=performance --scenario=singlestream --target_latency=20 \
+--mode=performance --scenario=singlestream --target_latency=20 \
 --verbose --sut=firefly
 ```
 
@@ -108,7 +108,7 @@ $ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=tflite-v
 $ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=tflite-v2.4.1-ruy \
 --model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v1 --variation_prefix=v1- --separator=:` \
 --model_extra_tags,=non-quantized,quantized \
---model=performance --scenario=singlestream --target_latency=5 \
+--mode=performance --scenario=singlestream --target_latency=5 \
 --verbose --sut=firefly
 ```
 
@@ -153,7 +153,7 @@ $ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=tflite-v
 $ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=tflite-v2.4.1-ruy \
 --model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v2 --variation_prefix=v2- --separator=:` \
 --model_extra_tags,=non-quantized,quantized \
---model=performance --scenario=singlestream --target_latency=3 \
+--mode=performance --scenario=singlestream --target_latency=3 \
 --verbose --sut=firefly
 ```
 
@@ -196,7 +196,7 @@ $ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=tflite-v
 ```bash
 $ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=tflite-v2.4.1-ruy \
 --model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v3 --variation_prefix=v3- --separator=:` \
---model=performance --scenario=singlestream --target_latency=6 \
+--mode=performance --scenario=singlestream --target_latency=6 \
 --verbose --sut=firefly
 ```
 
