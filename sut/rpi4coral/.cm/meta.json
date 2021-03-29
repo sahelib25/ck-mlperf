@@ -1,10 +1,10 @@
 {
   "data": {
     "division": "",
-    "submitter": "dividiti",
+    "submitter": "Krai",
     "status": "available",
     "system_type": "edge",
-    "system_name": "Raspberry Pi 4 with Coral (rpi4coral)",
+    "system_name": "Raspberry Pi 4",
 
     "number_of_nodes": "1",
     "host_processor_model_name": "Arm Cortex-A72 MP4",
@@ -30,12 +30,12 @@
     "accelerator_memory_configuration": "-",
     "accelerator_on-chip_memories": "-",
 
-    "cooling": "MakerHawk Pi-FAN DC Brushless Cooling Fan LD3007MS",
+    "cooling": "http://www.raspberrypiwiki.com/index.php/Armor_Case_B",
     "hw_notes": "https://www.raspberrypi.org/products/raspberry-pi-4-model-b/specifications/",
 
     "framework": "",
-    "operating_system": "Ubuntu 20.04.1; kernel 5.4.0-1018-raspi #20-Ubuntu SMP (Sun Sep 6 05:11:16 UTC 2020)",
-    "other_software_stack": "GCC 9.3.0; Python 3.8.2",
+    "operating_system": "Ubuntu 20.04.2; kernel 5.4.0-1032-raspi #35-Ubuntu SMP PREEMPT (Fri Mar 19 20:52:40 UTC 2021)",
+    "other_software_stack": "GCC 9.3.0; Python 3.8.5",
     "sw_notes": ""
   }
 }
