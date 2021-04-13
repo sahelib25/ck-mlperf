@@ -16,6 +16,10 @@
         "repo_url": "https://github.com/krai/ck-tensorflow"
       },
       {
+        "repo_uoa": "ck-math",
+        "repo_url": "https://github.com/krai/ck-math"
+      },
+      {
         "repo_uoa": "ck-nntest",
         "repo_url": "https://github.com/krai/ck-nntest"
       },
