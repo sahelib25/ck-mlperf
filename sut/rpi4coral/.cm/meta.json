@@ -30,7 +30,7 @@
     "accelerator_memory_configuration": "-",
     "accelerator_on-chip_memories": "-",
 
-    "cooling": "http://www.raspberrypiwiki.com/index.php/Armor_Case_B",
+    "cooling": "http://raspberrypiwiki.com/Armor_Case_B",
     "hw_notes": "https://www.raspberrypi.org/products/raspberry-pi-4-model-b/specifications/",
 
     "framework": "",
