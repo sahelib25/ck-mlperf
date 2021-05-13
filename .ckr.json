@@ -20,6 +20,10 @@
         "repo_url": "https://github.com/krai/ck-tensorflow"
       },
       {
+        "repo_uoa": "ck-pytorch",
+        "repo_url": "https://github.com/krai/ck-pytorch"
+      },
+      {
         "repo_uoa": "ck-nntest",
         "repo_url": "https://github.com/krai/ck-nntest"
       },
