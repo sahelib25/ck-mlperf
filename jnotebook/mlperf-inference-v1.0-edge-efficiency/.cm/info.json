@@ -1,0 +1,15 @@
+{
+  "backup_data_uid": "9cd20c12831401aa",
+  "backup_module_uid": "145039462db4f4d2",
+  "backup_module_uoa": "jnotebook",
+  "control": {
+    "engine": "CK",
+    "iso_datetime": "2021-05-23T15:08:57.034210",
+    "version": [
+      "1",
+      "55",
+      "5"
+    ]
+  },
+  "data_name": "mlperf-inference-v1.0-edge-efficiency"
+}
