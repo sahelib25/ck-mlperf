@@ -2,6 +2,8 @@
 
 This C++ implementation runs TFLite models for Image Classification using TFLite.
 
+Follow the detailed installation and benchmarking instructions in this Jupyter [notebook](https://github.com/krai/ck-mlperf/tree/master/jnotebook/image-classification-tflite-loadgen).
+
 ## Prerequisites
 
 ### [Preprocess ImageNet on an x86 machine](https://github.com/arm-software/armnn-mlperf#preprocess-on-an-x86-machine-and-detect-on-an-arm-dev-board)
@@ -70,39 +72,36 @@ $ echo opencv-side.240 | ck detect soft --tags=dataset,imagenet,preprocessed,rgb
 --full_path=/datasets/dataset-imagenet-preprocessed-using-opencv-crop.875-full-inter.linear-side.240/ILSVRC2012_val_00000001.rgb8
 ```
 
+## Benchmark performance via the "classical" CK interface
 
-## Run once (classical CK interface)
+### Single Stream
 
-Running this program is similar to running [`ck-tensorflow:program:image-classification-tflite`](https://github.com/ctuning/ck-tensorflow/tree/master/program/image-classification-tflite),
-as described in the [MLPerf Inference repo](https://github.com/mlperf/inference/tree/master/v0.5/classification_and_detection/optional_harness_ck/classification/tflite).
+#### Performance
 
 ```bash
-firefly $ ck benchmark program:image-classification-tflite-loadgen \
---speed --repetitions=1 \
+firefly$ ck benchmark program:image-classification-tflite-loadgen \
+--speed --repetitions=1 --skip_print_timers \
 --env.CK_VERBOSE=1 \
 --env.CK_LOADGEN_SCENARIO=SingleStream \
 --env.CK_LOADGEN_MODE=PerformanceOnly \
 --env.CK_LOADGEN_DATASET_SIZE=1024 \
 --env.CK_LOADGEN_BUFFER_SIZE=1024 \
---dep_add_tags.weights=model,tflite,resnet \
---dep_add_tags.library=tflite,v1.15 \
---dep_add_tags.compiler=gcc,v7 \
+--dep_add_tags.library=tflite,v2.5 \
 --dep_add_tags.images=side.224,preprocessed \
---dep_add_tags.loadgen-config-file=image-classification-tflite \
---dep_add_tags.python=v3 \
---skip_print_timers
+--dep_add_tags.weights=tflite,resnet \
+--dep_add_tags.compiler=gcc,v7 \
+--dep_add_tags.python=v3
 ...
-------------------------------------------------------------
-|            LATENCIES (in nanoseconds and fps)            |
-------------------------------------------------------------
-Number of queries run: 1024
-Min latency:                      397952762ns  (2.51286 fps)
-Median latency:                   426440993ns  (2.34499 fps)
-Average latency:                  433287227ns  (2.30794 fps)
-90 percentile latency:            460194271ns  (2.173 fps)
-Max latency:                      679467557ns  (1.47174 fps)
-------------------------------------------------------------
 ```
 
-## Explore different models
-**TODO**
+## Benchmark via the "neoclassical" CK interface ([`module:cmdgen`](https://github.com/krai/ck-mlperf/tree/master/module/cmdgen))
+
+### [Single Stream](https://github.com/krai/ck-mlperf/blob/master/program/image-classification-tflite-loadgen/README.singlestream.md)
+
+#### Performance
+
+```bash
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=tflite-v2.5.0-ruy \
+--scenario=singlestream --mode=performance --model=resnet50 --target_latency=70 \
+--verbose --sut=xavier
+```
