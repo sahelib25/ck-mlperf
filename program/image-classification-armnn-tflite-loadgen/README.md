@@ -8,7 +8,7 @@ Follow the detailed installation and benchmarking instructions in this Jupyter [
 
 See the [corresponding section](https://github.com/krai/ck-mlperf/blob/master/program/image-classification-tflite-loadgen/README.md#prerequisites) for the TFLite implementation.
 
-## Benchmark performance via the "classical" CK interface
+## Benchmark via the "classical" CK interface
 
 ### Single Stream
 
