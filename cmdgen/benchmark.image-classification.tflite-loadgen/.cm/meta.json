@@ -91,6 +91,26 @@
       }
     },
     "library": {
+      "armnn-v21.05-neon": {
+        "ck_env": "--env.USE_NEON=1",
+        "deps": "--dep_add_tags.library=armnn,rel.21.05,neon",
+        "program_name": "image-classification-armnn-tflite-loadgen",
+        "record_tags": [
+          "inference_engine.armnn",
+          "inference_engine_version.v21.05",
+          "inference_engine_backend.neon"
+        ]
+      },
+      "armnn-v21.05-opencl": {
+        "ck_env": "--env.USE_OPENCL=1",
+        "deps": "--dep_add_tags.library=armnn,rel.21.05,opencl",
+        "program_name": "image-classification-armnn-tflite-loadgen",
+        "record_tags": [
+          "inference_engine.armnn",
+          "inference_engine_version.v21.05",
+          "inference_engine_backend.opencl"
+        ]
+      },
       "armnn-v21.02-neon": {
         "ck_env": "--env.USE_NEON=1",
         "deps": "--dep_add_tags.library=armnn,rel.21.02,neon",

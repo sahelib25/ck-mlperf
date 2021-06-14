@@ -21,7 +21,7 @@
 ##### Neon
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.02-neon \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-neon \
 --model=resnet50 --scenario=singlestream --mode=accuracy --dataset_size=50000 \
 --verbose --sut=firefly
 ...
@@ -30,7 +30,7 @@ $ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v2
 ##### OpenCL
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.02-opencl \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-opencl \
 --model=resnet50 --scenario=singlestream --mode=accuracy --dataset_size=50000 \
 --verbose --sut=firefly
 ...
@@ -41,7 +41,7 @@ $ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v2
 ##### Neon
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.02-neon \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-neon \
 --model=resnet50 --scenario=singlestream --mode=performance --target_latency=400 \
 --verbose --sut=firefly
 ```
@@ -49,7 +49,7 @@ $ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v2
 ##### OpenCL
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.02-opencl \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-opencl \
 --model=resnet50 --scenario=singlestream --mode=performance --target_latency=400 \
 --verbose --sut=firefly
 ```
@@ -59,7 +59,7 @@ $ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v2
 ##### Neon
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.02-neon \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-neon \
 --model=resnet50 --scenario=singlestream --compliance,=TEST04-A,TEST04-B,TEST05,TEST01 \
 --verbose --sut=firefly
 ```
@@ -67,7 +67,7 @@ $ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v2
 ##### OpenCL
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.02-opencl \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-opencl \
 --model=resnet50 --scenario=singlestream --compliance,=TEST04-A,TEST04-B,TEST05,TEST01 \
 --verbose --sut=firefly
 ```
@@ -80,7 +80,7 @@ $ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v2
 ##### Neon
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.02-neon \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-neon \
 --model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,effnet --variation_prefix=lite --separator=:` \
 --model_extra_tags,=non-quantized,quantized \
 --scenario=singlestream --mode=accuracy --dataset_size=50000 \
@@ -90,7 +90,7 @@ $ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v2
 ##### OpenCL
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.02-opencl \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-opencl \
 --model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,effnet --variation_prefix=lite --separator=:` \
 --model_extra_tags,=non-quantized,quantized \
 --scenario=singlestream --mode=accuracy --dataset_size=50000 \
@@ -104,7 +104,7 @@ $ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v2
 ###### Use a uniform target latency
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.02-neon \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-neon \
 --model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,effnet --variation_prefix=lite --separator=:` \
 --model_extra_tags,=non-quantized,quantized \
 --scenario=singlestream --mode=performance --target_latency=10 \
@@ -114,16 +114,16 @@ $ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v2
 ###### [Estimate target latencies](https://github.com/krai/ck-mlperf/tree/master/program/generate-target-latency)
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.02-neon \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-neon \
 --model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,effnet --variation_prefix=lite --separator=:` \
 --model_extra_tags,=non-quantized,quantized \
 --mode=performance --scenario=range_singlestream --max_query_count=256 \
 --verbose --sut=firefly
 
-$ $(ck find program:generate-target-latency)/run.py --tags=inference_engine.armnn,inference_engine_version.v21.02 | \
+$ $(ck find program:generate-target-latency)/run.py --tags=inference_engine.armnn,inference_engine_version.v21.05 | \
 sort | tee $(ck find program:image-classification-armnn-tflite-loadgen)/target_latency.txt
 
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.02-neon \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-neon \
 --model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,effnet --variation_prefix=lite --separator=:` \
 --model_extra_tags,=non-quantized,quantized \
 --mode=performance --scenario=singlestream \
@@ -136,7 +136,7 @@ $ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v2
 ###### Use a uniform target latency
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.02-opencl \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-opencl \
 --model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,effnet --variation_prefix=lite --separator=:` \
 --model_extra_tags,=non-quantized,quantized \
 --scenario=singlestream --mode=performance --target_latency=10 \
@@ -146,16 +146,16 @@ $ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v2
 ###### [Estimate target latencies](https://github.com/krai/ck-mlperf/tree/master/program/generate-target-latency)
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.02-opencl \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-opencl \
 --model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,effnet --variation_prefix=lite --separator=:` \
 --model_extra_tags,=non-quantized,quantized \
 --mode=performance --scenario=range_singlestream --max_query_count=256 \
 --verbose --sut=firefly
 
-$ $(ck find program:generate-target-latency)/run.py --tags=inference_engine.armnn,inference_engine_version.v21.02 | \
+$ $(ck find program:generate-target-latency)/run.py --tags=inference_engine.armnn,inference_engine_version.v21.05 | \
 sort | tee $(ck find program:image-classification-armnn-tflite-loadgen)/target_latency.txt
 
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.02-opencl \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-opencl \
 --model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,effnet --variation_prefix=lite --separator=:` \
 --model_extra_tags,=non-quantized,quantized \
 --mode=performance --scenario=singlestream \
@@ -172,7 +172,7 @@ $ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v2
 ##### Neon
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.02-neon \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-neon \
 --model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v1 --variation_prefix=v1- --separator=:` \
 --model_extra_tags,=non-quantized,quantized \
 --scenario=singlestream --mode=accuracy --dataset_size=50000 \
@@ -182,7 +182,7 @@ $ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v2
 ##### OpenCL
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.02-opencl \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-opencl \
 --model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v1 --variation_prefix=v1- --separator=:` \
 --model_extra_tags,=non-quantized,quantized \
 --scenario=singlestream --mode=accuracy --dataset_size=50000 \
@@ -196,7 +196,7 @@ $ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v2
 ###### Use a uniform target latency
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.02-neon \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-neon \
 --model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v1 --variation_prefix=v1- --separator=:` \
 --model_extra_tags,=non-quantized,quantized \
 --scenario=singlestream --mode=performance --target_latency=5 \
@@ -206,16 +206,16 @@ $ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v2
 ##### [Estimate target latencies](https://github.com/krai/ck-mlperf/tree/master/program/generate-target-latency)
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.02-neon \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-neon \
 --model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v1 --variation_prefix=v1- --separator=:` \
 --model_extra_tags,=non-quantized,quantized \
 --mode=performance --scenario=range_singlestream --max_query_count=256 \
 --verbose --sut=firefly
 
-$ $(ck find program:generate-target-latency)/run.py --tags=inference_engine.armnn,inference_engine_version.v21.02 | \
+$ $(ck find program:generate-target-latency)/run.py --tags=inference_engine.armnn,inference_engine_version.v21.05 | \
 sort | tee $(ck find program:image-classification-armnn-tflite-loadgen)/target_latency.txt
 
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.02-neon \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-neon \
 --model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v1 --variation_prefix=v1- --separator=:` \
 --model_extra_tags,=non-quantized,quantized \
 --mode=performance --scenario=singlestream \
@@ -228,7 +228,7 @@ $ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v2
 ###### Use a uniform target latency
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.02-opencl \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-opencl \
 --model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v1 --variation_prefix=v1- --separator=:` \
 --model_extra_tags,=non-quantized,quantized \
 --scenario=singlestream --mode=performance --target_latency=5 \
@@ -238,16 +238,16 @@ $ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v2
 ###### [Estimate target latencies](https://github.com/krai/ck-mlperf/tree/master/program/generate-target-latency)
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.02-opencl \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-opencl \
 --model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v1 --variation_prefix=v1- --separator=:` \
 --model_extra_tags,=non-quantized,quantized \
 --mode=performance --scenario=range_singlestream --max_query_count=256 \
 --verbose --sut=firefly
 
-$ $(ck find program:generate-target-latency)/run.py --tags=inference_engine.armnn,inference_engine_version.v21.02 | \
+$ $(ck find program:generate-target-latency)/run.py --tags=inference_engine.armnn,inference_engine_version.v21.05 | \
 sort | tee $(ck find program:image-classification-armnn-tflite-loadgen)/target_latency.txt
 
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.02-opencl \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-opencl \
 --model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v1 --variation_prefix=v1- --separator=:` \
 --model_extra_tags,=non-quantized,quantized \
 --mode=performance --scenario=singlestream \
@@ -263,7 +263,7 @@ $ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v2
 ##### Neon
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.02-neon \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-neon \
 --model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v2 --variation_prefix=v2- --separator=:` \
 --model_extra_tags,=non-quantized,quantized \
 --scenario=singlestream --mode=accuracy --dataset_size=50000 \
@@ -273,7 +273,7 @@ $ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v2
 ##### OpenCL
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.02-opencl \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-opencl \
 --model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v2 --variation_prefix=v2- --separator=:` \
 --model_extra_tags,=non-quantized,quantized \
 --scenario=singlestream --mode=accuracy --dataset_size=50000 \
@@ -287,7 +287,7 @@ $ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v2
 ###### Use a uniform target latency
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.02-neon \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-neon \
 --model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v2 --variation_prefix=v2- --separator=:` \
 --model_extra_tags,=non-quantized,quantized \
 --scenario=singlestream --mode=performance --target_latency=5 \
@@ -297,16 +297,16 @@ $ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v2
 ###### [Estimate target latencies](https://github.com/krai/ck-mlperf/tree/master/program/generate-target-latency)
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.02-neon \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-neon \
 --model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v2 --variation_prefix=v2- --separator=:` \
 --model_extra_tags,=non-quantized,quantized \
 --mode=performance --scenario=range_singlestream --max_query_count=256 \
 --verbose --sut=firefly
 
-$ $(ck find program:generate-target-latency)/run.py --tags=inference_engine.armnn,inference_engine_version.v21.02 | \
+$ $(ck find program:generate-target-latency)/run.py --tags=inference_engine.armnn,inference_engine_version.v21.05 | \
 sort | tee $(ck find program:image-classification-armnn-tflite-loadgen)/target_latency.txt
 
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.02-neon \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-neon \
 --model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v1 --variation_prefix=v1- --separator=:` \
 --model_extra_tags,=non-quantized,quantized \
 --mode=performance --scenario=singlestream \
@@ -319,7 +319,7 @@ $ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v2
 ###### Use a uniform target latency
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.02-opencl \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-opencl \
 --model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v2 --variation_prefix=v2- --separator=:` \
 --model_extra_tags,=non-quantized,quantized \
 --scenario=singlestream --mode=performance --target_latency=5 \
@@ -329,16 +329,16 @@ $ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v2
 ###### [Estimate target latencies](https://github.com/krai/ck-mlperf/tree/master/program/generate-target-latency)
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.02-opencl \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-opencl \
 --model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v2 --variation_prefix=v2- --separator=:` \
 --model_extra_tags,=non-quantized,quantized \
 --mode=performance --scenario=range_singlestream --max_query_count=256 \
 --verbose --sut=firefly
 
-$ $(ck find program:generate-target-latency)/run.py --tags=inference_engine.armnn,inference_engine_version.v21.02 | \
+$ $(ck find program:generate-target-latency)/run.py --tags=inference_engine.armnn,inference_engine_version.v21.05 | \
 sort | tee $(ck find program:image-classification-armnn-tflite-loadgen)/target_latency.txt
 
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.02-opencl \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-opencl \
 --model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v1 --variation_prefix=v1- --separator=:` \
 --model_extra_tags,=non-quantized,quantized \
 --mode=performance --scenario=singlestream \
@@ -354,7 +354,7 @@ $ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v2
 ##### Neon
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.02-neon \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-neon \
 --model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v3 --variation_prefix=v3- --separator=:` \
 --scenario=singlestream --mode=accuracy --dataset_size=50000 \
 --verbose --sut=firefly
@@ -363,7 +363,7 @@ $ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v2
 ##### OpenCL
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.02-opencl \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-opencl \
 --model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v3 --variation_prefix=v3- --separator=:` \
 --scenario=singlestream --mode=accuracy --dataset_size=50000 \
 --verbose --sut=firefly
@@ -376,7 +376,7 @@ $ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v2
 ###### Use a uniform target latency
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.02-neon \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-neon \
 --model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v3 --variation_prefix=v3- --separator=:` \
 --scenario=singlestream --mode=performance --target_latency=6 \
 --verbose --sut=firefly
@@ -385,15 +385,15 @@ $ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v2
 ###### [Estimate target latencies](https://github.com/krai/ck-mlperf/tree/master/program/generate-target-latency)
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.02-neon \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-neon \
 --model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v3 --variation_prefix=v3- --separator=:` \
 --mode=performance --scenario=range_singlestream --max_query_count=256 \
 --verbose --sut=firefly
 
-$ $(ck find program:generate-target-latency)/run.py --tags=inference_engine.armnn,inference_engine_version.v21.02 | \
+$ $(ck find program:generate-target-latency)/run.py --tags=inference_engine.armnn,inference_engine_version.v21.05 | \
 sort | tee $(ck find program:image-classification-armnn-tflite-loadgen)/target_latency.txt
 
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.02-neon \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-neon \
 --model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v3 --variation_prefix=v3- --separator=:` \
 --mode=performance --scenario=singlestream \
 --target_latency_file=$(ck find program:image-classification-armnn-tflite-loadgen)/target_latency.txt \
@@ -405,7 +405,7 @@ $ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v2
 ###### Use a uniform target latency
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.02-opencl \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-opencl \
 --model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v3 --variation_prefix=v3- --separator=:` \
 --scenario=singlestream --mode=performance --target_latency=6 \
 --verbose --sut=firefly
@@ -414,15 +414,15 @@ $ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v2
 ###### [Estimate target latencies](https://github.com/krai/ck-mlperf/tree/master/program/generate-target-latency)
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.02-opencl \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-opencl \
 --model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v3 --variation_prefix=v3- --separator=:` \
 --mode=performance --scenario=range_singlestream --max_query_count=256 \
 --verbose --sut=firefly
 
-$ $(ck find program:generate-target-latency)/run.py --tags=inference_engine.armnn,inference_engine_version.v21.02 | \
+$ $(ck find program:generate-target-latency)/run.py --tags=inference_engine.armnn,inference_engine_version.v21.05 | \
 sort | tee $(ck find program:image-classification-armnn-tflite-loadgen)/target_latency.txt
 
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.02-opencl \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-opencl \
 --model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v3 --variation_prefix=v3- --separator=:` \
 --mode=performance --scenario=singlestream \
 --target_latency_file=$(ck find program:image-classification-armnn-tflite-loadgen)/target_latency.txt \
