@@ -57,6 +57,8 @@
         "patched,with.custom3":     [ { "CK_BERT_TRANSFORMERS_VARIATION": [ "with.custom3" ] } ],
         "patched,with.custom4":     [ { "CK_BERT_TRANSFORMERS_VARIATION": [ "with.custom4" ] } ],
         "patched,with.split_heads": [ { "CK_BERT_TRANSFORMERS_VARIATION": [ "with.split_heads" ] } ],
+        "patched,with.split_heads_for_dmir1": [ { "CK_BERT_TRANSFORMERS_VARIATION": [ "with.split_heads_for_dmir1" ] } ],
+        "patched,with.split_heads_for_dmir2": [ { "CK_BERT_TRANSFORMERS_VARIATION": [ "with.split_heads_for_dmir2" ] } ],
         "original":                 [ { "CK_BERT_TRANSFORMERS_VARIATION": [ "default", "original" ] } ]
       },
       "version_from": [ 2, 4, 0],
