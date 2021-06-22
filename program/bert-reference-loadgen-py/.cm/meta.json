@@ -76,6 +76,25 @@
       "name": "Python ONNX runtime library",
       "sort": 60,
       "tags": "lib,python-package,onnxruntime"
+    },
+    "onnx-mlir": {
+      "enable_if_env": [
+        {
+          "DUMP_AH_MLIR": [
+            "yes",
+            "YES",
+            "true",
+            "TRUE",
+            "on",
+            "ON",
+            "1"
+          ]
+        }
+      ],
+      "local": "yes",
+      "name": "ONNX MLIR converter",
+      "sort": 72,
+      "tags": "onnx-mlir"
     }
   },
   "run_vars": {

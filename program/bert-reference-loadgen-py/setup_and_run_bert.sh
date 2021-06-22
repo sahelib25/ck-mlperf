@@ -111,3 +111,25 @@ if [ ! -f ./eval_features.pickle.cal ]; then
         mv eval_features.pickle eval_features.pickle.cal
     fi
 fi
+
+if [ ! -z ${DUMP_AH_MLIR+x} ]; then
+    if [ ${CK_BERT_TRANSFORMERS_VARIATION} = "with.split_heads_for_dmir1" ]; then
+        dmir=dmir1
+    elif [ ${CK_BERT_TRANSFORMERS_VARIATION} = "with.split_heads_for_dmir2" ]; then
+        dmir=dmir2
+    else
+        echo "DMIR version not implemented";
+        exit 1;
+    fi
+     echo "\nMLIR Generation...";
+     ${CK_ENV_ONNX_MLIR_BIN}/onnx-mlir -EmitONNXIR $HOME/ah_"$dmir".onnx
+     echo "\n"
+ 
+     #The below two lines are output by onnx-mlir tool anyway, so commenting out
+     #echo "ONNXIR Output to $HOME/ah_"$dmir".onnx.mlir";
+     #echo "Constant free ONNXIR (just for easy viewing) Output to $HOME/ah_"$dmir".tmp";
+     ${CK_ENV_ONNX_MLIR_BIN}/onnx-mlir-opt -cse $HOME/ah_"$dmir".onnx.mlir > $HOME/ah_dmir1.mlir
+     ${CK_ENV_ONNX_MLIR_BIN}/onnx-mlir-opt -cse --elide-constants "$HOME/ah_"$dmir".onnx.mlir" > "$HOME/ah_"$dmir".mlir.tmp"
+     echo "\nOptimized MLIR (with -cse pass) Output to $HOME/ah_"$dmir".mlir";
+     echo "\nOptimized MLIR (with -cse --elide-constants passes) Output to $HOME/ah_"$dmir".mlir.tmp";
+fi
