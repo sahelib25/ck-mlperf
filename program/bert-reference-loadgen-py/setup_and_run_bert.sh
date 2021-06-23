@@ -128,7 +128,7 @@ if [ ! -z ${DUMP_AH_MLIR+x} ]; then
      #The below two lines are output by onnx-mlir tool anyway, so commenting out
      #echo "ONNXIR Output to $HOME/ah_"$dmir".onnx.mlir";
      #echo "Constant free ONNXIR (just for easy viewing) Output to $HOME/ah_"$dmir".tmp";
-     ${CK_ENV_ONNX_MLIR_BIN}/onnx-mlir-opt -cse $HOME/ah_"$dmir".onnx.mlir > $HOME/ah_dmir1.mlir
+     ${CK_ENV_ONNX_MLIR_BIN}/onnx-mlir-opt -cse "$HOME/ah_$dmir.onnx.mlir" > "$HOME/ah_$dmir.mlir"
      ${CK_ENV_ONNX_MLIR_BIN}/onnx-mlir-opt -cse --elide-constants "$HOME/ah_"$dmir".onnx.mlir" > "$HOME/ah_"$dmir".mlir.tmp"
      echo "\nOptimized MLIR (with -cse pass) Output to $HOME/ah_"$dmir".mlir";
      echo "\nOptimized MLIR (with -cse --elide-constants passes) Output to $HOME/ah_"$dmir".mlir.tmp";
