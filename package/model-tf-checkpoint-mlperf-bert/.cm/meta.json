@@ -1,0 +1,51 @@
+{
+  "check_exit_status": "yes",
+  "customize": {
+    "install_env": {
+      "ZENODO_ID": "3733868",
+      "PACKAGE_NAME": "tf_checkpoint",
+      "*PACKAGE_RUN_EXTRA_LINUX": "zenodo_get -r $<<ZENODO_ID>>$ -o $<<PACKAGE_NAME>>$",
+      "PACKAGE_SKIP_LINUX_MAKE": "YES",
+      "__ROOT": "",
+      "__CHECKPOINT": "model.ckpt-5474",
+      "__VOCAB": "vocab.txt"
+    },
+    "anchor_depth": 1,
+    "env_prefix": "CK_ENV_BERT_TF_CKPT_MODEL",
+    "no_os_in_suggested_path": "yes",
+    "no_ver_in_suggested_path": "yes",
+    "skip_file_check": "yes",
+    "version": "1.0"
+  },
+  "deps": {
+    "zenodo_get": {
+      "add_to_path": "no",
+      "local": "yes",
+      "name": "A tool for downloading a multi-file Zenodo entry",
+      "sort": 10,
+      "tags": "lib,python-package,zenodo_get"
+    }
+  },
+  "end_full_path_universal": "tf_checkpoint/model.ckpt-5474.data-00000-of-00001",
+  "package_extra_name": " (BERT TF checkpoint)",
+  "process_script": "install",
+  "soft_uoa": "generic.file.container",
+  "suggested_path": "model-tf-checkpoint-mlperf-bert",
+  "tags": [
+    "model",
+    "bert",
+    "squad",
+    "tf",
+    "tensorflow",
+    "checkpoint",
+    "ckpt",
+    "non-quantized",
+    "mlperf",
+    "zenodo",
+    "downloaded"
+  ],
+  "use_scripts_from_another_entry": {
+    "data_uoa": "download-and-install-package",
+    "module_uoa": "script"
+  }
+}
