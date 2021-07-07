@@ -62,6 +62,9 @@ def setup(i):
     env             = i['env']
     env[env_prefix] = full_path
 
+    p1=os.path.dirname(full_path)
+    env[env_prefix+'_ROOT']=p1
+
     for varname in install_env.keys():
         if varname.startswith('DATASET_'):
             env[env_prefix+varname[len('DATASET'):]] = install_env[varname]

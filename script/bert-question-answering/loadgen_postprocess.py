@@ -39,6 +39,8 @@ def ck_postprocess(i):
   SQUAD_DATASET_ORIGINAL_PATH   = deps['dataset-original']['dict']['env']['CK_ENV_DATASET_SQUAD_ORIGINAL']
   SQUAD_DATASET_TOKENIZED_PATH  = deps['dataset-tokenized']['dict']['env']['CK_ENV_DATASET_SQUAD_TOKENIZED']
 
+  DATASET_TOKENIZATION_VOCAB = deps['dataset-tokenized']['dict']['deps']['dataset-vocab']['dict']['env']['CK_ENV_DATASET_TOKENIZATION_VOCAB']
+  
   save_dict = {}
 
   # Save logs.
@@ -81,6 +83,7 @@ def ck_postprocess(i):
     os.environ['PYTHONPATH'] = deps['lib-python-numpy']['dict']['env']['PYTHONPATH'].split(':')[0] +':'+os.environ.get('PYTHONPATH','')
 
     command = [ deps['python']['dict']['env']['CK_ENV_COMPILER_PYTHON_FILE'], BERT_CODE_ROOT+'/accuracy-squad.py',
+              '--vocab_file', DATASET_TOKENIZATION_VOCAB,
               '--val_data', SQUAD_DATASET_ORIGINAL_PATH,
               '--features_cache_file', SQUAD_DATASET_TOKENIZED_PATH,
               '--log_file', MLPERF_LOG_ACCURACY_JSON,

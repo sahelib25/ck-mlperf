@@ -66,7 +66,6 @@
     "dataset",
     "squad",
     "tokenized",
-    "pickled",
     "converted"
   ],
   "variations": {
@@ -83,6 +82,27 @@
             "DATASET_MAX_SEQ_LENGTH": "128",
             "DATASET_MAX_QUERY_LENGTH": "64",
             "DATASET_DOC_STRIDE": "64"
+        }
+    },
+    "pickle": {
+        "on_by_default": "yes",
+        "extra_tags": ["pickled"],
+        "extra_env": {
+            "DATASET_RAW": "no"
+        }
+    },
+    "raw": {
+        "extra_tags": ["raw"],
+        "extra_env": {
+            "DATASET_RAW": "yes",
+            "DATASET_INPUT_IDS": "bert_tokenized_squad_v1_1_input_ids.raw",
+            "DATASET_INPUT_MASK": "bert_tokenized_squad_v1_1_input_mask.raw",
+            "DATASET_SEGMENT_IDS": "bert_tokenized_squad_v1_1_segment_ids.raw"
+        }
+    },
+    "first.100": {
+        "extra_env": {
+            "DATASET_FIRST_100": "yes"
         }
     }
   }

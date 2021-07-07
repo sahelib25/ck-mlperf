@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
 import os
-import pickle
 import sys
+
 from transformers import BertTokenizer
 
 # Input and output file paths:
@@ -14,6 +14,9 @@ tokenized_squad_path    = sys.argv[3]
 max_seq_length          = int(sys.argv[4])
 max_query_length        = int(sys.argv[5])
 doc_stride              = int(sys.argv[6])
+
+convert_to_raw          = sys.argv[7] == "yes"
+first_100               = sys.argv[8] == "yes"
 
 BERT_CODE_ROOT=os.environ['CK_ENV_MLPERF_INFERENCE']+'/language/bert'
 
@@ -28,6 +31,9 @@ tokenizer = BertTokenizer(tokenization_vocab_path)
 print("Reading examples from {} ...".format(squad_original_path))
 eval_examples = read_squad_examples(input_file=squad_original_path, is_training=False, version_2_with_negative=False)
 
+if first_100:
+    eval_examples = eval_examples[0:100]
+
 eval_features = []
 def append_feature(feature):
     eval_features.append(feature)
@@ -41,9 +47,39 @@ convert_examples_to_features(
     max_query_length=max_query_length,
     is_training=False,
     output_fn=append_feature,
-    verbose_logging=False)
+    verbose_logging=True)
 
-print("Recording features to {} ...".format(tokenized_squad_path))
-with open(tokenized_squad_path, 'wb') as cache_file:
-    pickle.dump(eval_features, cache_file)
+
+if convert_to_raw:
+
+    import numpy as np
+
+    print("Recording features to {} ...".format(tokenized_squad_path + "*.raw"))
+
+    num_features = len(eval_features)
+    input_ids = np.zeros((num_features, max_seq_length), dtype=np.int64)
+    input_mask = np.zeros((num_features, max_seq_length), dtype=np.int64)
+    segment_ids = np.zeros((num_features, max_seq_length), dtype=np.int64)
+
+    for idx, feature in enumerate(eval_features):
+
+        if len(feature.input_ids) != 384:
+            print(len(feature.input_ids))
+        input_ids[idx, :] = np.array(feature.input_ids, dtype=np.int64)
+        input_mask[idx, :] = np.array(feature.input_mask, dtype=np.int64)
+        segment_ids[idx, :] = np.array(feature.segment_ids, dtype=np.int64)
+
+    input_ids.astype('int64').tofile(tokenized_squad_path + "_input_ids.raw")
+    input_mask.astype('int64').tofile(tokenized_squad_path + "_input_mask.raw")
+    segment_ids.astype('int64').tofile(tokenized_squad_path + "_segment_ids.raw")
+
+else: # pickle
+
+    import pickle
+
+    print("Recording features to {} ...".format(tokenized_squad_path + ".pickle"))
+    with open(tokenized_squad_path + ".pickle", 'wb') as cache_file:
+
+        pickle.dump(eval_features, cache_file)
+
 
