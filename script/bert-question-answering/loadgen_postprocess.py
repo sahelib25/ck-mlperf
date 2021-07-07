@@ -80,7 +80,17 @@ def ck_postprocess(i):
   # to be unreliable with compliance TEST01 which samples accuracy.
   accuracy_mode = (save_dict['parsed_summary'] == {})
   if accuracy_mode:
-    os.environ['PYTHONPATH'] = deps['lib-python-numpy']['dict']['env']['PYTHONPATH'].split(':')[0] +':'+os.environ.get('PYTHONPATH','')
+
+    ## Combine the PYTHONPATH environments from all deps that might contain it and load it for the accuracy script:
+    #
+    pp_list = []
+    for dep in sorted( deps.values(), key=lambda x: int(x['sort']) ):
+        dep_pp = dep['dict']['env'].get('PYTHONPATH')
+        if dep_pp:
+            pp_list.append( dep_pp.split(':')[0] )
+    pp_list.append( os.environ.get('PYTHONPATH','') )
+
+    os.environ['PYTHONPATH'] = ':'.join( pp_list )
 
     command = [ deps['python']['dict']['env']['CK_ENV_COMPILER_PYTHON_FILE'], BERT_CODE_ROOT+'/accuracy-squad.py',
               '--vocab_file', DATASET_TOKENIZATION_VOCAB,
