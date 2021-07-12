@@ -16,7 +16,7 @@ max_query_length        = int(sys.argv[5])
 doc_stride              = int(sys.argv[6])
 
 convert_to_raw          = sys.argv[7] == "yes"
-first_100               = sys.argv[8] == "yes"
+calibration_dataset     = sys.argv[8]
 
 BERT_CODE_ROOT=os.environ['CK_ENV_MLPERF_INFERENCE']+'/language/bert'
 
@@ -29,10 +29,14 @@ print("Creating the tokenizer from {} ...".format(tokenization_vocab_path))
 tokenizer = BertTokenizer(tokenization_vocab_path)
 
 print("Reading examples from {} ...".format(squad_original_path))
-eval_examples = read_squad_examples(input_file=squad_original_path, is_training=False, version_2_with_negative=False)
+examples = read_squad_examples(input_file=squad_original_path, is_training=False, version_2_with_negative=False)
 
-if first_100:
-    eval_examples = eval_examples[0:100]
+if calibration_dataset != "":
+    calib_examples = []
+    with open(calibration_dataset, 'r') as fp:
+        for example in fp:
+            calib_examples.append(examples[int(example)])
+        examples = calib_examples
 
 eval_features = []
 def append_feature(feature):
@@ -40,7 +44,7 @@ def append_feature(feature):
 
 print("Tokenizing examples to features (max_seq_length={}, max_query_length={}, doc_stride={}) ...".format(max_seq_length, max_query_length, doc_stride))
 convert_examples_to_features(
-    examples=eval_examples,
+    examples=examples,
     tokenizer=tokenizer,
     max_seq_length=max_seq_length,
     doc_stride=doc_stride,

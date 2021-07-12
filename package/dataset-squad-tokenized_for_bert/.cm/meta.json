@@ -100,9 +100,9 @@
             "DATASET_SEGMENT_IDS": "bert_tokenized_squad_v1_1_segment_ids.raw"
         }
     },
-    "first.100": {
+    "calibration": {
         "extra_env": {
-            "DATASET_FIRST_100": "yes"
+            "DATASET_CALIBRATION": "yes"
         }
     }
   }

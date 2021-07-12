@@ -1,6 +1,12 @@
 #!/bin/bash
 
-env
+if [ "$DATASET_CALIBRATION" == "yes" ]
+then
+wget https://raw.githubusercontent.com/mlcommons/inference/master/calibration/SQuAD-v1.1/bert-calibration.txt -P ${INSTALL_DIR}/calib/
+DATASET_CALIBRATION_FILE=${INSTALL_DIR}/calib/bert-calibration.txt
+else
+DATASET_CALIBRATION_FILE=""
+fi
 
 "$CK_ENV_COMPILER_PYTHON_FILE" "${PACKAGE_DIR}/tokenize_and_pack.py" \
     "$CK_ENV_DATASET_SQUAD_ORIGINAL" \
@@ -10,4 +16,4 @@ env
     "$DATASET_MAX_QUERY_LENGTH" \
     "$DATASET_DOC_STRIDE" \
     "$DATASET_RAW" \
-    "$DATASET_FIRST_100" \
+    "$DATASET_CALIBRATION_FILE" \
