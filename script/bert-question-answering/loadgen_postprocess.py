@@ -84,10 +84,16 @@ def ck_postprocess(i):
     ## Combine the PYTHONPATH environments from all deps that might contain it and load it for the accuracy script:
     #
     pp_list = []
-    for dep in sorted( deps.values(), key=lambda x: int(x['sort']) ):
-        dep_pp = dep['dict']['env'].get('PYTHONPATH')
-        if dep_pp:
-            pp_list.append( dep_pp.split(':')[0] )
+    for dep1 in sorted( deps.values(), key=lambda x: int(x['sort']) ):          # work with top level deps
+        deps2 = dep1['dict'].get('deps', {})
+        for dep2 in sorted( deps2.values(), key=lambda x: int(x['sort']) ):     # also include next level deps (not deeper!)
+            dep2_pp = dep2['dict']['env'].get('PYTHONPATH')
+            if dep2_pp:
+                pp_list.append( dep2_pp.split(':')[0] )
+
+        dep1_pp = dep1['dict']['env'].get('PYTHONPATH')
+        if dep1_pp:
+            pp_list.append( dep1_pp.split(':')[0] )
     pp_list.append( os.environ.get('PYTHONPATH','') )
 
     os.environ['PYTHONPATH'] = ':'.join( pp_list )
