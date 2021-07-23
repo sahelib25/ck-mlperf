@@ -22,7 +22,6 @@ rm -rf "$PWD"/*
     --ntp "$CK_MLPERF_POWER_CLIENT_NTP" \
     --loadgen-logs "$CK_MLPERF_POWER_CLIENT_LOADGEN_LOGS" \
     --output "$PWD" \
-    --fetch-logs \
     --force
 
 # Move tmp/2021-02-19_16-50-28/* into tmp/*
