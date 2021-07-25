@@ -51,7 +51,7 @@ convert_examples_to_features(
     max_query_length=max_query_length,
     is_training=False,
     output_fn=append_feature,
-    verbose_logging=True)
+    verbose_logging=False)
 
 
 if convert_to_raw:
