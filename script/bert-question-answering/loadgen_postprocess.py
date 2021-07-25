@@ -33,8 +33,7 @@ def ck_postprocess(i):
   inference_src_env     = deps['mlperf-inference-src']['dict']['env']
   MLPERF_MAIN_CONF      = inference_src_env['CK_ENV_MLPERF_INFERENCE_MLPERF_CONF']
   BERT_CODE_ROOT        = inference_src_env['CK_ENV_MLPERF_INFERENCE']+'/language/bert'
-  sys.path.insert(0, BERT_CODE_ROOT)
-  sys.path.insert(0, BERT_CODE_ROOT + '/DeepLearningExamples/TensorFlow/LanguageModeling/BERT')
+  BERT_MODULES_DIR      = os.path.join( BERT_CODE_ROOT, "DeepLearningExamples", "TensorFlow", "LanguageModeling", "BERT")
 
   SQUAD_DATASET_ORIGINAL_PATH   = deps['dataset-original']['dict']['env']['CK_ENV_DATASET_SQUAD_ORIGINAL']
   SQUAD_DATASET_TOKENIZED_PATH  = deps['dataset-tokenized']['dict']['env']['CK_ENV_DATASET_SQUAD_TOKENIZED']
@@ -95,6 +94,8 @@ def ck_postprocess(i):
         if dep1_pp:
             pp_list.append( dep1_pp.split(':')[0] )
     pp_list.append( os.environ.get('PYTHONPATH','') )
+
+    pp_list.insert( 0, BERT_MODULES_DIR )
 
     os.environ['PYTHONPATH'] = ':'.join( pp_list )
 
