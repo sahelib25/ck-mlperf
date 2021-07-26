@@ -86,7 +86,7 @@ def ck_postprocess(i):
     for dep1 in sorted( deps.values(), key=lambda x: int(x['sort']) ):          # work with top level deps
         deps2 = dep1['dict'].get('deps', {})
         for dep2 in sorted( deps2.values(), key=lambda x: int(x['sort']) ):     # also include next level deps (not deeper!)
-            dep2_pp = dep2['dict']['env'].get('PYTHONPATH')
+            dep2_pp = dep2.get('dict',{}).get('env',{}).get('PYTHONPATH')       # some of it may be missing
             if dep2_pp:
                 pp_list.append( dep2_pp.split(':')[0] )
 
