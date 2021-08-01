@@ -43,7 +43,7 @@ index dc77808..ab9c0d9 100644
 +    for param in model.parameters():
 +        param.requires_grad = False
 +    model = model.eval()
-+    torch.onnx.export(model, inp, 'SSDMobileNetV1_300_300_Without_ABP_NMS.onnx', opset_version=10)
++    torch.onnx.export(model, inp, 'SSDMobileNetV1_300_300_Without_ABP_NMS.onnx', opset_version=11)
 +    print("ONNX Model Without ABP_NMS is generated")
 +    #return model
 +

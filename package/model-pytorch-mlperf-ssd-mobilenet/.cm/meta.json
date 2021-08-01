@@ -51,12 +51,44 @@
       "sort": 15,
       "tags": "lib,pytorch"
     },
-   "mlperf-source": {
+    "mlperf-source": {
+      "enable_if_env": [
+        {
+          "SIMPLIFY_ONNX": [
+            "on",
+            "ON",
+            "yes",
+            "YES",
+            "true",
+            "TRUE",
+            "1"
+          ]
+        }
+      ],
       "local": "yes",
       "name": "MLPerf Source",
       "sort": 20,
       "tags": "mlperf,inference,source"
-    }
+    },
+    "onnx": {
+      "enable_if_env": [
+        {
+          "SIMPLIFY_ONNX": [
+            "on",
+            "ON",
+            "yes",
+            "YES",
+            "true",
+            "TRUE",
+            "1"
+          ]
+        }
+      ],
+      "local": "yes",
+      "name": "Python ONNX",
+      "sort": 25,
+      "tags": "lib,onnx,for.ssd-mobilenet"
+    }     
   },
   "package_extra_name": " (MLPerf SSD-MobileNet Pytorch)",
   "process_script": "install",
