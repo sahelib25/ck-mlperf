@@ -18,5 +18,6 @@ if [[ -n ${SIMPLIFY_ONNX} ]]; then
   echo "Running the split_and_simplify.py to remove NMS and generate the simplified graph"
   echo "python3 -W ignore split_and_simplify.py ./SSDMobileNetV1_300_300${FILESUFFIX}.onnx"
   python3 -W ignore split_and_simplify.py  "./SSDMobileNetV1_300_300${FILESUFFIX}.onnx"
+  rm ./SSDMobileNetV1_300_300${FILESUFFIX}.onnx
 fi
 exit 0     
