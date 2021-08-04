@@ -1,0 +1,110 @@
+{
+  "check_exit_status": "yes",
+  "customize": {
+    "extra_dir": "",
+    "install_env": {
+      "ML_MODEL_DATA_LAYOUT": "NHWC",
+      "ML_MODEL_MODEL_NAME": "ssd-mobilenet",
+      "MODEL_CLASSES_LABELS": "flatlabels.txt",
+      "FLATLABELS_FILE": "flatlabels.txt",
+      "ML_MODEL_DATASET_TYPE": "coco",
+      "ML_MODEL_IMAGE_HEIGHT": "300",
+      "ML_MODEL_IMAGE_WIDTH": "300",
+      "ML_MODEL_INPUT_LAYER_NAME": "image_tensor:0",
+      "ML_MODEL_NAME": "MLPerf SSD-MobileNet",
+      "ML_MODEL_NORMALIZE_DATA": "YES",
+      "ML_MODEL_OUTPUT_LAYER_BBOXES": "detection_boxes:0",
+      "ML_MODEL_OUTPUT_LAYER_LABELS": "detection_classes:0",
+      "ML_MODEL_OUTPUT_LAYER_SCORES": "detection_scores:0",
+      "PACKAGE_NAME": "ssd_mobilenet_v1.pytorch",
+      "PACKAGE_SKIP_CLEAN_PACKAGE": "YES",
+      "PACKAGE_SKIP_LINUX_MAKE": "YES",
+      "PACKAGE_URL": "https://zenodo.org/record/3239977/files/",
+      "PACKAGE_WGET": "YES"
+    },
+    "no_os_in_suggested_path": "yes",
+    "no_ver_in_suggested_path": "yes",
+    "skip_file_check": "yes",
+    "version": "reference"
+  },
+  "end_full_path": {
+    "linux": "ssd_mobilenet_v1.pytorch"
+  },
+  "only_for_host_os_tags": [
+    "linux"
+  ],
+  "only_for_target_os_tags": [
+    "linux"
+  ],
+  "deps": {
+    "python": {
+      "add_to_path": "yes",
+      "local": "yes",
+      "name": "Python interpreter",
+      "sort": 10,
+      "tags": "compiler,python"
+    },
+    "pytorch": {
+      "add_to_path": "yes",
+      "local": "yes",
+      "name": "Python PyTorch library",
+      "sort": 15,
+      "tags": "lib,pytorch"
+    },
+    "mlperf-source": {
+      "local": "yes",
+      "name": "MLPerf Source",
+      "sort": 20,
+      "tags": "mlperf,inference,source"
+    },
+    "onnx": {
+      "enable_if_env": [
+        {
+          "SIMPLIFY_ONNX": [
+            "on",
+            "ON",
+            "yes",
+            "YES",
+            "true",
+            "TRUE",
+            "1"
+          ]
+        }
+      ],
+      "local": "yes",
+      "name": "Python ONNX",
+      "sort": 25,
+      "tags": "lib,onnx"
+    }     
+  },
+  "package_extra_name": " (MLPerf SSD-MobileNet Pytorch)",
+  "process_script": "install",
+  "soft_uoa": "bcaac306e9041879",
+  "suggested_path": "model-pytorch-mlperf-ssd-mobilenet-downloaded",
+  "tags": [
+    "mlperf",
+    "object-detection",
+    "model",
+    "pytorch",
+    "ssd",
+    "ssd-mobilenet",
+    "non-quantized",
+    "nhwc",
+    "vcoco",
+    "channel-stable",
+    "side.300",
+    "downloaded"
+  ],
+  "use_scripts_from_another_entry": {
+    "data_uoa": "download-and-install-package",
+    "module_uoa": "script"
+  },
+  "variations": {
+    "for.qaic": {
+      "extra_env": {
+        "SIMPLIFY_ONNX": "yes",
+        "WITHOUT_ABP_NMS": "yes"
+      }
+    }
+  }
+}
