@@ -20,8 +20,8 @@ echo "The SSDMobileNetV1_300_300${FILESUFFIX}.onnx is generated"
 if [[ -n ${SIMPLIFY_ONNX} ]]; then
   cp ${ORIGINAL_PACKAGE_DIR}/split_and_simplify.py ${INSTALL_DIR}/
   echo "Running the split_and_simplify.py to remove NMS and generate the simplified graph"
-  echo "python3 -W ignore split_and_simplify.py ./SSDMobileNetV1_300_300${FILESUFFIX}.onnx"
-  python3 -W ignore split_and_simplify.py  "./SSDMobileNetV1_300_300${FILESUFFIX}.onnx"
+  echo "${CK_ENV_COMPILER_PYTHON_FILE} -W ignore split_and_simplify.py ./SSDMobileNetV1_300_300${FILESUFFIX}.onnx"
+  ${CK_ENV_COMPILER_PYTHON_FILE} -W ignore split_and_simplify.py  "./SSDMobileNetV1_300_300${FILESUFFIX}.onnx"
   rm ./SSDMobileNetV1_300_300${FILESUFFIX}.onnx
 fi
 exit_if_error
