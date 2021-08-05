@@ -16,8 +16,9 @@
       "sort": 10,
       "tags": "mlperf,inference,source",
       "update_tags_if_env" : {
-        "r1.0":    [ { "PACKAGE_VERSION": "1.0" } ],
-        "r1.1":    [ { "PACKAGE_VERSION": "1.1" } ]
+        "r1.0":             [ { "PACKAGE_VERSION": "1.0" } ],
+        "r1.1":             [ { "PACKAGE_VERSION": "1.1" } ],
+        "py11bind.patch":   [ { "PACKAGE_VERSION": "1.1-py11bind.patch" } ]
       }
     },
     "compiler": {
@@ -72,6 +73,11 @@
     "r1.1": {
         "extra_env": {
             "PACKAGE_VERSION": "1.1"
+        }
+    },
+    "py11bind.patch": {
+        "extra_env": {
+            "PACKAGE_VERSION": "1.1-py11bind.patch"
         }
     }
   }

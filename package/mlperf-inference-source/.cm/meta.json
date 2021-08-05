@@ -7,6 +7,9 @@
       "PACKAGE_GIT": "YES",
       "PACKAGE_GIT_SUBMODULES": "YES",
       "PACKAGE_PATCH": "NO",
+      "PACKAGE_PATCH_LIST": "\\$<<ORIGINAL_PACKAGE_DIR>>$/patch.linux.variations/\\$<<PACKAGE_PATCH_PY11BIND>>$ \\$<<ORIGINAL_PACKAGE_DIR>>$/patch.linux.variations/\\$<<PACKAGE_PATCH_AIMET>>$",
+      "PACKAGE_PATCH_PY11BIND": "",
+      "PACKAGE_PATCH_AIMET": "",
       "PACKAGE_SKIP_CLEAN_SRC_DIR": "YES",
       "PACKAGE_SKIP_LINUX_MAKE": "YES",
       "PACKAGE_SUB_DIR": "inference"
@@ -140,13 +143,25 @@
       "extra_env": {
         "PACKAGE_URL": "https://github.com/mlcommons/inference",
         "PACKAGE_GIT_CHECKOUT": "r1.0",
-	"PACKAGE_PATCH": "YES"
+        "PACKAGE_PATCH": "YES",
+        "PACKAGE_PATCH_AIMET": "aimet_patch"
       },
       "extra_customize": {
         "package_extra_name": " (v1.0 branch patched for AIMET)",
         "version": "r1.0 patched"
       }
-
+    },
+    "py11bind.patch": {
+      "extra_env": {
+        "PACKAGE_URL": "https://github.com/mlcommons/inference",
+        "PACKAGE_GIT_CHECKOUT": "r1.1",
+        "PACKAGE_PATCH": "YES",
+        "PACKAGE_PATCH_PY11BIND": "py11bind_patch"
+      },
+      "extra_customize": {
+        "package_extra_name": " (v1.1 branch with py11bind patch)",
+        "version": "r1.1 py11bind patched"
+      }
     }
   },
   "use_scripts_from_another_entry": {
