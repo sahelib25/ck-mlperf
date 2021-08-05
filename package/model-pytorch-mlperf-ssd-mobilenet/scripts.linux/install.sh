@@ -13,7 +13,7 @@ if [[ -n ${WITHOUT_ABP_NMS} ]]; then
 fi
 
 
-python3 -W ignore ssd_mobilenet_v1.py --input_model ./ssd_mobilenet_v1.pytorch
+${CK_ENV_COMPILER_PYTHON_FILE} -W ignore ssd_mobilenet_v1.py --input_model ./ssd_mobilenet_v1.pytorch
 
 echo "The SSDMobileNetV1_300_300${FILESUFFIX}.onnx is generated"
 
