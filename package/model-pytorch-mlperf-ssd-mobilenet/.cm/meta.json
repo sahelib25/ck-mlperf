@@ -74,7 +74,17 @@
       "local": "yes",
       "name": "Python ONNX",
       "sort": 25,
-      "tags": "lib,onnx,for.qaic"
+      "tags": "lib,onnx,for.qaic",
+      "version_from": [
+        1,
+        8,
+        0
+      ],
+      "version_to": [
+        1,
+        8,
+        99
+      ]
     }     
   },
   "package_extra_name": " (MLPerf SSD-MobileNet Pytorch)",
