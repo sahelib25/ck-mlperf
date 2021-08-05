@@ -69,6 +69,6 @@ except:
 
 model_def = onnx.load(onnx_filename)
 
-model_def = ModifyReshapeNodes(model_def)
 model_def = SimplifyOnnxModel(model_def)
+model_def = ModifyReshapeNodes(model_def)
 onnx.save(model_def, "./simplified.onnx")

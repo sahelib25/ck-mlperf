@@ -31,9 +31,9 @@
     "windows", 
     "linux"
   ], 
-  "process_script": "install", 
+  "process_script": "install",
   "soft_uoa": "ba0d59d9556b4832", 
-  "suggested_path": "lib-python-onnx", 
+  "suggested_path": "lib-python-onnx",
   "tags": [
     "lib", 
     "python-package", 
@@ -52,6 +52,11 @@
         "extra_env": {
             "BUILDING_FROM_SOURCE": "YES"
         }
+    },
+    "for.qaic": {
+        "extra_env": {
+            "PATCH_CHECKER": "YES"
+        } 
     }
   },
   "use_scripts_from_another_entry": {

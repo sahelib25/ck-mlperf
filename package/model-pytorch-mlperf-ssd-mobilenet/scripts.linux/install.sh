@@ -1,4 +1,8 @@
 #!/bin/bash
+function exit_if_error() {
+    if [ "${?}" != "0" ]; then exit 1; fi
+}
+
 
 FILESUFFIX=""
 cp ${CK_ENV_MLPERF_INFERENCE_VISION}/"classification_and_detection/python/models/ssd_mobilenet_v1.py" ${INSTALL_DIR}/
@@ -20,4 +24,5 @@ if [[ -n ${SIMPLIFY_ONNX} ]]; then
   python3 -W ignore split_and_simplify.py  "./SSDMobileNetV1_300_300${FILESUFFIX}.onnx"
   rm ./SSDMobileNetV1_300_300${FILESUFFIX}.onnx
 fi
+exit_if_error
 exit 0     
