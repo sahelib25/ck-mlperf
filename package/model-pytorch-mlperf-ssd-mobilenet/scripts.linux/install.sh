@@ -40,6 +40,7 @@ cp ${CK_ENV_MLPERF_INFERENCE_VISION}/"classification_and_detection/python/models
 if [[ -n ${WITHOUT_ABP_NMS} ]]; then
   cp ${ORIGINAL_PACKAGE_DIR}/ssdMobileNetV1WithoutABPNMS.patch ${INSTALL_DIR}/
   patch ssd_mobilenet_v1.py ssdMobileNetV1WithoutABPNMS.patch
+  exit_if_error
   FILESUFFIX="_Without_ABP_NMS"
 fi
 
@@ -53,6 +54,7 @@ if [[ -n ${SIMPLIFY_ONNX} ]]; then
   echo "Running the split_and_simplify.py to remove NMS and generate the simplified graph"
   echo "${CK_ENV_COMPILER_PYTHON_FILE} -W ignore split_and_simplify.py ./SSDMobileNetV1_300_300${FILESUFFIX}.onnx"
   ${CK_ENV_COMPILER_PYTHON_FILE} -W ignore split_and_simplify.py  "./SSDMobileNetV1_300_300${FILESUFFIX}.onnx"
+  exit_if_error
   rm ./SSDMobileNetV1_300_300${FILESUFFIX}.onnx
 fi
 exit_if_error
