@@ -74,7 +74,26 @@
       "local": "yes",
       "name": "Python ONNX",
       "sort": 25,
-      "tags": "lib,onnx,for.qaic"
+      "tags": "lib,python-package,onnx,for.qaic"
+    },     
+    "onnx-simplifier": {
+      "enable_if_env": [
+        {
+          "SIMPLIFY_ONNX": [
+            "on",
+            "ON",
+            "yes",
+            "YES",
+            "true",
+            "TRUE",
+            "1"
+          ]
+        }
+      ],
+      "local": "yes",
+      "name": "Python ONNX Simplifier",
+      "sort": 30,
+      "tags": "lib,python-package,onnx-simplifier"
     }     
   },
   "package_extra_name": " (MLPerf SSD-MobileNet Pytorch)",

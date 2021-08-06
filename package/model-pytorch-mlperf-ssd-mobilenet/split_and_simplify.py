@@ -47,12 +47,12 @@ def SimplifyOnnxModel(model):
 def ModifyReshapeNodes(model):
     for node in model.graph.node:
         if node.op_type == "Reshape":
-            for i, t in enumerate(model.graph.initializer):
-                if t.name == node.input[1]:
-                    shapeInfo = onh.to_array(t)
-                    shapeCopy = shapeInfo.copy()
-                    shapeCopy[0] = 0
-                    rawNumpydata = onh.from_array(shapeCopy)
+            for i, n in enumerate(model.graph.initializer):
+                if n.name == node.input[1]:
+                    shapeInfo = onh.to_array(n)
+                    shape = onh.to_array(n).copy()
+                    shape[0] = 0
+                    rawNumpydata = onh.from_array(shape)
                     model.graph.initializer[i].raw_data = rawNumpydata.raw_data
     return model
 
