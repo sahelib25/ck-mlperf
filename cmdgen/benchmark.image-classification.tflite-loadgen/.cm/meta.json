@@ -92,7 +92,7 @@
     },
     "library": {
       "armnn-v21.05-neon": {
-        "ck_env": "--env.USE_NEON=1",
+        "ck_env": "--env.USE_NEON=1 --env.USE_OPENCL=0",
         "deps": "--dep_add_tags.library=armnn,rel.21.05,neon",
         "program_name": "image-classification-armnn-tflite-loadgen",
         "record_tags": [
@@ -102,7 +102,7 @@
         ]
       },
       "armnn-v21.05-opencl": {
-        "ck_env": "--env.USE_OPENCL=1",
+        "ck_env": "--env.USE_NEON=0 --env.USE_OPENCL=1",
         "deps": "--dep_add_tags.library=armnn,rel.21.05,opencl",
         "program_name": "image-classification-armnn-tflite-loadgen",
         "record_tags": [
