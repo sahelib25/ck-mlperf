@@ -9,7 +9,7 @@
     "no_ver_in_suggested_path": "yes"
   },
   "deps": {
-    "mlperf-inference": {
+    "mlperf-inference-src": {
       "add_to_path": "no",
       "local": "yes",
       "name": "MLPerf Inference source",

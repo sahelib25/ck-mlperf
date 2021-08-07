@@ -30,7 +30,8 @@ def ck_postprocess(i):
   include_trace         = env.get('CK_LOADGEN_INCLUDE_TRACE', '') in ('YES', 'Yes', 'yes', 'TRUE', 'True', 'true', 'ON', 'On', 'on', '1')
   LOADGEN_DATASET_SIZE  = env.get('CK_LOADGEN_DATASET_SIZE', '')
 
-  inference_src_env     = deps['mlperf-inference-src']['dict']['env']
+  inference_src         = deps.get('mlperf-inference-src') or deps['lib-python-loadgen']['dict']['deps']['mlperf-inference-src']
+  inference_src_env     = inference_src['dict']['env']
   MLPERF_MAIN_CONF      = inference_src_env['CK_ENV_MLPERF_INFERENCE_MLPERF_CONF']
   BERT_CODE_ROOT        = inference_src_env['CK_ENV_MLPERF_INFERENCE']+'/language/bert'
   BERT_MODULES_DIR      = os.path.join( BERT_CODE_ROOT, "DeepLearningExamples", "TensorFlow", "LanguageModeling", "BERT")
