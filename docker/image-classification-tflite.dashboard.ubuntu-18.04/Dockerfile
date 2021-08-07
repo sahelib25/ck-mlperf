@@ -34,19 +34,20 @@ ENV CK_ROOT=/home/dvdt/CK \
     CK_TOOLS=/home/dvdt/CK_TOOLS \
     PATH=${CK_ROOT}/bin:/home/dvdt/.local/bin:${PATH} \
     CK_PYTHON=python3 \
+    CK_VER=1.55.5 \
     CK_CC=gcc \
     GIT_USER="dividiti" \
     GIT_EMAIL="info@dividiti.com" \
     LANG=C.UTF-8
 RUN mkdir -p ${CK_ROOT} ${CK_REPOS} ${CK_TOOLS}
 RUN git config --global user.name ${GIT_USER} && git config --global user.email ${GIT_EMAIL}
-RUN git clone https://github.com/ctuning/ck.git ${CK_ROOT}
+RUN git clone --branch V${CK_VER} https://github.com/ctuning/ck.git ${CK_ROOT}
 RUN cd ${CK_ROOT} \
  && ${CK_PYTHON} setup.py install --user \
  && ${CK_PYTHON} -c "import ck.kernel as ck; print ('Collective Knowledge v%s' % ck.__version__)"
 
 # Pull CK repositories (including ck-env, ck-autotuning and ck-tensorflow).
-RUN ck pull repo:ck-mlperf
+RUN ck pull repo --url=https://github.com/krai/ck-mlperf
 
 # Create a repository for benchmarking results.
 RUN ck create repo:mlperf-mobilenets --quiet
@@ -69,13 +70,16 @@ RUN ck install package --tags=lib,python-package,pillow
 # Install pandas for dashboard.
 RUN ${CK_PYTHON} -m pip install pandas --user
 
+# Install CMake.
+RUN ck install package --tags=tool,cmake,downloaded
+
 # Install TFLite.
-RUN ck install package --tags=lib,tensorflow-lite,tensorflow-static,v1.13.1
+RUN ck install package --tags=lib,tflite,v2.5.0
 
 # Download and preprocess the first 500 images of the ImageNet 2012 validation dataset.
 RUN ck install package --tags=dataset,imagenet,aux
 RUN ck install package --tags=dataset,imagenet,val,original,min --no_tags=resized
-RUN ck install package --tags=dataset,imagenet,val,preprocessed
+RUN ck install package --tags=dataset,imagenet,val,preprocessed,using-pillow
 
 # Download the MobileNet TF/TFLite models (non-quantized and quantized).
 # https://github.com/mlperf/inference/blob/master/edge/object_classification/mobilenets/tflite/README.md#install-the-mobilenet-models-for-tflite
