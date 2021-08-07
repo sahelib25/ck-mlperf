@@ -68,3 +68,18 @@ $ ck run ck-mlperf:program:dump-submissions-to-dashboard \
 --env.CK_MLPERF_DASHBOARD_FILE=mlperf-inference-v0.7-results.zip \
 --dep_add_tags.python=v3.8
 ```
+
+## Profit!
+
+### Vanilla
+
+```
+$ python3.7 -m pip install ck==1.55.5 pandas
+$ CK_PYTHON=python3.7 ck display dashboard --scenario=mlperf.inference
+```
+
+**NB:** Does not work with `python3.8` on Ubuntu 20.04.
+
+### Docker
+
+See an advanced example of launching the dashboard [here](https://github.com/krai/ck-mlperf/blob/master/docker/image-classification-tflite.dashboard.ubuntu-18.04/Dockerfile#L150).
