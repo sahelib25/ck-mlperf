@@ -79,7 +79,7 @@
     "onnx-simplifier": {
       "enable_if_env": [
         {
-          "SIMPLIFY_ONNX": [
+          "SIMPLIFY_ONNX_ENABLED": [
             "on",
             "ON",
             "yes",
