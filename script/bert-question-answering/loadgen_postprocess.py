@@ -36,10 +36,13 @@ def ck_postprocess(i):
   BERT_CODE_ROOT        = inference_src_env['CK_ENV_MLPERF_INFERENCE']+'/language/bert'
   BERT_MODULES_DIR      = os.path.join( BERT_CODE_ROOT, "DeepLearningExamples", "TensorFlow", "LanguageModeling", "BERT")
 
-  SQUAD_DATASET_ORIGINAL_PATH   = deps['dataset-original']['dict']['env']['CK_ENV_DATASET_SQUAD_ORIGINAL']
-  SQUAD_DATASET_TOKENIZED_PATH  = deps['dataset-tokenized']['dict']['env']['CK_ENV_DATASET_SQUAD_TOKENIZED']
+  dataset_tokenized     = deps['dataset-tokenized']
+  dataset_original      = deps.get('dataset-original') or dataset_tokenized['dict']['deps']['dataset-original']
+  dataset_vocab         = deps.get('dataset-vocab') or dataset_tokenized['dict']['deps']['dataset-vocab']
 
-  DATASET_TOKENIZATION_VOCAB = deps['dataset-tokenized']['dict']['deps']['dataset-vocab']['dict']['env']['CK_ENV_DATASET_TOKENIZATION_VOCAB']
+  SQUAD_DATASET_ORIGINAL_PATH   = dataset_original['dict']['env']['CK_ENV_DATASET_SQUAD_ORIGINAL']
+  SQUAD_DATASET_TOKENIZED_PATH  = dataset_tokenized['dict']['env']['CK_ENV_DATASET_SQUAD_TOKENIZED']
+  DATASET_TOKENIZATION_VOCAB    = dataset_vocab['dict']['env']['CK_ENV_DATASET_TOKENIZATION_VOCAB']
   
   save_dict = {}
 

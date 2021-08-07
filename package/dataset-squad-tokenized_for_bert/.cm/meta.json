@@ -10,7 +10,7 @@
     "skip_file_check": "yes"
   },
   "deps": {
-    "dataset-squad": {
+    "dataset-original": {
       "local": "yes",
       "name": "Original SQuAD 1.1 dataset",
       "sort": 10,
