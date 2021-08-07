@@ -56,3 +56,15 @@ $ ck run ck-mlperf:program:dump-submissions-to-dashboard \
 --env.CK_MLPERF_DASHBOARD_FILE=mlperf-inference-unofficial-results.zip \
 --env.CK_MLPERF_DASHBOARD_DIR=`pwd`
 ```
+
+
+#### Custom 2
+
+Dump `mlperf-inference-v0.7-results.zip` from `$HOME/projects/mlperf/submissions_inference_0_7` into the dashboard directory using Python v3.8:
+
+```bash
+$ ck run ck-mlperf:program:dump-submissions-to-dashboard \
+--env.CK_MLPERF_SUBMISSION_ROOT=$HOME/projects/mlperf/submissions_inference_0_7 \
+--env.CK_MLPERF_DASHBOARD_FILE=mlperf-inference-v0.7-results.zip \
+--dep_add_tags.python=v3.8
+```
