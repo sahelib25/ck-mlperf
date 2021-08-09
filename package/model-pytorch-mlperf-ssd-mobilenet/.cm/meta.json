@@ -8,6 +8,7 @@
       "MODEL_CLASSES_LABELS": "flatlabels.txt",
       "FLATLABELS_FILE": "flatlabels.txt",
       "ML_MODEL_DATASET_TYPE": "coco",
+      "ONNX_MODEL_DATASET_TYPE": "coco",
       "ML_MODEL_IMAGE_HEIGHT": "300",
       "ML_MODEL_IMAGE_WIDTH": "300",
       "ML_MODEL_INPUT_LAYER_NAME": "image_tensor:0",
