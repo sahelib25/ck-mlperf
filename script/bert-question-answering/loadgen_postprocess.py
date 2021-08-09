@@ -30,7 +30,7 @@ def ck_postprocess(i):
   include_trace         = env.get('CK_LOADGEN_INCLUDE_TRACE', '') in ('YES', 'Yes', 'yes', 'TRUE', 'True', 'true', 'ON', 'On', 'on', '1')
   LOADGEN_DATASET_SIZE  = env.get('CK_LOADGEN_DATASET_SIZE', '')
 
-  loadgen_dep           = deps['lib-python-loadgen']
+  loadgen_dep           = deps.get('lib-python-loadgen', {})
   python_dep            = deps.get('python') or loadgen_dep['dict']['deps']['python']
   inference_src_dep     = deps.get('mlperf-inference-src') or loadgen_dep['dict']['deps']['mlperf-inference-src']
   inference_src_env     = inference_src_dep['dict']['env']
