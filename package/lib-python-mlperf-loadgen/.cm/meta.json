@@ -26,14 +26,15 @@
       "local": "yes",
       "name": "C++ compiler",
       "sort": 15,
-      "tags": "compiler,lang-cpp"
+      "tags": "compiler,lang-cpp,gcc"
     },
     "python": {
       "add_to_path": "yes",
       "local": "yes",
       "name": "Python interpreter",
       "sort": 20,
-      "tags": "compiler,python"
+      "tags": "compiler,python",
+      "version_from": [ 3, 6, 0]
     },
     "lib-python-absl": {
       "local": "yes",
