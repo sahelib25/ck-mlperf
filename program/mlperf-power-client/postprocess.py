@@ -36,7 +36,7 @@ def load_dir(basename, raw=False):
     return result
 
 
-def main():
+def ck_postprocess(i):
     result = {
         "power": {
             "client.json": load_json("power/client.json"),
@@ -53,5 +53,5 @@ def main():
     with open("tmp-ck-timer.json", "w") as f:
         json.dump(result, f, indent=2)
 
+    return {'return': 0}
 
-main()
