@@ -21,6 +21,13 @@
       "name": "MLCommons power",
       "sort": 40,
       "tags": "power,source"
+    },
+    "mlperf-inference-src": {
+      "force_target_as_host": "yes",
+      "local": "yes",
+      "name": "MLPerf Inference source",
+      "sort": 50,
+      "tags": "mlperf,inference,source"
     }
   },
   "run_cmds": {
@@ -28,7 +35,7 @@
       "ignore_return_code": "no",
       "run_time": {
         "run_cmd_main": "..$#dir_sep#$run.sh",
-	"fine_grain_timer_file": "tmp-ck-timer.json",
+	    "fine_grain_timer_file": "tmp-ck-timer.json",
         "post_process_via_ck": {
           "script_name": "postprocess"
         }
