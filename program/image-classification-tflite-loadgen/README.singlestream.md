@@ -1,4 +1,4 @@
-# MLPerf Inference v1.0 - Image Classification - TFLite
+# MLPerf Inference - Image Classification - TFLite
 
 ## SingleStream
 

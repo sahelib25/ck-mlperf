@@ -1,4 +1,4 @@
-# MLPerf Inference v1.0 - Image Classification - ArmNN
+# MLPerf Inference - Image Classification - ArmNN-TFLite
 
 ## SingleStream
 
