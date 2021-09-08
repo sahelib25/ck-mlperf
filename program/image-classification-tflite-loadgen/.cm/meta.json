@@ -131,7 +131,8 @@
       "local": "yes",
       "name": "Python NumPy library",
       "sort": 60,
-      "tags": "lib,python-package,numpy"
+      "tags": "lib,python-package,numpy",
+      "version_from": [ 1, 13, 1 ]
     }
   },
   "run_vars": {
