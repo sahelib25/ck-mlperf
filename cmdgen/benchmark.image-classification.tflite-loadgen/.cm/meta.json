@@ -151,6 +151,24 @@
           "inference_engine_backend.opencl"
         ]
       },
+      "tflite-v2.6.0": {
+        "deps": "--dep_add_tags.library=tflite,v2.6.0",
+        "program_name": "image-classification-tflite-loadgen",
+        "record_tags": [
+          "inference_engine.tflite",
+          "inference_engine_version.v2.6.0",
+          "inference_engine_backend.eigen"
+        ]
+      },
+      "tflite-v2.6.0-ruy": {
+        "deps": "--dep_add_tags.library=tflite,v2.6.0,with.ruy",
+        "program_name": "image-classification-tflite-loadgen",
+        "record_tags": [
+          "inference_engine.tflite",
+          "inference_engine_version.v2.6.0",
+          "inference_engine_backend.ruy"
+        ]
+      },
       "tflite-v2.5.0": {
 	"deps": "--dep_add_tags.library=tflite,v2.5.0",
         "program_name": "image-classification-tflite-loadgen",
