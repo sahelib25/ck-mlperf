@@ -73,9 +73,9 @@ RUN ${CK_PYTHON} -m pip install --ignore-installed pip setuptools --user
 
 
 #-----------------------------------------------------------------------------#
-# Step 1. Install prebuilt TensorFlow v2.1 (via pip).
+# Step 1. Install prebuilt TensorFlow v2.6 (via pip).
 #-----------------------------------------------------------------------------#
-RUN ck install package --tags=lib,tensorflow,python-package --force_version=2.1.0
+RUN ck install package --tags=lib,tensorflow,python-package --force_version=2.6.0
 #-----------------------------------------------------------------------------#
 
 
@@ -223,7 +223,7 @@ CMD ["ck run program:mlperf-inference-vision --cmd_key=direct \
 --env.CK_LOADGEN_SCENARIO=SingleStream \
 --env.CK_LOADGEN_EXTRA_PARAMS='--count 50' \
 --env.CK_LOADGEN_BACKEND=tensorflow \
---dep_add_tags.lib-tensorflow=vcuda --env.CUDA_VISIBLE_DEVICES=-1 \
+--dep_add_tags.lib-tensorflow=vpip --env.CUDA_VISIBLE_DEVICES=-1 \
 --dep_add_tags.weights=ssd,mobilenet-v1,fpn \
 --env.CK_LOADGEN_REF_PROFILE=default_tf_object_det_zoo \
 --env.CK_METRIC_TYPE=COCO \
