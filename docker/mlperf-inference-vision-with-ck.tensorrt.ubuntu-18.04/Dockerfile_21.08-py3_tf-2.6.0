@@ -1,4 +1,4 @@
-FROM nvcr.io/nvidia/tensorrt:20.06-py3
+FROM nvcr.io/nvidia/tensorrt:21.08-py3
 
 LABEL maintainer="Anton Lokhmotov <anton@dividiti.com>"
 
@@ -12,6 +12,7 @@ ENTRYPOINT ["/bin/bash", "-c"]
 # CK needs: git, wget, zip.
 # TF needs: curl.
 # TF Object Detection API needs ProtoBuf 3.0 which needs CMake.
+ENV DEBIAN_FRONTEND=noninteractive
 RUN apt update -y\
  && apt install -y apt-utils\
  && apt upgrade -y\
@@ -32,11 +33,11 @@ USER dvdt:dvdtg
 WORKDIR /home/dvdt
 
 # Install Collective Knowledge (CK). Make it group-executable.
-ENV CK_ROOT=/home/dvdt/CK \
-    CK_REPOS=/home/dvdt/CK_REPOS \
-    CK_TOOLS=/home/dvdt/CK_TOOLS \
-    CK_VER=1.55.5 \
-    PATH=${CK_ROOT}/bin:/home/dvdt/.local/bin:${PATH} \
+ENV CK_VER="1.55.5" \
+    CK_ROOT="/home/dvdt/CK" \
+    CK_REPOS="/home/dvdt/CK_REPOS" \
+    CK_TOOLS="/home/dvdt/CK_TOOLS" \
+    PATH="${CK_ROOT}/bin:/home/dvdt/.local/bin:${PATH}" \
     CK_CC=gcc \
     CK_PYTHON=python3 \
     GIT_USER="dividiti" \
@@ -64,10 +65,10 @@ RUN ck pull repo --url=http://github.com/krai/ck-object-detection.git
 RUN ck detect platform.os --platform_init_uoa=generic-linux-dummy
 
 # Detect C/C++ compiler (gcc).
-RUN ck detect soft:compiler.gcc --full_path=`which ${CK_CC}`
+RUN ck detect soft:compiler.gcc --full_path=$(which ${CK_CC})
 
 # Detect Python.
-RUN ck detect soft:compiler.python --full_path=`which ${CK_PYTHON}`
+RUN ck detect soft:compiler.python --full_path=$(which ${CK_PYTHON})
 # Install the latest Python package installer (pip) and some dependencies.
 RUN ${CK_PYTHON} -m pip install --ignore-installed pip setuptools --user
 
@@ -76,12 +77,18 @@ RUN ${CK_PYTHON} -m pip install --ignore-installed pip setuptools --user
 # Step 1. Install prebuilt TensorFlow v2.6 (via pip).
 #-----------------------------------------------------------------------------#
 RUN ck install package --tags=lib,tensorflow,python-package --force_version=2.6.0
+<<<<<<< HEAD:docker/mlperf-inference-vision-with-ck.tensorrt.ubuntu-18.04/Dockerfile_20.06-py3_tf-2.6.0
+=======
+# Remove NumPy v1.19.5 which conflicts with Python COCO API.
+RUN find /home/dvdt/CK_TOOLS/lib-python-tensorflow* -maxdepth 5 -name 'numpy*' \
+    -exec rm -r {} \;
+>>>>>>> Update TensorRT Vision image to TF v2.6.0.:docker/mlperf-inference-vision-with-ck.tensorrt.ubuntu-18.04/Dockerfile_21.08-py3_tf-2.6.0
 #-----------------------------------------------------------------------------#
 
 
-#-----------------------------------------------------------------------------#
-# Step 2. Install TensorFlow v2.0 with CUDA/TensorRT support from sources.
-#-----------------------------------------------------------------------------#
+# #-----------------------------------------------------------------------------#
+# # Step 2. Install TensorFlow v2.0 with CUDA/TensorRT support from sources.
+# #-----------------------------------------------------------------------------#
 # Install TF dependencies that currently have no CK packages.
 # RUN ${CK_PYTHON} -m pip install --user absl-py==0.9.0              # >=0.7.0
 # RUN ${CK_PYTHON} -m pip install --user astor==0.7.1                # >=0.6.0
@@ -138,7 +145,7 @@ RUN echo | ck install package --tags=object-detection,dataset,coco.2017,val,orig
 'rm $CK_ENV_DATASET_COCO_LABELS_DIR/*train2017.json'
 # Install Python COCO API.
 RUN ck install package --tags=lib,python-package,cython
-RUN ck install package --tags=lib,python-package,numpy
+RUN echo "" | ck install package --tags=lib,python-package,numpy
 RUN ck install package --tags=lib,python-package,matplotlib
 RUN ck install package --tags=tool,coco,api
 #-----------------------------------------------------------------------------#
@@ -214,10 +221,11 @@ RUN chmod -R g+rwx `ck find program:mlperf-inference-vision`
 
 #-----------------------------------------------------------------------------#
 # Run the official MLPerf Inference vision app
-# in the Accuracy mode and the SingleStream scenario
+# in the Accuracy mode and the Offline scenario
 # on the first 50 images of the COCO 2017 validation dataset
 # with the TensorFlow CPU backend and the SSD-MobileNet-FPN model.
 #-----------------------------------------------------------------------------#
+<<<<<<< HEAD:docker/mlperf-inference-vision-with-ck.tensorrt.ubuntu-18.04/Dockerfile_20.06-py3_tf-2.6.0
 CMD ["ck run program:mlperf-inference-vision --cmd_key=direct \
 --env.CK_LOADGEN_MODE='--accuracy' \
 --env.CK_LOADGEN_SCENARIO=SingleStream \
@@ -228,3 +236,9 @@ CMD ["ck run program:mlperf-inference-vision --cmd_key=direct \
 --env.CK_LOADGEN_REF_PROFILE=default_tf_object_det_zoo \
 --env.CK_METRIC_TYPE=COCO \
 --skip_print_timers"]
+=======
+CMD ["ck run program:mlperf-inference-vision --cmd_key=direct --skip_print_timers \
+--env.CK_LOADGEN_SCENARIO=Offline --env.CK_LOADGEN_MODE='--accuracy' --env.CK_LOADGEN_EXTRA_PARAMS='--count 50' \
+--env.CK_LOADGEN_BACKEND=tensorflow --dep_add_tags.lib-tensorflow=vpip --env.CUDA_VISIBLE_DEVICES=-1 \
+--env.CK_LOADGEN_REF_PROFILE=default_tf_object_det_zoo --env.CK_METRIC_TYPE=COCO --dep_add_tags.weights=ssd,mobilenet-v1,fpn"]
+>>>>>>> Update TensorRT Vision image to TF v2.6.0.:docker/mlperf-inference-vision-with-ck.tensorrt.ubuntu-18.04/Dockerfile_21.08-py3_tf-2.6.0
