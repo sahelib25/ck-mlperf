@@ -77,12 +77,9 @@ RUN ${CK_PYTHON} -m pip install --ignore-installed pip setuptools --user
 # Step 1. Install prebuilt TensorFlow v2.6 (via pip).
 #-----------------------------------------------------------------------------#
 RUN ck install package --tags=lib,tensorflow,python-package --force_version=2.6.0
-<<<<<<< HEAD:docker/mlperf-inference-vision-with-ck.tensorrt.ubuntu-18.04/Dockerfile_20.06-py3_tf-2.6.0
-=======
 # Remove NumPy v1.19.5 which conflicts with Python COCO API.
 RUN find /home/dvdt/CK_TOOLS/lib-python-tensorflow* -maxdepth 5 -name 'numpy*' \
     -exec rm -r {} \;
->>>>>>> Update TensorRT Vision image to TF v2.6.0.:docker/mlperf-inference-vision-with-ck.tensorrt.ubuntu-18.04/Dockerfile_21.08-py3_tf-2.6.0
 #-----------------------------------------------------------------------------#
 
 
