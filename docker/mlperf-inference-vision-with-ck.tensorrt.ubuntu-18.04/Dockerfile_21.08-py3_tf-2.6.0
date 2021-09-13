@@ -218,24 +218,11 @@ RUN chmod -R g+rwx `ck find program:mlperf-inference-vision`
 
 #-----------------------------------------------------------------------------#
 # Run the official MLPerf Inference vision app
-# in the Accuracy mode and the Offline scenario
-# on the first 50 images of the COCO 2017 validation dataset
+# under the Offline scenario
+# in the Accuracy mode on the first 50 images of the COCO 2017 validation dataset
 # with the TensorFlow CPU backend and the SSD-MobileNet-FPN model.
 #-----------------------------------------------------------------------------#
-<<<<<<< HEAD:docker/mlperf-inference-vision-with-ck.tensorrt.ubuntu-18.04/Dockerfile_20.06-py3_tf-2.6.0
-CMD ["ck run program:mlperf-inference-vision --cmd_key=direct \
---env.CK_LOADGEN_MODE='--accuracy' \
---env.CK_LOADGEN_SCENARIO=SingleStream \
---env.CK_LOADGEN_EXTRA_PARAMS='--count 50' \
---env.CK_LOADGEN_BACKEND=tensorflow \
---dep_add_tags.lib-tensorflow=vpip --env.CUDA_VISIBLE_DEVICES=-1 \
---dep_add_tags.weights=ssd,mobilenet-v1,fpn \
---env.CK_LOADGEN_REF_PROFILE=default_tf_object_det_zoo \
---env.CK_METRIC_TYPE=COCO \
---skip_print_timers"]
-=======
 CMD ["ck run program:mlperf-inference-vision --cmd_key=direct --skip_print_timers \
 --env.CK_LOADGEN_SCENARIO=Offline --env.CK_LOADGEN_MODE='--accuracy' --env.CK_LOADGEN_EXTRA_PARAMS='--count 50' \
---env.CK_LOADGEN_BACKEND=tensorflow --dep_add_tags.lib-tensorflow=vpip --env.CUDA_VISIBLE_DEVICES=-1 \
+--env.CK_LOADGEN_BACKEND=tensorflow --env.CUDA_VISIBLE_DEVICES=-1 --dep_add_tags.lib-tensorflow=vpip \
 --env.CK_LOADGEN_REF_PROFILE=default_tf_object_det_zoo --env.CK_METRIC_TYPE=COCO --dep_add_tags.weights=ssd,mobilenet-v1,fpn"]
->>>>>>> Update TensorRT Vision image to TF v2.6.0.:docker/mlperf-inference-vision-with-ck.tensorrt.ubuntu-18.04/Dockerfile_21.08-py3_tf-2.6.0
