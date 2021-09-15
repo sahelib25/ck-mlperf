@@ -34,6 +34,9 @@ def iterate(i):
 
                 --delta:12:18       - a range of integer values (step=1 by default), inclusive of both lower and upper bounds.
                 --delta:12:18:3     - a range of integer values (step=3), inclusive of both lower and upper bounds.
+
+                --lambda,omega:=10,100:20,200:30,300 - multiple variables can be iterated in parallel
+                --lambda:omega,=10:100,20:200,30:300 - multiple variables can be iterated in parallel (alternative syntax)
             }
 
     Output: {
@@ -59,24 +62,31 @@ def iterate(i):
     for param_name in input_params.keys():
         param_value = input_params[param_name]
         matchObj = re.match('(\w+)([,:])?((-?\d+):(-?\d+)(?:\:(\d+))?)?$', param_name)
-        if matchObj:
+        matchObjComplex = re.match('(\w+(?:(:)\w+)+)(,)$', param_name) or re.match('(\w+(?:(,)\w+)+)(:)$',param_name)
+        if matchObjComplex:
+            delimiter_inner = matchObjComplex.group(2)
+            delimiter_out   = matchObjComplex.group(3)
+            index_name.append( matchObjComplex.group(1).split(delimiter_inner) )
+            split_param_value = param_value.split(delimiter_out)
+            index_range.append( [elem.split(delimiter_inner) for elem in split_param_value] )
+        elif matchObj:
             pure_name   = matchObj.group(1)
-            index_name.append( pure_name )
+            index_name.append( [pure_name] )
             if matchObj.group(2)==None:
-                index_range.append( [param_value] )
+                index_range.append( [[param_value]] )
             elif matchObj.group(3):
                 range_from  = int(matchObj.group(4))
                 range_to    = int(matchObj.group(5))
                 range_step  = int(matchObj.group(6)) if matchObj.group(6) else 1
-                index_range.append( [ str(n) for n in range(range_from, range_to+1, range_step) ] )
+                index_range.append([[ str(n)] for n in range(range_from, range_to+1, range_step)] )
             else:
                 delimiter   = matchObj.group(2)
-                index_range.append( param_value.split(delimiter) )
+                index_range.append( [ [v] for v in param_value.split(delimiter)] )
         else:
             return {'return':1, 'error':"Could not recognize parameter '{}'".format(param_name)}
 
     if interactive:
-        print(dict(zip(index_name, index_range)))
+        print(list(zip(index_name, index_range)))
         print('-'*80)
 
     dimensions  = len(index_name)
@@ -84,7 +94,7 @@ def iterate(i):
     current_dim = dimensions-1
     param_dicts = []
     while True:
-        multi_value = {index_name[i]: index_range[i][multi_idx[i]] for i in range(dimensions) }
+        multi_value = {index_name[i][j]:index_range[i][multi_idx[i]][j] for i in range(dimensions) for j in range(len(index_name[i]))}
         param_dicts.append( multi_value )
 
         if interactive:
