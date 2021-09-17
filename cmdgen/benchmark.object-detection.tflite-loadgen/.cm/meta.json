@@ -330,5 +330,23 @@
     "shell_wrapped_cmd": "<<<shell_preamble >>> <<<wrapped_ck_benchmark_program>>>",
     "wrapped_ck_benchmark_program": "if [ -n \"`ck list local:experiment:<<<record_uoa>>>`\" ]; then echo 'Experiment <<<record_uoa>>> exists, skipping' ; else <<<ck_benchmark_program>>> \"@@@{'meta': {'ck_benchmark_program': '<<<ck_benchmark_program>>>'}}\" <<<?print_output_file>>> ; fi",
     "wrapped_ck_run_program": "<<<ck_run_program>>> <<<?print_output_file>>>"
+  },
+  "groups": {
+	  "edge": [
+		  {"scenario": "singlestream"},
+		  {"scenario": "offline"}
+	  ],
+	  "open": [
+		  {"mode": "accuracy"},
+		  {"mode": "performance"}
+	  ],
+	  "closed": [
+		  {"mode": "accuracy"},
+		  {"mode": "performance"},
+		  {"compliance": "TEST01"},
+		  {"compliance": "TEST04-A"},
+		  {"compliance": "TEST04-B"},
+		  {"compliance": "TEST05"}
+	  ]
   }
 }
