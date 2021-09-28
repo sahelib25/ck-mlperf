@@ -15,7 +15,6 @@ time docker build \
 --build-arg BASE_IMAGE=${_BASE_IMAGE} \
 --build-arg SDK_VER=${_SDK_VER} \
 --build-arg CK_VER=${_CK_VER} \
---build-arg TF_VER=${_TF_VER} \
 --build-arg GROUP_ID=${_GROUP_ID} \
 --build-arg USER_ID=${_USER_ID} \
 -t krai/${CK_IMAGE}:${_SDK_VER}_tf-${_TF_VER} \
