@@ -11,7 +11,7 @@ CK_IMAGE=mlperf-inference-vision-with-ck.tensorrt
 
 read -d '' CMD <<END_OF_CMD
 cd $(ck find docker:${CK_IMAGE}) && \
-time docker build --no-cache \
+time docker build \
 --build-arg BASE_IMAGE=${_BASE_IMAGE} \
 --build-arg SDK_VER=${_SDK_VER} \
 --build-arg CK_VER=${_CK_VER} \

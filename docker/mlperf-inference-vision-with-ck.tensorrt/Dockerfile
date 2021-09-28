@@ -91,10 +91,10 @@ RUN find /home/krai/CK_TOOLS/lib-python-tensorflow* -maxdepth 5 -name 'numpy*' \
 #-----------------------------------------------------------------------------#
 
 
-# #-----------------------------------------------------------------------------#
-# # Step 2. Install TensorFlow v2.0 with CUDA/TensorRT support from sources.
-# #-----------------------------------------------------------------------------#
-# Install TF dependencies that currently have no CK packages.
+#-----------------------------------------------------------------------------#
+# Step 2. Install TensorFlow v2.0 with CUDA/TensorRT support from sources.
+#-----------------------------------------------------------------------------#
+# # Install TF dependencies that currently have no CK packages.
 # RUN ${CK_PYTHON} -m pip install --user absl-py==0.9.0              # >=0.7.0
 # RUN ${CK_PYTHON} -m pip install --user astor==0.7.1                # >=0.6.0
 # RUN ${CK_PYTHON} -m pip install --user cachetools==4.0.0           # <5.0,>=2.0.0
@@ -127,8 +127,8 @@ RUN find /home/krai/CK_TOOLS/lib-python-tensorflow* -maxdepth 5 -name 'numpy*' \
 # RUN ${CK_PYTHON} -m pip install --user wrapt==1.11.2               # >=1.11.1
 
 # # Detect TF CUDA dependencies.
-# RUN ck detect soft:compiler.cuda --full_path=/usr/local/cuda-10.2/bin/nvcc \
-#  && ck detect soft:lib.cublas --full_path=/usr/lib/x86_64-linux-gnu/libcublas.so \
+# RUN ck detect soft:compiler.cuda --full_path=/usr/local/cuda/bin/nvcc \
+#  && ck detect soft:lib.cublas --full_path=/usr/local/cuda-11.4/targets/x86_64-linux/lib/libcublas.so \
 #  && ck detect soft:lib.cudnn
 # # Install TF build dependencies.
 # RUN ck install ck-env:package:jdk-8u131-universal
@@ -138,7 +138,7 @@ RUN find /home/krai/CK_TOOLS/lib-python-tensorflow* -maxdepth 5 -name 'numpy*' \
 # RUN ck install package --tags=lib,tensorflow,vsrc,vcuda,v2.1.0 \
 # --env.CK_TF_NEED_TENSORRT=YES --cus.version=2.1.0\
 #  && rm -rf ~/.cache/bazel
-#-----------------------------------------------------------------------------#
+# -----------------------------------------------------------------------------#
 
 
 #-----------------------------------------------------------------------------#
@@ -217,7 +217,7 @@ RUN ck install package --tags=mlperf,inference,source,upstream.master
 RUN ck install package --tags=lib,python-package,mlperf,loadgen
 # Install the official vision app with CK modifications and make it use
 # the default LoadGen config file.
-RUN ck install package --tags=mlperf,inference,source,dividiti.vision_with_ck
+RUN ck install package --tags=mlperf,inference,source,krai.vision_with_ck
 RUN ck detect  soft    --tags=loadgen,config,from.inference.master
 # Allow the program to create tmp files when running under an external user.
 RUN chmod -R g+rwx `ck find program:mlperf-inference-vision`
