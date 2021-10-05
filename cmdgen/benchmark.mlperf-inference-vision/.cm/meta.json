@@ -1,0 +1,127 @@
+{
+  "accu_init": {
+    "ck_env": [
+	    "--env.CUDA_VISIBLE_DEVICES=<<<device_ids>>>"
+    ],
+    "deps": [
+      "--dep_add_tags.weights=<<<model>>>"
+    ]
+  },
+  "build_map": {
+    "library": {
+      "tensorflow-v2.6.0-cpu": {
+	"deps": "--dep_add_tags.library-tensorflow=vpip",
+	"program_name": "mlperf-inference-vision",
+	"inference_engine": "tensorflow",
+	"inference_engine_version": "v2.6.0",
+	"inference_engine_backend": "cpu",
+	"record_tags": [
+		"inference_engine.tensorflow",
+		"inference_engine_version.v2.6.0",
+		"inference_engine_backend.cpu"	
+       	]
+      }
+    },
+    "mode": {
+      "accuracy": {
+        "ck_env": "--env.CK_LOADGEN_MODE='--accuracy' --env.CK_LOADGEN_EXTRA_PARAMS='--count <<<mode_param>>>'",
+        "output_file": "accuracy.txt"
+      },
+      "performance": {
+        "ck_env": "--env.CK_LOADGEN_EXTRA_PARAMS='--qps <<<mode_param>>>' --env.CK_OPTIMIZE_GRAPH='True'",
+        "output_file": "mlperf_log_summary.txt"
+      }
+    },
+    "model": {
+      "ssd-mobilenet-v1-fpn-sbp-coco": {
+        "ck_env": "--env.CK_LOADGEN_REF_PROFILE=default_tf_object_det_zoo --env.CK_METRIC_TYPE=COCO --env.CK_LOADGEN_BACKEND=tensorflow",
+        "division": "open",
+        "model_tags": [ "###", "ssd-mobilenet", "ssd-mobilenet-v1" ]
+    },
+      "ssd-inception-v2-coco": {
+        "ck_env": "--env.CK_LOADGEN_REF_PROFILE=default_tf_object_det_zoo --env.CK_METRIC_TYPE=COCO --env.CK_LOADGEN_BACKEND=tensorflow",
+        "division": "open",
+        "model_tags": [ "###", "ssd-inception", "ssd-inception-v2" ]
+    },
+      "rcnn-inception-v2-coco": {
+        "ck_env": "--env.CK_LOADGEN_REF_PROFILE=default_tf_object_det_zoo --env.CK_METRIC_TYPE=COCO --env.CK_LOADGEN_BACKEND=tensorflow",
+        "division": "open",
+        "model_tags": [ "###", "rcnn-inception", "rcnn-inception-v2" ]
+    },
+      "ssdlite-mobilenet-v2-coco": {
+        "ck_env": "--env.CK_LOADGEN_REF_PROFILE=default_tf_object_det_zoo --env.CK_METRIC_TYPE=COCO --env.CK_LOADGEN_BACKEND=tensorflow",
+        "division": "open",
+        "model_tags": [ "###", "ssdlite-mobilenet", "ssdlite-mobilenet-v2" ]
+    },
+      "rcnn-resnet101-lowproposals-coco": {
+        "ck_env": "--env.CK_LOADGEN_REF_PROFILE=default_tf_object_det_zoo --env.CK_METRIC_TYPE=COCO --env.CK_LOADGEN_BACKEND=tensorflow",
+        "division": "open",
+        "model_tags": [ "###", "rcnn-resnet101", "rcnn-resnet101-lowproposals" ]
+    },
+      "rcnn-inception-resnet-v2-lowproposals-coco": {
+        "ck_env": "--env.CK_LOADGEN_REF_PROFILE=default_tf_object_det_zoo --env.CK_METRIC_TYPE=COCO --env.CK_LOADGEN_BACKEND=tensorflow",
+        "division": "open",
+        "model_tags": [ "###", "rcnn-inception-resnet", "rcnn-inception-resnet-v2" ]
+    },
+      "rcnn-nas-lowproposals-coco": {
+        "ck_env": "--env.CK_LOADGEN_REF_PROFILE=default_tf_object_det_zoo --env.CK_METRIC_TYPE=COCO --env.CK_LOADGEN_BACKEND=tensorflow",
+        "division": "open",
+        "model_tags": [ "###", "rcnn-nas", "rcnn-nas-lowproposals" ]
+    },
+      "rcnn-resnet50-lowproposals-coco": {
+        "ck_env": "--env.CK_LOADGEN_REF_PROFILE=default_tf_object_det_zoo --env.CK_METRIC_TYPE=COCO --env.CK_LOADGEN_BACKEND=tensorflow",
+        "division": "open",
+        "model_tags": [ "###", "rcnn-resnet50", "rcnn-resnet50-lowproposals" ]
+    },
+      "ssd_mobilenet_v1_coco": {
+        "ck_env": "--env.CK_LOADGEN_REF_PROFILE=default_tf_object_det_zoo --env.CK_METRIC_TYPE=COCO --env.CK_LOADGEN_BACKEND=tensorflow",
+        "division": "open",
+        "model_tags": [ "###", "ssd_mobilenet", "ssd_mobilenet_v1" ]
+    },
+      "ssd-resnet50-v1-fpn-sbp-coco": {
+        "ck_env": "--env.CK_LOADGEN_REF_PROFILE=default_tf_object_det_zoo --env.CK_METRIC_TYPE=COCO --env.CK_LOADGEN_BACKEND=tensorflow",
+        "division": "open",
+        "model_tags": [ "###", "ssd-resnet50", "ssd-resnet50-v1" ]
+    },
+      "yolo-v3-coco": {
+        "ck_env": "--env.CK_LOADGEN_REF_PROFILE=tf_yolo --env.CK_METRIC_TYPE=COCO --env.CK_LOADGEN_BACKEND=tensorflow",
+        "division": "open",
+        "model_tags": [ "###", "yolo", "yolo-v3" ]
+    }
+    },
+    "scenario": {
+      "offline": {
+        "ck_env": "--env.CK_LOADGEN_SCENARIO=Offline"
+      },
+      "singlestream": {
+        "ck_env": "--env.CK_LOADGEN_SCENARIO=SingleStream"
+      },
+      "multistream": {
+        "ck_env": "--env.CK_LOADGEN_SCENARIO=MultiStream"
+      },
+      "server": {
+	"ck_env": "--env.CK_LOADGEN_SCENARIO=Server"
+      }
+    },
+   "docker": {
+     "yes":
+     {
+	"docker_run": "time docker run -it --rm <<<docker_image>>>",
+	"double_quote": "\""
+     }
+   }
+    },
+  "cmd_template": "<<<?docker_run>>> <<<?double_quote>>><<<wrapped_ck_run_program>>><<<?double_quote>>>",
+  "defaults": {
+    "ck_run_program": "ck run <<<run_common>>>",
+    "docker_image" : "krai/mlperf-inference-vision-with-ck.tensorrt:21.08-py3_tf-2.6.0",
+    "division": "open",
+    "device_ids": "<<<all_device_ids>>>",
+    "mode-param" : "<<<mode_param>>>",
+    "print_output_file_cmd": "&& cat `ck find program:<<<program_name>>>`/tmp/<<<output_file>>>",
+    "run_common": "program:<<<program_name>>> <<<cmd_key>>> <<<?deps >>> <<<?ck_env >>> <<<screen_output>>>",
+    "cmd_key": "--cmd_key=direct",
+    "screen_output": "--skip_print_timers",
+    "wrapped_ck_run_program": "<<<ck_run_program>>> <<<?print_output_file>>>"
+  }
+}
