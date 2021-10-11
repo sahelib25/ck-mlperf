@@ -2,9 +2,9 @@ ARG BASE_IMAGE
 ARG SDK_VER
 FROM ${BASE_IMAGE}:${SDK_VER}
 
-# Fixed group id = 1500 (recommended to be the same as that of 'qaic').
+# Fixed group id = 1500.
 ARG GROUP_ID
-# Fixed user id = 2000
+# Fixed user id = 2000.
 ARG USER_ID
 # Use CK <= 1.55.5 with known behaviour.
 ARG CK_VER
@@ -64,7 +64,7 @@ RUN cd ${CK_ROOT}\
 # as a shared volume between the host and the container, and make it group-writable.
 # For consistency, use the "canonical" uid from ck-analytics:module:experiment.
 RUN ck create_entry --data_uoa=experiment --data_uid=bc0409fb61f0aa82 --path=${CK_REPOS}/local\
- && chmod -R g+w ${CK_REPOS}/local/experiment
+ && chmod -R g+ws ${CK_REPOS}/local/experiment
 
 # Pull CK repositories (including ck-mlperf, ck-env, ck-autotuning, ck-tensorflow, ck-docker).
 RUN ck pull repo --url=http://github.com/krai/ck-object-detection.git
@@ -82,14 +82,14 @@ RUN ${CK_PYTHON} -m pip install --ignore-installed pip setuptools --user
 
 
 #-----------------------------------------------------------------------------#
-# Step 1. Install prebuilt TensorFlow v2.6 (via pip).
+# Step 1. Install prebuilt TensorFlow v2.6.0 (via pip).
 #-----------------------------------------------------------------------------#
 RUN ck install package --tags=lib,tensorflow,python-package --force_version=2.6.0
 # Remove NumPy v1.19.5 which conflicts with Python COCO API.
 RUN find /home/krai/CK_TOOLS/lib-python-tensorflow* -maxdepth 5 -name 'numpy*' \
     -exec rm -r {} \;
-# Install Openvino Inference Engine
-RUN ${CK_PYTHON} -m pip install --user tensorflow==2.5.1
+# Install OpenVINO Inference Engine on top of TensorFlow v2.5.1.
+RUN ${CK_PYTHON} -m pip install tensorflow==2.5.1 --user
 RUN ck install package --tags=lib,tensorflow,python-package,openvino
 #-----------------------------------------------------------------------------#
 
