@@ -176,18 +176,18 @@ RUN ck install package --tags=model,tensorflow,api\
  rm tutorials -rf;\
  rm .git -rf'
 
-RUN ck install package --tags=rcnn,nas,lowproposals,vcoco\
- && ck install package --tags=rcnn,resnet50,lowproposals\
- && ck install package --tags=rcnn,resnet101,lowproposals\
- && ck install package --tags=rcnn,inception-resnet-v2,lowproposals\
- && ck install package --tags=rcnn,inception-v2\
- && ck install package --tags=ssd,inception-v2\
- && ck install package --tags=ssd,mobilenet-v1,non-quantized,mlperf,tf\
- && ck install package --tags=ssd,mobilenet-v1,quantized,mlperf,tf\
- && ck install package --tags=ssd,mobilenet-v1,fpn\
- && ck install package --tags=ssd,resnet50,fpn\
- && ck install package --tags=ssdlite,mobilenet-v2,vcoco\
- && ck install package --tags=yolo-v3
+RUN ck install package --tags=object-detection,tf1-zoo,rcnn-nas-lowproposals-coco\
+ && ck install package --tags=object-detection,tf1-zoo,rcnn-resnet50-lowproposals-coco\
+ && ck install package --tags=object-detection,tf1-zoo,rcnn-resnet101-lowproposals-coco\
+ && ck install package --tags=object-detection,tf1-zoo,rcnn-inception-resnet-v2-lowproposals-coco\
+ && ck install package --tags=object-detection,tf1-zoo,rcnn-inception-v2-coco\
+ && ck install package --tags=object-detection,tf1-zoo,ssd-inception-v2-coco\
+ && ck install package --tags=object-detection,tf1-zoo,ssd_mobilenet_v1_coco\
+ && ck install package --tags=object-detection,tf1-zoo,ssd_mobilenet_v1_quantized_coco\
+ && ck install package --tags=object-detection,tf1-zoo,ssd-mobilenet-v1-fpn-sbp-coco\
+ && ck install package --tags=object-detection,tf1-zoo,ssd-resnet50-v1-fpn-sbp-coco\
+ && ck install package --tags=object-detection,tf1-zoo,ssdlite-mobilenet-v2-coco\
+ && ck install package --tags=object-detection,tf1-zoo,yolo-v3-coco
 #-----------------------------------------------------------------------------#
 
 
