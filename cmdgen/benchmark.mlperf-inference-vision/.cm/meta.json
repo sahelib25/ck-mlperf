@@ -1,7 +1,6 @@
 {
   "accu_init": {
     "ck_env": [
-      "--env.CUDA_VISIBLE_DEVICES=<<<device_ids>>>",
       "--env.CK_LOADGEN_DATASET_SIZE=<<<dataset_size>>>",
       "--env.CK_VERBOSE=<<<verbosity>>>",
       "--env.CK_BATCH_SIZE=<<<batch_size>>>"
@@ -49,58 +48,60 @@
       "tensorflow-v2.6.0-cpu": {
 	"ck_env": [
 	  "--env.CK_INFERENCE_ENGINE=tensorflow",
-	  "--env.CK_INFERENCE_ENGINE_BACKEND=default-cpu"
+	  "--env.CK_INFERENCE_ENGINE_BACKEND=default-cpu",
+	  "--env.CUDA_VISIBLE_DEVICES=-1"
 	],
 	"deps": "",
 	"program_name": "mlperf-inference-vision",
 	"inference_engine": "tensorflow",
 	"inference_engine_version": "v2.6.0",
-	"inference_engine_backend": "default-cpu",
-	"all_device_ids": "-1"
+	"inference_engine_backend": "default-cpu"
       },
       "tensorflow-v2.6.0-gpu": {
         "ck_env": [
 	  "--env.CK_INFERENCE_ENGINE=tensorflow",
-	  "--env.CK_INFERENCE_ENGINE_BACKEND=default-gpu"
+	  "--env.CK_INFERENCE_ENGINE_BACKEND=default-gpu",
+	  "--env.CUDA_VISIBLE_DEVICES=<<<device_ids>>>"
 	],
         "deps": "",
         "program_name": "mlperf-inference-vision",
         "inference_engine": "tensorflow",
         "inference_engine_version": "v2.6.0",
         "inference_engine_backend": "default-gpu",
-	"all_device_ids": "-1",
 	"runtime":"--runtime=nvidia"
       },
       "tensorflow-openvino-cpu": {
 	"ck_env": [
 	  "--env.CK_INFERENCE_ENGINE=tensorflow",
-	  "--env.CK_INFERENCE_ENGINE_BACKEND=openvino-cpu"
+	  "--env.CK_INFERENCE_ENGINE_BACKEND=openvino-cpu",
+	  "--env.CUDA_VISIBLE_DEVICES=-1"
 	],
 	"deps": "",
 	"program_name": "mlperf-inference-vision",
 	"inference_engine": "tensorflow",
 	"inference_engine_version": "v2.5.1",
-	"inference_engine_backend": "openvino-cpu",
-	"all_device_ids": "-1"
+	"inference_engine_backend": "openvino-cpu"
+
       },
       "tensorflow-openvino-gpu": {
 	"ck_env": [
 	  "--env.CK_INFERENCE_ENGINE=tensorflow",
-	  "--env.CK_INFERENCE_ENGINE_BACKEND=openvino-gpu"
+	  "--env.CK_INFERENCE_ENGINE_BACKEND=openvino-gpu",
+	  "--env.CUDA_VISIBLE_DEVICES=-1"
 	],
 	"deps": "",
 	"program_name": "mlperf-inference-vision",
 	"inference_engine": "tensorflow",
 	"inference_engine_version": "v2.5.1",
-	"inference_engine_backend": "openvino-cpu",
-	"all_device_ids": "0"
+	"inference_engine_backend": "openvino-gpu"
       }
     },
     "mode": {
       "accuracy": {
         "ck_env":[
 	  "--env.CK_LOADGEN_MODE='--accuracy'",
-	  "--env.CK_LOADGEN_EXTRA_PARAMS='--count <<<max_query_count>>>'"
+	  "--env.CK_LOADGEN_EXTRA_PARAMS='--count <<<buffer_size>>>'",
+	  "--env.CK_OPTIMIZE_GRAPH='False'"
 	],
 	"mode_extension": "-dataset_size.<<<dataset_size>>>",
 	"recommended_dataset_size": "5000",
@@ -109,7 +110,7 @@
       },
       "performance": {
         "ck_env": [
-          "--env.CK_LOADGEN_EXTRA_PARAMS='--qps <<<target_qps>>>'",
+          "--env.CK_LOADGEN_EXTRA_PARAMS='--count <<<buffer_size_model>>> --qps <<<target_qps>>>'",
 	  "--env.CK_OPTIMIZE_GRAPH='True'"
 	],
 	"mode_extension": "<<<performance_mode_extension>>>",
@@ -121,51 +122,63 @@
     "model": {
       "ssd-mobilenet-v1-fpn-sbp-coco": {
         "ck_env": "--env.CK_MODEL_PROFILE=default_tf_object_det_zoo",
-        "model_tags": [ "###", "ssd-mobilenet", "ssd-mobilenet-v1" ]
+	"buffer_size_model": "200",
+        "model_tags": [ "###" ]
     },
       "ssd-inception-v2-coco": {
         "ck_env": "--env.CK_MODEL_PROFILE=default_tf_object_det_zoo",
-        "model_tags": [ "###", "ssd-inception", "ssd-inception-v2" ]
+	"buffer_size_model": "200",
+        "model_tags": [ "###" ]
     },
       "rcnn-inception-v2-coco": {
         "ck_env": "--env.CK_MODEL_PROFILE=default_tf_object_det_zoo",
-        "model_tags": [ "###", "rcnn-inception", "rcnn-inception-v2" ]
+	"buffer_size_model": "200",
+        "model_tags": [ "###" ]
     },
       "ssdlite-mobilenet-v2-coco": {
         "ck_env": "--env.CK_MODEL_PROFILE=default_tf_object_det_zoo",
-        "model_tags": [ "###", "ssdlite-mobilenet", "ssdlite-mobilenet-v2" ]
+	"buffer_size_model": "200",
+        "model_tags": [ "###" ]
     },
       "rcnn-resnet101-lowproposals-coco": {
         "ck_env": "--env.CK_MODEL_PROFILE=default_tf_object_det_zoo",
-        "model_tags": [ "###", "rcnn-resnet101", "rcnn-resnet101-lowproposals" ]
+	"buffer_size_model": "200",
+        "model_tags": [ "###" ]
     },
       "rcnn-inception-resnet-v2-lowproposals-coco": {
         "ck_env": "--env.CK_MODEL_PROFILE=default_tf_object_det_zoo",
-        "model_tags": [ "###", "rcnn-inception-resnet", "rcnn-inception-resnet-v2" ]
+	"buffer_size_model": "200",
+        "model_tags": [ "###" ]
     },
       "rcnn-nas-lowproposals-coco": {
         "ck_env": "--env.CK_MODEL_PROFILE=default_tf_object_det_zoo",
-        "model_tags": [ "###", "rcnn-nas", "rcnn-nas-lowproposals" ]
+	"buffer_size_model": "200",
+        "model_tags": [ "###" ]
     },
       "rcnn-resnet50-lowproposals-coco": {
         "ck_env": "--env.CK_MODEL_PROFILE=default_tf_object_det_zoo",
-        "model_tags": [ "###", "rcnn-resnet50", "rcnn-resnet50-lowproposals" ]
+	"buffer_size_model": "200",
+        "model_tags": [ "###" ]
     },
       "ssd_mobilenet_v1_coco": {
         "ck_env": "--env.CK_MODEL_PROFILE=default_tf_object_det_zoo",
-        "model_tags": [ "###", "ssd_mobilenet", "ssd_mobilenet_v1" ]
+	"buffer_size_model": "200",
+        "model_tags": [ "###" ]
     },
       "ssd-resnet50-v1-fpn-sbp-coco": {
         "ck_env": "--env.CK_MODEL_PROFILE=default_tf_object_det_zoo",
-        "model_tags": [ "###", "ssd-resnet50", "ssd-resnet50-v1" ]
+	"buffer_size_model": "200",
+        "model_tags": [ "###" ]
     },
       "yolo-v3-coco": {
         "ck_env": "--env.CK_MODEL_PROFILE=tf_yolo",
-        "model_tags": [ "###", "yolo", "yolo-v3" ]
+	"buffer_size_model": "200",
+        "model_tags": [ "###" ]
     },
     "ssd_mobilenet_v1_quantized_coco": {
        "ck_env": "--env.CK_MODEL_PROFILE=default_tf_object_det_zoo",
-       "model_tags": [ "###", "ssd-mobilenet-quantized", "ssd-mobilenet-v1-quantized" ]
+       "buffer_size_model": "200",
+       "model_tags": [ "###" ]
     }
     },
     "no_record": {
@@ -259,10 +272,10 @@
     "ck_run_program": "ck run <<<run_or_benchmark_common>>>",
     "dataset_size": "<<<recommended_dataset_size>>>",
     "docker_image" : "krai/mlperf-inference-vision-with-ck.tensorrt:21.08-py3_tf-2.6.0",
+    "device_ids": "<<<all_device_ids>>>",
     "division": "open",
     "verbosity": "<<<recommended_verbosity>>>",
     "model_readable": "<<<model_tags->>>",
-    "device_ids": "<<<all_device_ids>>>",
     "dataset_size": "<<<recommended_dataset_size>>>",
     "print_output_file_cmd": "&& cat `ck find program:<<<program_name>>>`/tmp/<<<output_file>>>",
     "record_uoa": "<<<record_uoa_parts->>>",
@@ -270,7 +283,7 @@
     "repetitions": "1",
     "run_or_benchmark_common": "program:<<<program_name>>> <<<cmd_key>>> <<<screen_output>>> <<<?deps >>> <<<?ck_env >>>",
     "cmd_key": "--cmd_key=direct",
-    "screen_output": "--skip_print_timers",
+    "screen_output": "--env.CK_SILENT_MODE=YES --skip_print_timers",
     "shell_wrapped_cmd": "<<<shell_preamble >>> <<<wrapped_ck_benchmark_program>>>",
     "wrapped_ck_benchmark_program": "if [ -n \"`ck list local:experiment:<<<record_uoa>>>`\" ]; then echo 'Experiment <<<record_uoa>>> exists, skipping' ; else <<<ck_benchmark_program>>> \"@@@{'meta': {'ck_benchmark_program': '<<<ck_benchmark_program>>>'}}\" <<<?print_output_file>>> ; fi",
     "wrapped_ck_run_program": "<<<ck_run_program>>> <<<?print_output_file>>>"
