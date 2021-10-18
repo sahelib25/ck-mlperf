@@ -106,7 +106,7 @@
 	"ck_env_meta":[
 	  "--env.CK_LOADGEN_MODE=\\'--accuracy\\'",
 	  "--env.CK_LOADGEN_EXTRA_PARAMS=\\'--count <<<buffer_size>>>\\'",
-	  "--env.CK_OPTIMIZE_GRAPH='False'"
+	  "--env.CK_OPTIMIZE_GRAPH=\\'False\\'"
 	],
 	"mode_extension": "-dataset_size.<<<dataset_size>>>",
 	"recommended_dataset_size": "5000",
@@ -300,7 +300,6 @@
     "cmd_key": "--cmd_key=direct",
     "screen_output": "--env.CK_SILENT_MODE=YES --skip_print_timers",
     "shell_wrapped_cmd": "<<<shell_preamble >>> <<<wrapped_ck_benchmark_program>>>",
-    "single_quote": "\\'",
     "wrapped_ck_benchmark_program": "<<<?docker_run>>> <<<?double_quote>>>if [ -n <<<?escape_char>>>\"<<<?escape_char>>>`ck list local:experiment:<<<record_uoa>>><<<?escape_char>>>`<<<?escape_char>>>\" ]; then echo 'Experiment <<<record_uoa>>> exists, skipping' ; else <<<ck_benchmark_program>>> <<<?escape_char>>>\"@@@{'meta': {'ck_benchmark_program':'<<<ck_benchmark_program_meta>>>'}}<<<?escape_char>>>\" <<<?print_output_file>>>; fi<<<?double_quote>>>",
     "wrapped_ck_run_program": "<<<ck_run_program>>> <<<?print_output_file>>>"
   },
