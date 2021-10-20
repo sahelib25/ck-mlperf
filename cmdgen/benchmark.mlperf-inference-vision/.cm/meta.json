@@ -40,8 +40,8 @@
     "buffer_size": {
       "###": {
         "ck_env": "--env.CK_LOADGEN_BUFFER_SIZE=###",
-        "record_tags": "buffer_size.###",
-        "record_uoa_parts": "buffer_size.###"
+        "record_tags": "buffer_size.###<<<?batch_size_offline>>>",
+        "record_uoa_parts": "buffer_size.###<<<?batch_size_offline>>>"
       }
     },
     "library": {
@@ -68,7 +68,7 @@
         "inference_engine": "tensorflow",
         "inference_engine_version": "v2.6.0",
         "inference_engine_backend": "default-gpu",
-	"runtime":"--runtime=nvidia"
+	"runtime":"--runtime=nvidia "
       },
       "tensorflow-openvino-cpu": {
 	"ck_env": [
@@ -100,12 +100,12 @@
       "accuracy": {
         "ck_env_common":[
 	  "--env.CK_LOADGEN_MODE='--accuracy'",
-	  "--env.CK_LOADGEN_EXTRA_PARAMS='--count <<<buffer_size>>>'",
+	  "--env.CK_LOADGEN_EXTRA_PARAMS='--count <<<dataset_size>>>'",
 	  "--env.CK_OPTIMIZE_GRAPH='False'"
 	],
 	"ck_env_meta":[
 	  "--env.CK_LOADGEN_MODE=\\'--accuracy\\'",
-	  "--env.CK_LOADGEN_EXTRA_PARAMS=\\'--count <<<buffer_size>>>\\'",
+	  "--env.CK_LOADGEN_EXTRA_PARAMS=\\'--count <<<dataset_size>>>\\'",
 	  "--env.CK_OPTIMIZE_GRAPH=\\'False\\'"
 	],
 	"mode_extension": "-dataset_size.<<<dataset_size>>>",
@@ -115,11 +115,11 @@
       },
       "performance": {
         "ck_env_common": [
-          "--env.CK_LOADGEN_EXTRA_PARAMS='--count <<<buffer_size_model>>> --qps <<<target_qps>>>'",
+          "--env.CK_LOADGEN_EXTRA_PARAMS='--count <<<dataset_size>>> --qps <<<target_qps>>> --performance-sample-count <<<buffer_size>>>'",
 	  "--env.CK_OPTIMIZE_GRAPH='True'"
 	],
 	"ck_env_meta": [
-	  "--env.CK_LOADGEN_EXTRA_PARAMS=\\'--count <<<buffer_size_model>>> --qps <<<target_qps>>>\\'",
+	  "--env.CK_LOADGEN_EXTRA_PARAMS=\\'--count <<<dataset_size>>> --qps <<<target_qps>>> --performance-sample-count <<<buffer_size>>>\\'",
 	  "--env.CK_OPTIMIZE_GRAPH=\\'True\\'"
 				            ],
 	"mode_extension": "<<<performance_mode_extension>>>",
@@ -131,64 +131,59 @@
     "model": {
       "ssd-mobilenet-v1-fpn-sbp-coco": {
         "ck_env": "--env.CK_MODEL_PROFILE=default_tf_object_det_zoo",
-	"buffer_size_model": "200",
         "model_tags": [ "###" ]
-    },
+      },
       "ssd-inception-v2-coco": {
         "ck_env": "--env.CK_MODEL_PROFILE=default_tf_object_det_zoo",
-	"buffer_size_model": "200",
+	"buffer_size": "64",
         "model_tags": [ "###" ]
-    },
+      },
       "rcnn-inception-v2-coco": {
         "ck_env": "--env.CK_MODEL_PROFILE=default_tf_object_det_zoo",
-	"buffer_size_model": "200",
+	"buffer_size": "64",
         "model_tags": [ "###" ]
-    },
+      },
       "ssdlite-mobilenet-v2-coco": {
         "ck_env": "--env.CK_MODEL_PROFILE=default_tf_object_det_zoo",
-	"buffer_size_model": "200",
         "model_tags": [ "###" ]
-    },
+      },
       "rcnn-resnet101-lowproposals-coco": {
         "ck_env": "--env.CK_MODEL_PROFILE=default_tf_object_det_zoo",
-	"buffer_size_model": "200",
+	"buffer_size": "64",
         "model_tags": [ "###" ]
-    },
+      },
       "rcnn-inception-resnet-v2-lowproposals-coco": {
         "ck_env": "--env.CK_MODEL_PROFILE=default_tf_object_det_zoo",
-	"buffer_size_model": "200",
+	"buffer_size": "64",
         "model_tags": [ "###" ]
-    },
+      },
       "rcnn-nas-lowproposals-coco": {
         "ck_env": "--env.CK_MODEL_PROFILE=default_tf_object_det_zoo",
-	"buffer_size_model": "200",
+	"buffer_size": "64",
         "model_tags": [ "###" ]
-    },
+      },
       "rcnn-resnet50-lowproposals-coco": {
         "ck_env": "--env.CK_MODEL_PROFILE=default_tf_object_det_zoo",
-	"buffer_size_model": "200",
+	"buffer_size": "64",
         "model_tags": [ "###" ]
-    },
+      },
       "ssd_mobilenet_v1_coco": {
         "ck_env": "--env.CK_MODEL_PROFILE=default_tf_object_det_zoo",
-	"buffer_size_model": "200",
         "model_tags": [ "###" ]
-    },
+      },
       "ssd-resnet50-v1-fpn-sbp-coco": {
         "ck_env": "--env.CK_MODEL_PROFILE=default_tf_object_det_zoo",
-	"buffer_size_model": "200",
+	"buffer_size": "64",
         "model_tags": [ "###" ]
-    },
+      },
       "yolo-v3-coco": {
         "ck_env": "--env.CK_MODEL_PROFILE=tf_yolo",
-	"buffer_size_model": "200",
         "model_tags": [ "###" ]
-    },
-    "ssd_mobilenet_v1_quantized_coco": {
-       "ck_env": "--env.CK_MODEL_PROFILE=default_tf_object_det_zoo",
-       "buffer_size_model": "200",
-       "model_tags": [ "###" ]
-    }
+      },
+      "ssd_mobilenet_v1_quantized_coco": {
+        "ck_env": "--env.CK_MODEL_PROFILE=default_tf_object_det_zoo",
+        "model_tags": [ "###" ]
+      }
     },
     "no_record": {
        "yes": {
@@ -199,99 +194,124 @@
       "offline": {
         "ck_env": "--env.CK_LOADGEN_SCENARIO=Offline",
 	"performance_mode_extension": "-target_qps.<<<target_qps>>>",
-	"record_uoa_parts": "batch_size.<<<batch_size>>>",
-	"record_tags": "batch_size.<<<batch_size>>>"
+	"batch_size_offline":"-batch_size.<<<batch_size>>>"
       },
       "singlestream": {
         "ck_env": "--env.CK_LOADGEN_SCENARIO=SingleStream",
-	"performance_mode_extension": "-target_latency.<<<target_latency>>>",
-        "record_uoa_parts": "target_latency.<<<target_latency>>>",
-        "record_tags": "target_latency.<<<target_latency>>>"
+	"performance_mode_extension": "-target_latency.<<<target_latency>>>"
 
       },
       "multistream": {
         "ck_env": "--env.CK_LOADGEN_SCENARIO=MultiStream",
+	"accuracy_mode_extension": "",
 	"performance_mode_extension": ""
       },
       "server": {
 	"ck_env": "--env.CK_LOADGEN_SCENARIO=Server",
+	"accuracy_mode_extension": "",
 	"performance_mode_extension": ""
       }
     },
     "sut": {
-        "chai":{
-          "all_device_ids": "0,1"
-	},
-	"###": {
-	  "all_device_ids": "0"
-	}
+      "chai":{
+        "all_device_ids": "0,1"
+       },
+      "###": {
+	"all_device_ids": "0"
+      }
     },
 
     "target_latency": {
-        "###": {
-          "ck_env": "--env.CK_LOADGEN_TARGET_LATENCY=###",
-          "record_tags": "target_latency.###"
-        }
+      "###": {
+        "ck_env": "--env.CK_LOADGEN_TARGET_LATENCY=###",
+        "record_tags": "target_latency.###"
+      }
     },
     "target_qps": {
-	"###": {
-	  "ck_env": "--env.CK_LOADGEN_TARGET_QPS=###",
-	  "record_tags": "target_qps.###"
-       	}
+      "###": {
+	"ck_env": "--env.CK_LOADGEN_TARGET_QPS=###",
+	"record_tags": "target_qps.###"
+      }
     },
     "target_latency_file": {
-        "###": {
-          "shell_preamble": "export CK_LOADGEN_TARGET_LATENCY=$(awk -vX=\"<<<sut>>>,<<<library>>>,<<<model_readable>>>\" 'X==$1{print $2;exit}' < ###); [ \"$CK_LOADGEN_TARGET_LATENCY\" ] || { echo 'Error: entry <<<sut>>>,<<<library>>>,<<<model_readable>>> not found in ###, exiting'; exit 1; }; ",
-          "ck_env": "--env.CK_LOADGEN_TARGET_LATENCY=$CK_LOADGEN_TARGET_LATENCY",
-          "record_tags": "target_latency.$CK_LOADGEN_TARGET_LATENCY",
-          "target_latency": "$CK_LOADGEN_TARGET_LATENCY"
-       }
+      "###": {
+        "shell_preamble": "export CK_LOADGEN_TARGET_LATENCY=$(awk -vX=\"<<<sut>>>,<<<library>>>,<<<model_readable>>>\" 'X==$1{print $2;exit}' < ###); [ \"$CK_LOADGEN_TARGET_LATENCY\" ] || { echo 'Error: entry <<<sut>>>,<<<library>>>,<<<model_readable>>> not found in ###, exiting'; exit 1; }; ",
+        "ck_env": "--env.CK_LOADGEN_TARGET_LATENCY=$CK_LOADGEN_TARGET_LATENCY",
+        "record_tags": "target_latency.$CK_LOADGEN_TARGET_LATENCY",
+        "target_latency": "$CK_LOADGEN_TARGET_LATENCY"
+      }
    },
    "max_query_count": {
-        "###": {
-          "ck_env": "--env.CK_LOADGEN_MAX_QUERY_COUNT=\"$(echo ###)\"",
-          "record_tags": "max_query_count.\"$(echo ###)\""
-       }
+     "###": {
+       "ck_env": "--env.CK_LOADGEN_MAX_QUERY_COUNT=\\\"$(echo ###)\\\"",
+       "record_tags": "max_query_count.\\\"$(echo ###)\\\""
+     }
    },
    "verbose": {
-        "all": {
-          "print_output_file": "<<<print_output_file_cmd>>>",
-          "screen_output": ""
-        },
-        "yes": {
-         "print_output_file": "<<<print_output_file_cmd>>>"
-        }
+     "all": {
+       "print_output_file": "<<<print_output_file_cmd>>>",
+       "screen_output": ""
+     },
+     "yes": {
+       "print_output_file": "<<<print_output_file_cmd>>>"
+     }
    },
    "fan_mode": {
-        "###": {
-          "ck_env": "--env.CK_FAN_MODE=###",
-          "record_uoa_parts": "fan_mode.###",
-          "record_tags": "fan_mode.###"
-        }
+     "###": {
+       "ck_env": "--env.CK_FAN_MODE=###",
+       "record_uoa_parts": "fan_mode.###",
+       "record_tags": "fan_mode.###"
+     }
    },
    "docker": {
-     "yes":
-     {
-	"docker_run": "time docker run <<<?runtime>>> -it --rm <<<docker_image>>>",
+     "yes": {
+	"docker_run": "time docker run <<<?runtime>>><<<?user_opt>>><<<?group_add_opt>>><<<?volume_opt>>>-it --rm <<<docker_image>>>",
 	"double_quote": "\"",
 	"escape_char": "\\"
+     }
+   },
+   "add_group": {
+     "yes": {
+	"group_add_opt": "--group-add $(getent group krai | cut -d: -f3) "	
+      },
+      "###": {
+	"group_add_opt": "### "
+      }
+   },
+   "volume": {
+     "yes":{
+       "volume_opt": "--volume $HOME/CK/ck-object-detection.$(hostname).$(id -un)/experiment:/home/krai/CK_REPOS/local/experiment "
+     },	     
+     "###": { 
+       "volume_opt": "--volume <<<volume>>> "
+     }
+   },
+   "user": {
+     "yes": {
+      "user_opt": "--user krai:kraig "
+     },
+     "###":{
+      "user_opt": "### "
      }
    }
     },
   "cmd_template": "<<<shell_wrapped_cmd>>>",
   "defaults": {
     "batch_size": "1",
+    "buffer_size": "256",
     "ck_benchmark_program": "ck benchmark <<<run_or_benchmark_common>>> --skip_stat_analysis --process_multi_keys --repetitions=<<<repetitions>>> --record --record_repo=local --record_uoa=<<<record_uoa>>> --tags=<<<record_tags_inner>>>",
     "ck_benchmark_program_meta": "ck benchmark <<<run_or_benchmark_common_meta>>> --skip_stat_analysis --process_multi_keys --repetitions=<<<repetitions>>> --record --record_repo=local --record_uoa=<<<record_uoa>>> --tags=<<<record_tags_inner>>>",
     "ck_run_program": "ck run <<<run_or_benchmark_common>>>",
+    "container_dir":"/home/krai/CK_REPOS/local/experiment",
     "dataset_size": "<<<recommended_dataset_size>>>",
-    "docker_image" : "krai/mlperf-inference-vision-with-ck.tensorrt:21.08-py3_tf-2.6.0",
+    "docker_image" : "krai/mlperf-inference-vision-with-ck.tensorrt:21.09-py3_tf-2.6.0",
     "device_ids": "<<<all_device_ids>>>",
     "division": "open",
+    "host_dir":"/tmp",
     "verbosity": "<<<recommended_verbosity>>>",
     "model_readable": "<<<model_tags->>>",
-    "dataset_size": "<<<recommended_dataset_size>>>",
-    "print_output_file_cmd": "&& cat <<<?escape_char>>>`ck find program:<<<program_name>>><<<?escape_char>>>`/tmp/<<<output_file>>>",
+    "print_output_file_cmd_2": "&& cat <<<?escape_char>>>`ck find program:<<<program_name>>><<<?escape_char>>>`/tmp/<<<output_file>>>",
+    "print_output_file_cmd": "&& cat /home/krai/CK_REPOS/ck-object-detection/program/mlperf-inference-vision/tmp/<<<output_file>>>",
     "record_uoa": "<<<record_uoa_parts->>>",
     "record_tags_inner": "<<<record_tags,>>>",
     "repetitions": "1",
