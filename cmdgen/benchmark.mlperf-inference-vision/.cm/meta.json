@@ -100,12 +100,12 @@
       "accuracy": {
         "ck_env_common":[
 	  "--env.CK_LOADGEN_MODE='--accuracy'",
-	  "--env.CK_LOADGEN_EXTRA_PARAMS='--count <<<dataset_size>>>'",
+	  "--env.CK_LOADGEN_EXTRA_PARAMS='--count <<<dataset_size>>> --cache <<<cache_opt>>>'",
 	  "--env.CK_OPTIMIZE_GRAPH='False'"
 	],
 	"ck_env_meta":[
 	  "--env.CK_LOADGEN_MODE=\\'--accuracy\\'",
-	  "--env.CK_LOADGEN_EXTRA_PARAMS=\\'--count <<<dataset_size>>>\\'",
+	  "--env.CK_LOADGEN_EXTRA_PARAMS=\\'--count <<<dataset_size>>> --cache <<<cache_opt>>>\\'",
 	  "--env.CK_OPTIMIZE_GRAPH=\\'False\\'"
 	],
 	"mode_extension": "-dataset_size.<<<dataset_size>>>",
@@ -115,11 +115,11 @@
       },
       "performance": {
         "ck_env_common": [
-          "--env.CK_LOADGEN_EXTRA_PARAMS='--count <<<dataset_size>>> --qps <<<target_qps>>> --performance-sample-count <<<buffer_size>>>'",
+          "--env.CK_LOADGEN_EXTRA_PARAMS='--count <<<dataset_size>>> --qps <<<target_qps>>> --performance-sample-count <<<buffer_size>>> --cache <<<cache_opt>>>'",
 	  "--env.CK_OPTIMIZE_GRAPH='True'"
 	],
 	"ck_env_meta": [
-	  "--env.CK_LOADGEN_EXTRA_PARAMS=\\'--count <<<dataset_size>>> --qps <<<target_qps>>> --performance-sample-count <<<buffer_size>>>\\'",
+	  "--env.CK_LOADGEN_EXTRA_PARAMS=\\'--count <<<dataset_size>>> --qps <<<target_qps>>> --performance-sample-count <<<buffer_size>>> --cache <<<cache_opt>>>\\'",
 	  "--env.CK_OPTIMIZE_GRAPH=\\'True\\'"
 				            ],
 	"mode_extension": "<<<performance_mode_extension>>>",
@@ -274,10 +274,20 @@
    },
    "cache_dir": {
      "yes": {
+       "cache_opt": "1",
        "volume_cache": "--volume <<<cache_dir_default>>>:/home/krai/CK_REPOS/ck-object-detection/program/mlperf-inference-vision/tmp/preprocessed "
      },
      "###": {
+       "cache_opt": "1",
        "volume_cache": "--volume ###:/home/krai/CK_REPOS/ck-object-detection/program/mlperf-inference-vision/tmp/preprocessed "
+     }
+   },
+   "cache": {
+     "yes": {
+       "cache_opt": "1"
+     },
+     "###": {
+       "cache_opt": "###"
      }
    },
    "experiment_dir": {
@@ -310,6 +320,7 @@
     "division": "open",
     "experiment_dir_default": "$HOME/CK/ck-object-detection.$(hostname).$(id -un)/experiment",
     "cache_dir_default": "/data/mlperf-inference-vision.cache",
+    "cache_opt": "0",
     "verbosity": "<<<recommended_verbosity>>>",
     "model_readable": "<<<model_tags->>>",
     "print_output_file_cmd_2": "&& cat <<<?escape_char>>>`ck find program:<<<program_name>>><<<?escape_char>>>`/tmp/<<<output_file>>>",
