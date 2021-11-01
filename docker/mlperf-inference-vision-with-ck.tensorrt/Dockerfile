@@ -189,7 +189,15 @@ RUN ck install package --tags=object-detection,tf1-zoo,rcnn-nas-lowproposals-coc
  && ck install package --tags=object-detection,tf1-zoo,ssdlite-mobilenet-v2-coco\
  && ck install package --tags=object-detection,tf1-zoo,yolo-v3-coco\
  && ck install package --tags=object-detection,tf2-zoo,ssd_resnet50_v1_fpn_640x640\
- && ck install package --tags=object-detection,tf2-zoo,ssd_resnet50_v1_fpn_1024x1024
+ && ck install package --tags=object-detection,tf2-zoo,ssd_resnet50_v1_fpn_1024x1024\
+ && ck install package --tags=object-detection,tf2-zoo,ssd_resnet101_v1_fpn_640x640\
+ && ck install package --tags=object-detection,tf2-zoo,ssd_resnet101_v1_fpn_1024x1024\
+ && ck install package --tags=object-detection,tf2-zoo,ssd_resnet152_v1_fpn_640x640\
+ && ck install package --tags=object-detection,tf2-zoo,ssd_resnet152_v1_fpn_1024x1024\
+ && ck install package --tags=object-detection,tf2-zoo,ssd_mobilenet_v2_320x320\
+ && ck install package --tags=object-detection,tf2-zoo,ssd_mobilenet_v1_fpn_640x640\
+ && ck install package --tags=object-detection,tf2-zoo,ssd_mobilenet_v2_fpnlite_320x320\
+ && ck install package --tags=object-detection,tf2-zoo,ssd_mobilenet_v2_fpnlite_640x640
 #-----------------------------------------------------------------------------#
 
 
