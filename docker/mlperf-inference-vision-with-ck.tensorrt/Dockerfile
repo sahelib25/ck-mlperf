@@ -51,11 +51,10 @@ ENV CK_ROOT="/home/krai/CK" \
     GIT_USER="krai" \
     GIT_EMAIL="info@krai.ai" \
     LANG=C.UTF-8
-RUN mkdir -p ${CK_ROOT} ${CK_REPOS} ${CK_TOOLS}
-RUN git config --global user.name ${GIT_USER} && git config --global user.email ${GIT_EMAIL}
-RUN git clone --branch V${CK_VER} https://github.com/ctuning/ck.git ${CK_ROOT}
-RUN cd ${CK_ROOT}\
- && ${CK_PYTHON} setup.py install --user\
+RUN mkdir -p ${CK_ROOT} ${CK_REPOS} ${CK_TOOLS}\
+ && git config --global user.name ${GIT_USER} && git config --global user.email ${GIT_EMAIL}\
+ && git clone --branch V${CK_VER} https://github.com/ctuning/ck.git ${CK_ROOT}\
+ && cd ${CK_ROOT} && ${CK_PYTHON} setup.py install --user\
  && ${CK_PYTHON} -c "import ck.kernel as ck; print ('Collective Knowledge v%s' % ck.__version__)"\
  && chmod -R g+rx /home/krai/.local
 
