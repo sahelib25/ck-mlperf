@@ -35,7 +35,7 @@ The table below shows currently supported models, frameworks ("inference engines
 ## Building the Docker image
 
 ```
-$ export CK_IMAGE_NAME=mlperf-inference-vision-with-ck.tensorrt SDK_VER=21.09-py3 TF_VER=2.6.0
+$ export CK_IMAGE_NAME=mlperf-inference-vision SDK_VER=21.09-py3 TF_VER=2.6.0
 $ ./build.sh
 ...
 Successfully built 362d3cd6ddd5
@@ -49,10 +49,13 @@ sys     0m0.005s
 Set an environment variable for the built image and validate:
 
 ```
-$ export CK_IMAGE="krai/${CK_IMAGE_NAME}:${SDK_VER}_tf-${TF_VER}"
-$ docker image ls ${CK_IMAGE}
-REPOSITORY                                      TAG                  IMAGE ID       CREATED         SIZE
-krai/mlperf-inference-vision-with-ck.tensorrt   21.09-py3_tf-2.6.0   362d3cd6ddd5   8 minutes ago   16.6GB
+export CK_IMAGE="krai/${CK_IMAGE_NAME}:${SDK_VER}_tf-${TF_VER}"
+docker image ls ${CK_IMAGE}
+```
+
+```
+REPOSITORY                     TAG                  IMAGE ID       CREATED         SIZE
+krai/mlperf-inference-vision   21.06-py3_tf-2.6.0   362d3cd6ddd5   8 minutes ago   16.6GB
 ```
 
 ## Using the Docker image

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 _ORG=krai
-_IMAGE=mlperf-inference-vision-with-ck.tensorrt
+_IMAGE=mlperf-inference-vision
 
 _BASE_IMAGE=${BASE_IMAGE:-nvcr.io/nvidia/tensorrt}
 _SDK_VER=${SDK_VER:-21.10-py3}
