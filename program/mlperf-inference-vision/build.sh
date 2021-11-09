@@ -15,7 +15,7 @@ if [ ! -z "${NO_CACHE}" ]; then
 fi
 
 read -d '' CMD <<END_OF_CMD
-cd $(ck find docker:${_IMAGE}) && \
+cd $(ck find ck-mlperf:program:${_IMAGE}) && \
 time docker build ${_NO_CACHE} \
 --build-arg BASE_IMAGE=${_BASE_IMAGE} \
 --build-arg SDK_VER=${_SDK_VER} \
