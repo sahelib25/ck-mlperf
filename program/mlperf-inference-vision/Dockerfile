@@ -65,6 +65,9 @@ RUN mkdir -p ${CK_ROOT} ${CK_REPOS} ${CK_TOOLS}\
 RUN ck create_entry --data_uoa=experiment --data_uid=bc0409fb61f0aa82 --path=${CK_REPOS}/local\
  && chmod -R g+ws ${CK_REPOS}/local/experiment
 
+# Pull CK repositories (including ck-env and ck-tensorflow).
+RUN ck pull repo --url=http://github.com/krai/ck-mlperf.git
+
 # Use generic Linux settings with dummy frequency setting scripts.
 RUN ck detect platform.os --platform_init_uoa=generic-linux-dummy
 
