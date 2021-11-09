@@ -4,9 +4,9 @@ _ORG=krai
 _IMAGE=mlperf-inference-vision-with-ck.tensorrt
 
 _BASE_IMAGE=${BASE_IMAGE:-nvcr.io/nvidia/tensorrt}
-_SDK_VER=${SDK_VER:-21.08-py3}
+_SDK_VER=${SDK_VER:-21.10-py3}
 _CK_VER=${CK_VER:-1.55.5}
-_TF_VER=${TF_VER:-2.6.0}
+_TF_VER=${TF_VER:-2.7.0}
 _GROUP_ID=${GROUP_ID:-1500}
 _USER_ID=${USER_ID:-2000}
 
