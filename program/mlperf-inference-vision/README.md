@@ -36,7 +36,7 @@ The table below shows currently supported models, frameworks ("inference engines
 
 ```
 $ export CK_IMAGE_NAME=mlperf-inference-vision-with-ck.tensorrt SDK_VER=21.09-py3 TF_VER=2.6.0
-$ $(ck find docker:${CK_IMAGE_NAME})/build.sh
+$ ./build.sh
 ...
 Successfully built 362d3cd6ddd5
 Successfully tagged krai/mlperf-inference-vision-with-ck.tensorrt:21.09-py3_tf-2.6.0
