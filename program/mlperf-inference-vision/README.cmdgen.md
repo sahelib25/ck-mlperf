@@ -101,9 +101,22 @@ It will affect the following flags in the CK environment:
 ---
 ---
 
-### Mapping for `--mode` and `--mode-param`
+### Mapping for `--mode`, `--dataset_size`,  `--target_qps`, `--target_latency`, `--buffer_size`, <br>`--query_count` and `--cache_opt`
 
-`mode` for specifying mode and `mode-param` for specifying count or qps. 
+`mode` for specifying mode,
+
+`dataset_size` for specifying `count`,
+
+`target_qps` for specifying `qps`,
+
+`target_latency` for specifying `target-latency`,
+
+`buffer_size` for specifying `performance-sample-count`,
+
+`query_count` for specifying `query-count`,
+
+`cache_opt` for specifying `cache`.
+
 It will affect the following flags in the CK environment:
 ```
 --env.CK_LOADGEN_MODE
@@ -112,21 +125,27 @@ It will affect the following flags in the CK environment:
 ```
 
 | Accuracy Mode | Performance Mode |
-| --- | ---|
-|`--env.CK_LOADGEN_MODE='--accuracy'` <br> `--env.CK_LOADGEN_EXTRA_PARAMS='--count 200 --max-query-count 200'` | `--env.CK_LOADGEN_EXTRA_PARAMS='--count 200 --performance-sample-count 200 --qps 3'` <br> `--env.CK_OPTIMIZE_GRAPH='True'`|
+| ---------------------- | --------------------|
+|`--env.CK_LOADGEN_MODE='--accuracy'` <br> `--env.CK_LOADGEN_EXTRA_PARAMS=` <br> `'--count 5000 ` <br> `--performance-sample-count 50 --cache 1'` <br> `--env.CK_OPTIMIZE_GRAPH='False'`| `--env.CK_LOADGEN_EXTRA_PARAMS='----count 50 --qps 200` <br> `--target-latency 35 --performance-sample-count 64 --query-count 2048 --cache 1'` <br> `--env.CK_OPTIMIZE_GRAPH='True'`|
+
+
+For accuracy:
+`--performance-sample-count` 50 is optional
+
+For performance:
+`--qps 200`, `--target-latency 35`,  `--query-count 2048` are optional.
 
 ---
 ---
-
 ### Mapping for `--model`
 
 It will affect the following flags in the ck environment:
 ```
---dep_add_tags.weights=[MODEL_NAME]
+--dep_add_tags.weights=[TF_ZOO],[MODEL_NAME]
 --env.CK_MODEL_PROFILE=[MODEL_PROFILE]
 --env.CK_INFERENCE_ENGINE=[INFERENCE_ENGINE] (as shown in README.md)
 --env.CK_INFERENCE_ENGINE_BACKEND=[INFERENCE_ENGINE_BACKEND] (as shown in README.md)
---env.CUDA_VISIBLE_DEVICES=[DEVICE_NUMBER] (will be discussed in the next section)
+--env.CUDA_VISIBLE_DEVICES=[DEVICE_IDS] (will be discussed in the next section)
 ```
 
 See README.md for the table.
@@ -145,6 +164,7 @@ It will affect the following flags in the ck environment:
 |INFERENCE_ENGINE|INFERENCE_ENGINE_BACKEND|DEVICE_IDS|
 |---|---|---|
 |`tensorflow` |`default-cpu` |`-1`|
-|`tensorflow` |`default-gpu` |`0`|
+|`tensorflow` |`default-gpu` |`<device_id>`|
+|`tensorflow` |`tensorrt-dynamic` |`<device_id>`|
 |`tensorflow` |`openvino-cpu`|`-1`|
 |`tensorflow` |`openvino-gpu` |`-1` for an Intel chip with an integrated GPU; `0` for an Intel GPU|
