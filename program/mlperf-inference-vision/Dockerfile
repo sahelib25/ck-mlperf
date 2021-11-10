@@ -94,53 +94,8 @@ RUN ck install package --tags=lib,tensorflow,python-package,openvino
 
 
 #-----------------------------------------------------------------------------#
-# Step 2. Install TensorFlow v2.0 with CUDA/TensorRT support from sources.
+# Step 2. INTENTIONALLY LEFT BLANK.
 #-----------------------------------------------------------------------------#
-# # Install TF dependencies that currently have no CK packages.
-# RUN ${CK_PYTHON} -m pip install --user absl-py==0.9.0              # >=0.7.0
-# RUN ${CK_PYTHON} -m pip install --user astor==0.7.1                # >=0.6.0
-# RUN ${CK_PYTHON} -m pip install --user cachetools==4.0.0           # <5.0,>=2.0.0
-# RUN ${CK_PYTHON} -m pip install --user gast==0.2.2                 # ==0.2.2 (exact)
-# RUN ${CK_PYTHON} -m pip install --user google-auth==1.13.1         # <2,>=1.6.3
-# RUN ${CK_PYTHON} -m pip install --user google-auth-oauthlib==0.4.1 # <0.5,>=0.4.1
-# RUN ${CK_PYTHON} -m pip install --user google-pasta==0.2.0         # >=0.1.6
-# RUN ${CK_PYTHON} -m pip install --user grpcio==1.27.2              # >=1.8.6
-# RUN ${CK_PYTHON} -m pip install --user h5py==2.10.0                # exact?
-# RUN ${CK_PYTHON} -m pip install --user keras-applications==1.0.8   # >=1.0.8
-# RUN ${CK_PYTHON} -m pip install --user keras-preprocessing==1.1.0  # >=1.0.5
-# RUN ${CK_PYTHON} -m pip install --user markdown==3.2.1             # >=2.6.8
-# RUN ${CK_PYTHON} -m pip install --user numpy==1.18.2               # <2.0,>=1.16.0
-# RUN ${CK_PYTHON} -m pip install --user oauthlib==3.1.0             # ?
-# RUN ${CK_PYTHON} -m pip install --user opt-einsum==3.2.0           # >=2.3.2
-# RUN ${CK_PYTHON} -m pip install --user protobuf==3.11.3            # >=3.8.0
-# RUN ${CK_PYTHON} -m pip install --user pyasn1==0.4.8               # <0.5.0,>=0.4.6
-# RUN ${CK_PYTHON} -m pip install --user pyasn1-modules==0.2.8       # >=0.2.1
-# RUN ${CK_PYTHON} -m pip install --user requests==2.23.0            # <3,>=2.21.0
-# RUN ${CK_PYTHON} -m pip install --user requests-oauthlib==1.3.0    # >=0.7.0
-# RUN ${CK_PYTHON} -m pip install --user rsa==4.0                    # <4.1,>=3.1.4
-# RUN ${CK_PYTHON} -m pip install --user scipy==1.4.1                # ==1.4.1 (exact)
-# RUN ${CK_PYTHON} -m pip install --user setuptools==46.1.3          # >=41.0.0
-# RUN ${CK_PYTHON} -m pip install --user six==1.14.0                 # >=1.12.0
-# RUN ${CK_PYTHON} -m pip install --user tensorboard==2.1.1          # <2.2.0,>=2.1.0 (almost exact)
-# RUN ${CK_PYTHON} -m pip install --user tensorflow-estimator==2.1.0 # <2.2.0,>=2.1.0 (almost exact)
-# RUN ${CK_PYTHON} -m pip install --user termcolor==1.1.0            # >=1.1.0
-# RUN ${CK_PYTHON} -m pip install --user wheel==0.30.0               # >=0.26
-# RUN ${CK_PYTHON} -m pip install --user werkzeug==1.0.1             # >=0.11.15
-# RUN ${CK_PYTHON} -m pip install --user wrapt==1.11.2               # >=1.11.1
-
-# # Detect TF CUDA dependencies.
-# RUN ck detect soft:compiler.cuda --full_path=/usr/local/cuda/bin/nvcc \
-#  && ck detect soft:lib.cublas --full_path=/usr/local/cuda-11.4/targets/x86_64-linux/lib/libcublas.so \
-#  && ck detect soft:lib.cudnn
-# # Install TF build dependencies.
-# RUN ck install ck-env:package:jdk-8u131-universal
-# RUN ck install ck-env:package:tool-bazel-0.27.1-linux
-# # Build TF from sources with TensorRT support. Remove the Bazel cache (~16 GB) once done.
-# RUN ck pull repo:ck-env
-# RUN ck install package --tags=lib,tensorflow,vsrc,vcuda,v2.1.0 \
-# --env.CK_TF_NEED_TENSORRT=YES --cus.version=2.1.0\
-#  && rm -rf ~/.cache/bazel
-# -----------------------------------------------------------------------------#
 
 
 #-----------------------------------------------------------------------------#
@@ -155,6 +110,8 @@ RUN ck install package --tags=lib,python-package,cython
 RUN echo "" | ck install package --tags=lib,python-package,numpy
 RUN ck install package --tags=lib,python-package,matplotlib
 RUN ck install package --tags=tool,coco,api
+# Install OpenCV (required for preprocessing).
+RUN ck install package --tags=lib,python-package,cv2,opencv-python-headless
 #-----------------------------------------------------------------------------#
 
 
@@ -201,19 +158,8 @@ RUN ck install package --tags=object-detection,tf1-zoo,rcnn-nas-lowproposals-coc
 
 
 #-----------------------------------------------------------------------------#
-# Step 5. Make final preparations to run the Object Detection TF-Python program.
+# Step 5. INTENTIONALLY LEFT BLANK.
 #-----------------------------------------------------------------------------#
-# Install remaining Python dependencies of the program.
-# (Some have already been installed.)
-RUN ck install package --tags=lib,python-package,cv2,opencv-python-headless
-# Allow the program create tmp files when running under an external user.
-RUN chmod -R g+rwx ${CK_REPOS}/ck-tensorflow/program/object-detection-tf-py/
-#-----------------------------------------------------------------------------#
-
-
-#=============================================================================#
-# NB: The above is shared with object-detection-tf-py.tensorrt.ubuntu-18.04
-#=============================================================================#
 
 
 #-----------------------------------------------------------------------------#
@@ -232,7 +178,7 @@ RUN ck install package --tags=lib,python-package,mlperf,loadgen
 RUN ck install package --tags=mlperf,inference,source,krai.vision_with_ck
 RUN ck detect  soft    --tags=loadgen,config,from.inference.master
 # Allow the program to create tmp files when running under an external user.
-RUN chmod -R g+rwx `ck find program:mlperf-inference-vision`
+RUN chmod -R g+rwx $(ck find program:mlperf-inference-vision)
 #-----------------------------------------------------------------------------#
 
 
@@ -245,4 +191,4 @@ RUN chmod -R g+rwx `ck find program:mlperf-inference-vision`
 CMD ["ck run program:mlperf-inference-vision --cmd_key=direct --skip_print_timers \
 --env.CK_LOADGEN_SCENARIO=Offline --env.CK_LOADGEN_MODE='--accuracy' --env.CK_LOADGEN_EXTRA_PARAMS='--count 50' \
 --env.CK_LOADGEN_BACKEND=tensorflow --env.CUDA_VISIBLE_DEVICES=-1 --dep_add_tags.lib-tensorflow=vpip \
---env.CK_LOADGEN_REF_PROFILE=default_tf_object_det_zoo --env.CK_METRIC_TYPE=COCO --dep_add_tags.weights=ssd,mobilenet-v1,fpn"]
+--env.CK_LOADGEN_REF_PROFILE=tf1_object_det_zoo --env.CK_METRIC_TYPE=COCO --dep_add_tags.weights=ssd,mobilenet-v1,fpn"]
