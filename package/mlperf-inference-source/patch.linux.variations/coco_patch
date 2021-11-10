@@ -1,0 +1,26 @@
+diff --git a/vision/classification_and_detection/tools/accuracy-coco.py b/vision/classification_and_detection/tools/accuracy-coco.py
+index 1e15999..aaf0c4e 100644
+--- a/vision/classification_and_detection/tools/accuracy-coco.py
++++ b/vision/classification_and_detection/tools/accuracy-coco.py
+@@ -35,7 +35,7 @@ def get_args():
+ def main():
+     args = get_args()
+ 
+-    cocoGt = COCO(os.path.join(args.coco_dir, "annotations/instances_val2017.json"))
++    cocoGt = COCO(os.path.join(args.coco_dir, "annotations/instances_val2017.json"), use_ext=True)
+ 
+     if args.use_inv_map:
+         inv_map = [0] + cocoGt.getCatIds() # First label in inv_map is not used
+@@ -106,8 +106,10 @@ def main():
+     with open(args.output_file, "w") as fp:
+         json.dump(detections, fp, sort_keys=True, indent=4)
+ 
+-    cocoDt = cocoGt.loadRes(args.output_file) # Load from file to bypass error with Python3
+-    cocoEval = COCOeval(cocoGt, cocoDt, iouType='bbox')
++    cocoDt = cocoGt.loadRes(args.output_file, use_ext=True) # Load from file to bypass error with Python3
++    #cocoDt = cocoGt.loadRes(args.output_file) # Load from file to bypass error with Python3
++    cocoEval = COCOeval(cocoGt, cocoDt, iouType='bbox', use_ext=True)
++    #cocoEval = COCOeval(cocoGt, cocoDt, iouType='bbox')
+     cocoEval.params.imgIds = list(image_ids)
+     cocoEval.evaluate()
+     cocoEval.accumulate()
