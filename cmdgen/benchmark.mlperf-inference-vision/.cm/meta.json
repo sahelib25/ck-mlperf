@@ -352,11 +352,11 @@
    "cache_dir": {
      "yes": {
        "cache_opt": "1",
-       "volume_cache": "--volume <<<cache_dir_default>>>:/home/krai/CK_REPOS/ck-object-detection/program/mlperf-inference-vision/tmp/preprocessed "
+       "volume_cache": "--volume <<<cache_dir_default>>>:/home/krai/CK_REPOS/ck-mlperf/program/mlperf-inference-vision/tmp/preprocessed "
      },
      "###": {
        "cache_opt": "1",
-       "volume_cache": "--volume ###:/home/krai/CK_REPOS/ck-object-detection/program/mlperf-inference-vision/tmp/preprocessed "
+       "volume_cache": "--volume ###:/home/krai/CK_REPOS/ck-mlperf/program/mlperf-inference-vision/tmp/preprocessed "
      }
    },
    "cache": {
@@ -392,16 +392,16 @@
     "ck_benchmark_program_meta": "ck benchmark <<<run_or_benchmark_common_meta>>> --skip_stat_analysis --process_multi_keys --repetitions=<<<repetitions>>> --record --record_repo=local --record_uoa=<<<record_uoa>>> --tags=<<<record_tags_inner>>>",
     "ck_run_program": "ck run <<<run_or_benchmark_common>>>",
     "dataset_size": "<<<recommended_dataset_size>>>",
-    "docker_image" : "krai/mlperf-inference-vision-with-ck.tensorrt:21.09-py3_tf-2.6.0",
+    "docker_image" : "krai/mlperf-inference-vision:21.06-py3_tf-2.7.0",
     "device_ids": "<<<all_device_ids>>>",
     "division": "open",
-    "experiment_dir_default": "$HOME/CK/ck-object-detection.$(hostname).$(id -un)/experiment",
+    "experiment_dir_default": "$HOME/CK/mlperf.object-detection.$(hostname).$(id -un)/experiment",
     "cache_dir_default": "/data/mlperf-inference-vision.cache",
     "cache_opt": "0",
     "verbosity": "<<<recommended_verbosity>>>",
     "model_readable": "<<<model_tags->>>",
     "print_output_file_cmd_2": "&& cat <<<?escape_char>>>`ck find program:<<<program_name>>><<<?escape_char>>>`/tmp/<<<output_file>>>",
-    "print_output_file_cmd": "&& cat /home/krai/CK_REPOS/ck-object-detection/program/mlperf-inference-vision/tmp/<<<output_file>>>",
+    "print_output_file_cmd": "&& cat /home/krai/CK_REPOS/ck-mlperf/program/mlperf-inference-vision/tmp/<<<output_file>>>",
     "record_uoa": "<<<record_uoa_parts->>>",
     "record_tags_inner": "<<<record_tags,>>>",
     "repetitions": "1",

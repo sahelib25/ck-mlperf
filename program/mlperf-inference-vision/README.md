@@ -137,9 +137,9 @@ ck rm  ${CK_EXPERIMENT_REPO}:experiment:dummy --force
 
 ```
 export CK_EXPERIMENT_DIR="${HOME}/CK/${CK_EXPERIMENT_REPO}/experiment"
-chgrp -R qaic $CK_EXPERIMENT_DIR && \
+chgrp -R krai $CK_EXPERIMENT_DIR && \
 chmod -R g+ws $CK_EXPERIMENT_DIR && \
-setfacl -R -d -m group:qaic:rwx $CK_EXPERIMENT_DIR
+setfacl -R -d -m group:krai:rwx $CK_EXPERIMENT_DIR
 ```
 
 ---
