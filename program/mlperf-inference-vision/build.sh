@@ -19,6 +19,7 @@ cd $(ck find ck-mlperf:program:${_IMAGE}) && \
 time docker build ${_NO_CACHE} \
 --build-arg BASE_IMAGE=${_BASE_IMAGE} \
 --build-arg SDK_VER=${_SDK_VER} \
+--build-arg TF_VER=${_TF_VER} \
 --build-arg CK_VER=${_CK_VER} \
 --build-arg GROUP_ID=${_GROUP_ID} \
 --build-arg USER_ID=${_USER_ID} \

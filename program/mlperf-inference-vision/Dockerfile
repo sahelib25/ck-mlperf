@@ -8,6 +8,8 @@ ARG GROUP_ID
 ARG USER_ID
 # Use CK <= 1.55.5 with known behaviour.
 ARG CK_VER
+# Use TensorFlow 2.7
+ARG TF_VER
 
 LABEL maintainer="Anton Lokhmotov <anton@krai.ai>"
 
@@ -81,9 +83,9 @@ RUN ${CK_PYTHON} -m pip install --ignore-installed pip setuptools --user
 
 
 #-----------------------------------------------------------------------------#
-# Step 1. Install prebuilt TensorFlow v2.6.0 (via pip).
+# Step 1. Install prebuilt TensorFlow (via pip).
 #-----------------------------------------------------------------------------#
-RUN ck install package --tags=lib,tensorflow,python-package --force_version=2.6.0
+RUN ck install package --tags=lib,tensorflow,python-package --force_version=${TF_VER}
 # Remove NumPy v1.19.5 which conflicts with Python COCO API.
 RUN find /home/krai/CK_TOOLS/lib-python-tensorflow* -maxdepth 5 -name 'numpy*' \
     -exec rm -r {} \;
