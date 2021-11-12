@@ -2,9 +2,9 @@
 
 This Collective Knowledge workflow is based on the [official MLPerf Inference Vision application](https://github.com/mlcommons/inference/tree/master/vision/classification_and_detection) extended for diverse Object Detection models, as found e.g. in the [TF1 Object Detection Zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf1_detection_zoo.md) and the [TF2 Object Detection Zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf2_detection_zoo.md).
 
+### Supported Model-Engine-Backend Combinations
+
 The table below shows currently supported models, frameworks ("inference engines") and library/device combinations ("inference engine backends").
-
-
 
 | `MODEL_NAME`                                 | `INFERENCE_ENGINE`  | `INFERENCE_ENGINE_BACKEND`                 |
 | -------------------------------------------- | ------------------- | ------------------------------------------ |
@@ -22,17 +22,17 @@ The table below shows currently supported models, frameworks ("inference engines
 | `yolo-v3-coco`                               | `tensorflow`        | `default-cpu`,`default-gpu`,`openvino-cpu` |
 | `ssd_resnet50_v1_fpn_640x640`                | `tensorflow`        | `default-cpu`,`default-gpu`                |
 | `ssd_resnet50_v1_fpn_1024x1024`              | `tensorflow`        | `default-cpu`,`default-gpu`                |
-|`ssd_resnet101_v1_fpn_640x640`                | `tensorflow`        | `default-cpu`,`default-gpu`                |
-|`ssd_resnet101_v1_fpn_1024x1024`              | `tensorflow`        | `default-cpu`,`default-gpu`                |
-|`ssd_resnet152_v1_fpn_640x640`                | `tensorflow`        | `default-cpu`,`default-gpu`                |
-|`ssd_resnet152_v1_fpn_1024x1024`              | `tensorflow`        | `default-cpu`,`default-gpu`                |
-|`ssd_mobilenet_v2_320x320`                    | `tensorflow`        | `default-cpu`,`default-gpu`                |
-|`ssd_mobilenet_v1_fpn_640x640`                | `tensorflow`        | `default-cpu`,`default-gpu`                |
-|`ssd_mobilenet_v2_fpnlite_320x320`            | `tensorflow`        | `default-cpu`,`default-gpu`                |
-|`ssd_mobilenet_v2_fpnlite_640x640`            | `tensorflow`        | `default-cpu`,`default-gpu`                |
+| `ssd_resnet101_v1_fpn_640x640`               | `tensorflow`        | `default-cpu`,`default-gpu`                |
+| `ssd_resnet101_v1_fpn_1024x1024`             | `tensorflow`        | `default-cpu`,`default-gpu`                |
+| `ssd_resnet152_v1_fpn_640x640`               | `tensorflow`        | `default-cpu`,`default-gpu`                |
+| `ssd_resnet152_v1_fpn_1024x1024`             | `tensorflow`        | `default-cpu`,`default-gpu`                |
+| `ssd_mobilenet_v2_320x320`                   | `tensorflow`        | `default-cpu`,`default-gpu`                |
+| `ssd_mobilenet_v1_fpn_640x640`               | `tensorflow`        | `default-cpu`,`default-gpu`                |
+| `ssd_mobilenet_v2_fpnlite_320x320`           | `tensorflow`        | `default-cpu`,`default-gpu`                |
+| `ssd_mobilenet_v2_fpnlite_640x640`           | `tensorflow`        | `default-cpu`,`default-gpu`                |
 
 
-### Supported Combinations of Backend-Scenario-BatchSize
+### Supported Backend-Scenario-BatchSize Combinations
 <details>
 <summary>Click to expand</summary>
 (to be updated)
@@ -127,16 +127,19 @@ sudo usermod -aG krai $USER
 ### Create a new repository
 
 ```
-ck add repo:ck-object-detection.$(hostname).$(id -un) --quiet && \
-ck add ck-object-detection.$(hostname).$(id -un):experiment:dummy --common_func && \
-ck rm  ck-object-detection.$(hostname).$(id -un):experiment:dummy --force
+export CK_EXPERIMENT_REPO="mlperf.object-detection.$(hostname).$(id -un)"
+ck add repo:${CK_EXPERIMENT_REPO} --quiet && \
+ck add ${CK_EXPERIMENT_REPO}:experiment:dummy --common_func && \
+ck rm  ${CK_EXPERIMENT_REPO}:experiment:dummy --force
 ```
 
 ### Make its `experiment` directory writable by group `krai`
 
 ```
-export CK_EXPERIMENT_DIR="$HOME/CK/ck-object-detection.$(hostname).$(id -un)/experiment"
-sudo chgrp krai $CK_EXPERIMENT_DIR -R && sudo chmod g+w $CK_EXPERIMENT_DIR -R
+export CK_EXPERIMENT_DIR="${HOME}/CK/${CK_EXPERIMENT_REPO}/experiment"
+chgrp -R qaic $CK_EXPERIMENT_DIR && \
+chmod -R g+ws $CK_EXPERIMENT_DIR && \
+setfacl -R -d -m group:qaic:rwx $CK_EXPERIMENT_DIR
 ```
 
 ---
