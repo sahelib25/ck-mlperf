@@ -108,7 +108,7 @@ docker run -td --entrypoint /bin/bash --name ck ${CK_IMAGE}
 
 ##### With GPU support
 ```
-docker run -td --runtime=nvidia --entrypoint /bin/bash --name ck ${CK_IMAGE}
+docker run -td --gpus all --entrypoint /bin/bash --name ck ${CK_IMAGE}
 ```
 
 #### Start the container
@@ -545,7 +545,7 @@ time docker run -it --rm ${CK_IMAGE} \
 
 #### `tensorflow/default-gpu/0`
 ```
-time docker run --runtime=nvidia -it --rm ${CK_IMAGE} \
+time docker run --gpus all -it --rm ${CK_IMAGE} \
 "ck run program:mlperf-inference-vision --cmd_key=direct --skip_print_timers \
   --env.CK_INFERENCE_ENGINE=tensorflow \
   --env.CK_INFERENCE_ENGINE_BACKEND=default-gpu \
@@ -561,7 +561,7 @@ time docker run --runtime=nvidia -it --rm ${CK_IMAGE} \
 
 #### `tensorflow/tensorrt-dynamic/0`
 ```
-time docker run --runtime=nvidia -it --rm ${CK_IMAGE} \
+time docker run --gpus all -it --rm ${CK_IMAGE} \
 "ck run program:mlperf-inference-vision --cmd_key=direct --skip_print_timers \
   --env.CK_INFERENCE_ENGINE=tensorflow \
   --env.CK_INFERENCE_ENGINE_BACKEND=tensorrt-dynamic\
