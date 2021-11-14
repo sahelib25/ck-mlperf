@@ -149,13 +149,13 @@
       },
       "ssd-inception-v2-coco": {
         "ck_env": "--env.CK_MODEL_PROFILE=tf1_object_det_zoo",
-	    "buffer_size": "64",
+        "recommended_buffer_size": "64",
         "tf_zoo": "tf1-zoo",
         "model_tags": [ "###" ]
       },
       "rcnn-inception-v2-coco": {
         "ck_env": "--env.CK_MODEL_PROFILE=tf1_object_det_zoo",
-	    "buffer_size": "64",
+        "recommended_buffer_size": "64",
         "tf_zoo": "tf1-zoo",
         "model_tags": [ "###" ]
       },
@@ -167,25 +167,25 @@
       "rcnn-resnet101-lowproposals-coco": {
         "ck_env": "--env.CK_MODEL_PROFILE=tf1_object_det_zoo",
         "tf_zoo": "tf1-zoo",
-	    "buffer_size": "64",
+        "recommended_buffer_size": "64",
         "model_tags": [ "###" ]
       },
       "rcnn-inception-resnet-v2-lowproposals-coco": {
         "ck_env": "--env.CK_MODEL_PROFILE=tf1_object_det_zoo",
         "tf_zoo": "tf1-zoo",
-	    "buffer_size": "64",
+        "recommended_buffer_size": "64",
         "model_tags": [ "###" ]
       },
       "rcnn-nas-lowproposals-coco": {
         "ck_env": "--env.CK_MODEL_PROFILE=tf1_object_det_zoo",
         "tf_zoo": "tf1-zoo",
-	    "buffer_size": "64",
+        "recommended_buffer_size": "64",
         "model_tags": [ "###" ]
       },
       "rcnn-resnet50-lowproposals-coco": {
         "ck_env": "--env.CK_MODEL_PROFILE=tf1_object_det_zoo",
         "tf_zoo": "tf1-zoo",
-        "buffer_size": "64",
+        "recommended_buffer_size": "64",
         "model_tags": [ "###" ]
       },
       "ssd_mobilenet_v1_coco": {
@@ -196,7 +196,7 @@
       "ssd-resnet50-v1-fpn-sbp-coco": {
         "ck_env": "--env.CK_MODEL_PROFILE=tf1_object_det_zoo",
         "tf_zoo": "tf1-zoo",
-        "buffer_size": "64",
+        "recommended_buffer_size": "64",
         "model_tags": [ "###" ]
       },
       "yolo-v3-coco": {
@@ -387,7 +387,8 @@
   "cmd_template": "<<<shell_wrapped_cmd>>>",
   "defaults": {
     "batch_size": "1",
-    "buffer_size": "256",
+    "recommended_buffer_size": "256",
+    "buffer_size": "<<<recommended_buffer_size>>>",
     "ck_benchmark_program": "ck benchmark <<<run_or_benchmark_common>>> --skip_stat_analysis --process_multi_keys --repetitions=<<<repetitions>>> --record --record_repo=local --record_uoa=<<<record_uoa>>> --tags=<<<record_tags_inner>>>",
     "ck_benchmark_program_meta": "ck benchmark <<<run_or_benchmark_common_meta>>> --skip_stat_analysis --process_multi_keys --repetitions=<<<repetitions>>> --record --record_repo=local --record_uoa=<<<record_uoa>>> --tags=<<<record_tags_inner>>>",
     "ck_run_program": "ck run <<<run_or_benchmark_common>>>",
