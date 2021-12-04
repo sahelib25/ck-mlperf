@@ -168,7 +168,14 @@
         "PACKAGE_GIT_CHECKOUT": "r1.1",
         "PACKAGE_PATCH": "YES",
         "PACKAGE_PATCH_COCO": "coco_patch"
-      }
+      },
+      "extra_customize": {
+        "package_extra_name": " (v1.1 branch with nvidia coco patch)",
+        "version": "r1.1 nvidia coco patched"
+      },
+      "extra_tags": [
+        "r1.1"
+      ]
     },
     "py11bind.patch": {
       "extra_env": {
