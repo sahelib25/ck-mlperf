@@ -115,14 +115,14 @@ public:
             }
             break;
 
-        case armnn::DataType::QuantisedAsymm8:
+        case armnn::DataType::QAsymmU8:
             benchmark.reset(new ArmNNBenchmark<uint8_t, InCopy, OutDequantize>(settings, (uint8_t*)input, (uint8_t*)output));
             break;
 
         default:
             throw format("Unsupported type of graph's input: %d. "
                          "Supported types are: Float32 (%d), UInt8 (%d)",
-                         int(input_type), int(armnn::DataType::Float32), int(armnn::DataType::QuantisedAsymm8));
+                         int(input_type), int(armnn::DataType::Float32), int(armnn::DataType::QAsymmU8));
     }
 
     int out_num = outShape[0];
