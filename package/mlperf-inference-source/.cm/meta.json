@@ -132,6 +132,15 @@
         "version": "vdvdt.rnnt"
       }
     },
+    "upstream.pr1037": {
+      "extra_env": {
+        "PACKAGE_URL": "https://github.com/ckstanton/inference",
+        "PACKAGE_GIT_CHECKOUT": "master"
+      },
+      "extra_customize": {
+        "package_extra_name": " (PR#1037: early stopping)"
+      }
+    },
     "upstream.pr679": {
       "extra_env": {
         "PACKAGE_URL": "https://github.com/guschmue/inference",
