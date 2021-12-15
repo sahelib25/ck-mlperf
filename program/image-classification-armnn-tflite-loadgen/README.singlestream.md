@@ -16,6 +16,13 @@
 <a name="resnet50"></a>
 ### ResNet50
 
+Some measured latencies are given in the table below.
+
+ `--sut`   | `--library` (+version+backend) | `--target_latency` (ms) | Notes
+-----------|--------------------------------|-------------------------|----------------------
+ `odroid`  | `armnn-v21.11-neon`            | 341 ms                  | MLPerf Inference v2.x
+ `odroid`  | `armnn-v21.11-opencl`          | 246 ms                  | MLPerf Inference v2.x
+
 #### "All-in-one"
 
 Specifying `--group.closed` runs the benchmark in the following modes required for the Closed division:
@@ -23,13 +30,13 @@ Specifying `--group.closed` runs the benchmark in the following modes required f
 - Performance (with the given `--target_latency`).
 - Compliance tests (TEST01, TEST04-A/B, TEST05).
 
-**NB:** This mode is currently supported with CK <= v1.17.0:
+**NB:** This mode is currently supported only with CK &leq; v1.17.0:
 
 ```
 python3 -m pip install ck==1.17.0
 ```
 
-#### Neon
+##### Neon
 
 ```bash
 time ck run cmdgen:benchmark.image-classification.tflite-loadgen --verbose   \
@@ -37,7 +44,7 @@ time ck run cmdgen:benchmark.image-classification.tflite-loadgen --verbose   \
 --library=armnn-v21.11-neon --sut=odroid --target_latency=350
 ```
 
-#### OpenCL
+##### OpenCL
 
 ```bash
 time ck run cmdgen:benchmark.image-classification.tflite-loadgen --verbose   \
