@@ -12,6 +12,7 @@
     ],
     "record_tags": [
       "mlperf",
+      "round.<<<round>>>",
       "division.<<<division>>>",
       "task.image-classification",
       "platform.<<<sut>>>",
@@ -21,7 +22,7 @@
       "<<<preprocessed_tag>>>"
     ],
     "record_uoa_parts": [
-      "<<<round>>>",
+      "mlperf_<<<round>>>",
       "<<<division>>>",
       "<<<sut>>>",
       "<<<library>>>",
@@ -475,7 +476,7 @@
     "record_uoa": "<<<record_uoa_parts->>>",
     "record_tags_inner": "<<<record_tags,>>>",
     "repetitions": "1",
-    "round": "mlperf_v2.0",
+    "round": "v2.0",
     "power_server_port": "4950",
     "screen_output": "--env.CK_SILENT_MODE=YES --skip_print_timers"
   },
