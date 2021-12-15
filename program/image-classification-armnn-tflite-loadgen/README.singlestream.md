@@ -1,9 +1,9 @@
 # MLPerf Inference - Image Classification - ArmNN-TFLite
 
-## SingleStream
+## Single Stream
 
 - Set up [`program:image-classification-armnn-tflite-loadgen`](https://github.com/krai/ck-mlperf/blob/master/program/image-classification-armnn-tflite-loadgen/README.md) on your SUT.
-- Customize the examples below for your SUT.
+- Customize the examples below for your SUT. In particular, adjust your `--target_latency` according to your `--sut` and `--library`.
 
 ### Workloads
 
@@ -15,6 +15,35 @@
 
 <a name="resnet50"></a>
 ### ResNet50
+
+#### "All-in-one"
+
+Specifying `--group.closed` runs the benchmark in the following modes required for the Closed division:
+- Accuracy (with the given `--dataset_size`).
+- Performance (with the given `--target_latency`).
+- Compliance tests (TEST01, TEST04-A/B, TEST05).
+
+**NB:** This mode is currently supported with CK <= v1.17.0:
+
+```
+python3 -m pip install ck==1.17.0
+```
+
+#### Neon
+
+```bash
+time ck run cmdgen:benchmark.image-classification.tflite-loadgen --verbose   \
+--model=resnet50 --group.closed --scenario=singlestream --dataset_size=50000 \
+--library=armnn-v21.11-neon --sut=odroid --target_latency=350
+```
+
+#### OpenCL
+
+```bash
+time ck run cmdgen:benchmark.image-classification.tflite-loadgen --verbose   \
+--model=resnet50 --group.closed --scenario=singlestream --dataset_size=50000 \
+--library=armnn-v21.11-opencl --sut=odroid --target_latency=250
+```
 
 #### Accuracy
 
