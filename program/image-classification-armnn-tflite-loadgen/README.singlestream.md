@@ -20,9 +20,10 @@ The following table gives some measured `--target_latency` values.
 
 | `--sut`     | `--library` (+version+backend) | `--target_latency` (ms) | Round                                              | Notes                            |
 |-------------|--------------------------------|-------------------------|----------------------------------------------------|----------------------------------|
-| `xavier`    | `armnn-v21.11-neon`            | 58                      | v2.x                                               | Power mode: MAXN. Big improvement! |
-| `odroid`    | `armnn-v21.11-neon`            | 341                     | v2.x                                               |                                  |
+| `xavier`    | `armnn-v21.11-neon`            | 58                      | v2.x                                               | -16-20% vs v0.5-v1.1.            |
+| `odroid`    | `armnn-v21.11-neon`            | 341                     | v2.x                                               | +10% vs `rpi4` despite 2.2 GHz vs 1.5 GHz? |
 |             | `armnn-v21.11-opencl`          | 246                     | v2.x                                               | Mali-G52 MP2 is faster than CPU. |
+| `rpi4`      | `armnn-v21.11-neon`            | 314                     | v2.x                                               | Fan: on.                         |
 | `rpi4`      | `armnn-v21.05-neon`            | 312                     | [v1.1](https://mlcommons.org/en/inference-edge-11) | Fan: on.                         |
 |             |                                | 313                     | [v1.1](https://mlcommons.org/en/inference-edge-11) | Fan: off.                        |
 | `xavier`    | `armnn-v21.05-neon`            | 72                      | [v1.1](https://mlcommons.org/en/inference-edge-11) | Power mode: MAXN.                |
@@ -30,21 +31,21 @@ The following table gives some measured `--target_latency` values.
 |             |                                | 252                     | [v1.1](https://mlcommons.org/en/inference-edge-11) | Power mode: MODE_30W_ALL.        |
 |             |                                | 259                     | [v1.1](https://mlcommons.org/en/inference-edge-11) | Power mode: MODE_30W_6CORE.      |
 |             |                                | 213                     | [v1.1](https://mlcommons.org/en/inference-edge-11) | Power mode: MODE_30W_4CORE.      |
-| `xavier`    | `armnn-v21.02-neon`            | 69                      | [v1.0](https://mlcommons.org/en/inference-edge-10) | Power mode: MAXN.                |
-| `firefly`   | `armnn-v21.02-neon`            | 415                     | [v1.0](https://mlcommons.org/en/inference-edge-10) |                                  |
-|             | `armnn-v21.02-opencl`          | 556                     | [v1.0](https://mlcommons.org/en/inference-edge-10) | Mali-T860 MP4 slower than CPU.   |
-| `firefly`   | `armnn-v20.08-neon`            | 368                     | [v0.7](https://mlcommons.org/en/inference-edge-07) |                                  |
-|             | `armnn-v20.08-opencl`          | 458                     | [v0.7](https://mlcommons.org/en/inference-edge-07) | Mali-T860 MP4 slower than CPU.   |
+| `xavier`    | `armnn-v21.02-neon`            | 69                      | [v1.0](https://mlcommons.org/en/inference-edge-10) | -4% vs v0.7. (10 min vs 1 min duration?) |
+| `firefly`   | `armnn-v21.02-neon`            | 415                     | [v1.0](https://mlcommons.org/en/inference-edge-10) | +6% vs v0.5.                     |
+|             | `armnn-v21.02-opencl`          | 556                     | [v1.0](https://mlcommons.org/en/inference-edge-10) | +24 vs v0.5.                     |
+| `firefly`   | `armnn-v20.08-neon`            | 368                     | [v0.7](https://mlcommons.org/en/inference-edge-07) | -6% vs v0.5.                     |
+|             | `armnn-v20.08-opencl`          | 458                     | [v0.7](https://mlcommons.org/en/inference-edge-07) | +2% vs v0.5.                     |
+| `xavier`    | `armnn-v20.08-neon`            | 73                      | [v0.7](https://mlcommons.org/en/inference-edge-07) | Power mode: MAXN.                |
 | `rpi4`      | `armnn-v20.08-neon`            | 464                     | [v0.7](https://mlcommons.org/en/inference-edge-07) | 32-bit Linux (Debian 11).        |
 | `rpi4`      | `armnn-v20.08-neon`            | 319                     | [v0.7](https://mlcommons.org/en/inference-edge-07) | 64-bit Linux (Ubuntu 20.04).     | 
-| `xavier`    | `armnn-v20.08-neon`            | 73                      | [v0.7](https://mlcommons.org/en/inference-edge-07) | Power mode: MAXN.                |
+| `rpi4`      | `armnn-v19.08-neon`            | 448                     | [v0.5](https://mlcommons.org/en/inference-edge-05) |                                  |
 | `firefly`   | `armnn-v19.08-neon`            | 391                     | [v0.5](https://mlcommons.org/en/inference-edge-05) |                                  |
 |             | `armnn-v19.08-opencl`          | 448                     | [v0.5](https://mlcommons.org/en/inference-edge-05) | Mali-T860 MP4 slower than CPU.   |
 | `mate10pro` | `armnn-v19.08-neon`            | 495                     | [v0.5](https://mlcommons.org/en/inference-edge-05) |                                  |
 |             | `armnn-v19.08-opencl`          | 354                     | [v0.5](https://mlcommons.org/en/inference-edge-05) | Mali-G72 MP12 faster than CPU.   |
 | `hikey960`  | `armnn-v19.08-neon`            | 495                     | [v0.5](https://mlcommons.org/en/inference-edge-05) |                                  |
 |             | `armnn-v19.08-opencl`          | 204                     | [v0.5](https://mlcommons.org/en/inference-edge-05) | Mali-G71 MP8 faster than CPU... and Mali-G72 MP12! |
-| `rpi4`      | `armnn-v19.08-neon`            | 448                     | [v0.5](https://mlcommons.org/en/inference-edge-05) |                                  |
 
 #### "All-in-one"
 
