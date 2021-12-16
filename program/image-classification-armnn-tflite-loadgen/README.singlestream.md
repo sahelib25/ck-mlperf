@@ -18,9 +18,10 @@
 
 The following table gives some measured `--target_latency` values.
 
-| `--sut`     | `--library` (+version+backend) | `--target_latency` (ms) | Round                                              | Notes         |
-|-------------|--------------------------------|-------------------------|----------------------------------------------------|---------------|
-| `odroid`    | `armnn-v21.11-neon`            | 341                     | v2.x                                               |               |
+| `--sut`     | `--library` (+version+backend) | `--target_latency` (ms) | Round                                              | Notes                            |
+|-------------|--------------------------------|-------------------------|----------------------------------------------------|----------------------------------|
+| `xavier`    | `armnn-v21.11-neon`            | 58                      | v2.x                                               | Power mode: MAXN. Big improvement! |
+| `odroid`    | `armnn-v21.11-neon`            | 341                     | v2.x                                               |                                  |
 |             | `armnn-v21.11-opencl`          | 246                     | v2.x                                               | Mali-G52 MP2 is faster than CPU. |
 | `rpi4`      | `armnn-v21.05-neon`            | 312                     | [v1.1](https://mlcommons.org/en/inference-edge-11) | Fan: on.                         |
 |             |                                | 313                     | [v1.1](https://mlcommons.org/en/inference-edge-11) | Fan: off.                        |
