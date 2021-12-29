@@ -41,7 +41,7 @@ class R34_Params {
    const int CLASSES_INDEX = 1;
 
    const float LOC_OFFSET = 0.0f;
-   const float LOC_SCALE = 0.136092901f;
+   const float LOC_SCALE = 0.134f;
    const float CONF_OFFSET = 0.0f;
    const float CONF_SCALE = 1.0f;
 
