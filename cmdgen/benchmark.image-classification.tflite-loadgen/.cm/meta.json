@@ -54,7 +54,7 @@
         "compiler_tags": "gcc,v7"
       },
       "rpi4": {
-        "compiler_tags": "gcc,v8"
+        "compiler_tags": "gcc,v11"
       },
       "rpi4coral": {
         "compiler_tags": "gcc,v9"
