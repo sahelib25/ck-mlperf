@@ -54,10 +54,10 @@ Specifying `--group.closed` runs the benchmark in the following modes required f
 - Performance with the given `--target_latency`.
 - Compliance tests (TEST01, TEST04-A/B, TEST05) with the given `--target_latency`.
 
-**NB:** This mode is currently supported only with CK &leq; v1.17.0:
+**NB:** This mode is supported only with CK &leq; v1.17.0 or &geq; v2.6.0:
 
 ```
-python3 -m pip install ck==1.17.0
+python3 -m pip install ck==2.6.1
 ```
 
 ##### Neon
