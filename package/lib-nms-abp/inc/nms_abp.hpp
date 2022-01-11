@@ -84,7 +84,6 @@ class NMS_ABP {
          for (uint32_t ci = 1; ci < modelParams.NUM_CLASSES; ci++) {
             uint32_t confItr = ci * modelParams.OFFSET_CONF;
             std::vector<bbox> result;
-            std::vector<Conf> scores;
             std::vector<bbox> selected;
             confPtr = confTensor;
             locPtr = locTensor;
