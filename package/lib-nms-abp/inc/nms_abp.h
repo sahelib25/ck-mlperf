@@ -54,6 +54,7 @@ class R34_Params {
 
    const char* priorName = "R34_priors.bin";
    const bool MAP_CLASSES = true;
+   const bool PREPROCESS_PRIOR = false;
    std::vector<float> variance = {0.1, 0.2};
    std::vector<float> class_map = {
        0,  1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 13, 14, 15, 16, 17,
@@ -94,6 +95,7 @@ class MV1_Params {
 
    const char* priorName = "MV1_priors.bin";
    const bool MAP_CLASSES = false;
+   const bool PREPROCESS_PRIOR = true;
    std::vector<float> variance = {};
    std::vector<float> class_map = {};
 };

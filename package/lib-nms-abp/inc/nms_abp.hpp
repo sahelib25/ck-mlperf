@@ -34,7 +34,7 @@ template <typename Loc, typename Conf, typename MParams>
 class NMS_ABP {
    std::string binPath;
 
-  public:
+ public:
    std::string priorName;
    float *priorTensor;
    MParams modelParams;
@@ -46,6 +46,23 @@ class NMS_ABP {
    ~NMS_ABP() {
       delete priorTensor;
    };
+   void preprocessPrior() {
+     for (uint32_t i = 0; i < modelParams.TOTAL_NUM_BOXES; i++) {
+       float *prior = &priorTensor[NUM_COORDINATES * i];
+       float box_y1 = prior[0];
+       float box_x1 = prior[1];
+       float box_y2 = prior[2];
+       float box_x2 = prior[3];
+       float w = box_x2 - box_x1;
+       float h = box_y2 - box_y1;
+       float cent_x = box_x1 + 0.5f * w;
+       float cent_y = box_y1 + 0.5f * h;
+       prior[0] = w;
+       prior[1] = h;
+       prior[2] = cent_x;
+       prior[3] = cent_y;
+     }
+   }
    float *read(std::string priorFilename, uint32_t tensorLength) {
       std::ifstream fs(binPath + "/" + priorFilename, std::ifstream::binary);
       fs.seekg(0, std::ios::end);
@@ -65,11 +82,14 @@ class NMS_ABP {
       return priorData;
    }
 
-  public:
+ public:
    void readPriors() {
-      priorTensor =
-          read(modelParams.priorName,
-               modelParams.TOTAL_NUM_BOXES * NUM_COORDINATES * sizeof(float));
+     priorTensor =
+         read(modelParams.priorName,
+              modelParams.TOTAL_NUM_BOXES * NUM_COORDINATES * sizeof(float));
+      if (modelParams.PREPROCESS_PRIOR) {
+        preprocessPrior();
+      }
    }
    void anchorBoxProcessing(const Loc *const locTensor,
                             const Conf *const confTensor,
@@ -94,13 +114,13 @@ class NMS_ABP {
                Conf confidence = confPtr[confItr];
                if (!above_Class_Threshold(confidence)) continue;
                float cf = get_Score_Val(confidence);
-               bbox cBox = {get_Loc_Val(locPtr[modelParams.BOX_ITR_0]),
-                            get_Loc_Val(locPtr[modelParams.BOX_ITR_1]),
-                            get_Loc_Val(locPtr[modelParams.BOX_ITR_2]),
-                            get_Loc_Val(locPtr[modelParams.BOX_ITR_3])};
+               bbox cBox = { get_Loc_Val(locPtr[modelParams.BOX_ITR_0]),
+                             get_Loc_Val(locPtr[modelParams.BOX_ITR_1]),
+                             get_Loc_Val(locPtr[modelParams.BOX_ITR_2]),
+                             get_Loc_Val(locPtr[modelParams.BOX_ITR_3]) };
                if (modelParams.variance.data() != NULL)
-                  cBox = decodeLocationTensorWithVariance(
-                      cBox, priorPtr, modelParams.variance.data());
+                 cBox = decodeLocationTensor(cBox, priorPtr,
+                                             modelParams.variance.data());
                else
                   cBox = decodeLocationTensor(cBox, priorPtr);
                result.emplace_back(std::initializer_list<float>{
@@ -125,13 +145,13 @@ class NMS_ABP {
                Conf confidence = confPtr[confItr + ci];
                if (!above_Class_Threshold(confidence)) continue;
                float cf = get_Score_Val(confidence);
-               bbox cBox = {get_Loc_Val(locPtr[modelParams.BOX_ITR_0]),
-                            get_Loc_Val(locPtr[modelParams.BOX_ITR_1]),
-                            get_Loc_Val(locPtr[modelParams.BOX_ITR_2]),
-                            get_Loc_Val(locPtr[modelParams.BOX_ITR_3])};
+               bbox cBox = { get_Loc_Val(locPtr[modelParams.BOX_ITR_0]),
+                             get_Loc_Val(locPtr[modelParams.BOX_ITR_1]),
+                             get_Loc_Val(locPtr[modelParams.BOX_ITR_2]),
+                             get_Loc_Val(locPtr[modelParams.BOX_ITR_3]) };
                if (modelParams.variance.data() != NULL)
-                  cBox = decodeLocationTensorWithVariance(
-                      cBox, priorPtr, modelParams.variance.data());
+                 cBox = decodeLocationTensor(cBox, priorPtr,
+                                             modelParams.variance.data());
                else
                   cBox = decodeLocationTensor(cBox, priorPtr);
                result[ci].emplace_back(std::initializer_list<float>{
@@ -154,7 +174,7 @@ class NMS_ABP {
       }
       std::partial_sort(selectedAll.begin(), selectedAll.begin() + middle,
                         selectedAll.end(), [](const bbox &a, const bbox &b) {
-         return a[SCORE_POSITION] > b[SCORE_POSITION];
+        return a[SCORE_POSITION] > b[SCORE_POSITION];
       });
    }
    inline Conf above_Class_Threshold(uint8_t score) {
@@ -167,24 +187,23 @@ class NMS_ABP {
       return score > modelParams.CLASS_THRESHOLD;
    }
    inline float get_Loc_Val(uint8_t x) {
-      return CONVERT_UINT8_FP32(x, modelParams.LOC_OFFSET,
-                                modelParams.LOC_SCALE);
+     return CONVERT_UINT8_FP32(x, modelParams.LOC_OFFSET,
+                               modelParams.LOC_SCALE);
    }
    inline float get_Loc_Val(float x) { return x; }
    inline float get_Score_Val(uint16_t x) { return fp16_ieee_to_fp32_value(x); }
    inline float get_Score_Val(uint8_t x) {
-      return CONVERT_UINT8_FP32(x, modelParams.CONF_OFFSET,
-                                modelParams.CONF_SCALE);
+     return CONVERT_UINT8_FP32(x, modelParams.CONF_OFFSET,
+                               modelParams.CONF_SCALE);
       ;
    }
    inline float get_Score_Val(float x) { return x; }
-   bbox decodeLocationTensorWithVariance(const bbox &loc,
-                                         const float *const prior,
-                                         const float *const var) {
-      float x = prior[modelParams.BOX_ITR_0] +
-                loc[0] * var[0] * prior[modelParams.BOX_ITR_2];
-      float y = prior[modelParams.BOX_ITR_1] +
-                loc[1] * var[0] * prior[modelParams.BOX_ITR_3];
+   bbox decodeLocationTensor(const bbox &loc, const float *const prior,
+                             const float *const var) {
+     float x = prior[modelParams.BOX_ITR_0] +
+               loc[0] * var[0] * prior[modelParams.BOX_ITR_2];
+     float y = prior[modelParams.BOX_ITR_1] +
+               loc[1] * var[0] * prior[modelParams.BOX_ITR_3];
       float w = prior[modelParams.BOX_ITR_2] * expf(loc[2] * var[1]);
       float h = prior[modelParams.BOX_ITR_3] * expf(loc[3] * var[1]);
       x -= (w / 2.0f);
@@ -196,51 +215,46 @@ class NMS_ABP {
    }
    bbox decodeLocationTensor(const bbox &loc, const float *const prior) {
 
-      float box_x1 = prior[1];
-      float box_y1 = prior[0];
-      float box_x2 = prior[3];
-      float box_y2 = prior[2];
+     float w = prior[0];
+     float h = prior[1];
+     float cent_x = prior[2];
+     float cent_y = prior[3];
 
-      float dx = loc[1] / 10.0f;
-      float dy = loc[0] / 10.0f;
-      float dw = loc[3] / 5.0f;
-      float dh = loc[2] / 5.0f;
+     float dy = loc[0] / 10.0f;
+     float dx = loc[1] / 10.0f;
+     float dh = loc[2] / 5.0f;
+     float dw = loc[3] / 5.0f;
 
-      float w = box_x2 - box_x1;
-      float h = box_y2 - box_y1;
-      float cent_x = box_x1 + 0.5f * w;
-      float cent_y = box_y1 + 0.5f * h;
+     float pred_cent_x = dx * w + cent_x;
+     float pred_cent_y = dy * h + cent_y;
+     float pred_w = expf(dw) * w;
+     float pred_h = expf(dh) * h;
 
-      float pred_cent_x = dx * w + cent_x;
-      float pred_cent_y = dy * h + cent_y;
-      float pred_w = expf(dw) * w;
-      float pred_h = expf(dh) * h;
-
-      return {pred_cent_x - 0.5f * pred_w, pred_cent_y - 0.5f * pred_h,
-              pred_cent_x + 0.5f * pred_w, pred_cent_y + 0.5f * pred_h};
+     return { pred_cent_x - 0.5f * pred_w, pred_cent_y - 0.5f * pred_h,
+              pred_cent_x + 0.5f * pred_w, pred_cent_y + 0.5f * pred_h };
    }
 
    template <typename A, typename B>
    void pack(const std::vector<A> &part1, const std::vector<B> &part2,
              std::vector<std::pair<A, B> > &packed) {
-      assert(part1.size() == part2.size());
-      for (size_t i = 0; i < part1.size(); i++) {
-         packed.push_back(std::make_pair(part1[i], part2[i]));
-      }
+     assert(part1.size() == part2.size());
+     for (size_t i = 0; i < part1.size(); i++) {
+       packed.push_back(std::make_pair(part1[i], part2[i]));
+     }
    }
 
    template <typename A, typename B>
    void unpack(const std::vector<std::pair<A, B> > &packed,
                std::vector<A> &part1, std::vector<B> &part2) {
-      for (size_t i = 0; i < part1.size(); i++) {
-         part1[i] = packed[i].first;
-         part2[i] = packed[i].second;
-      }
+     for (size_t i = 0; i < part1.size(); i++) {
+       part1[i] = packed[i].first;
+       part2[i] = packed[i].second;
+     }
    }
 #define AREA(y1, x1, y2, x2) ((y2 - y1) * (x2 - x1))
    float computeIOU(const float *box1, const float *box2) {
-      float box1_y1 = box1[1], box1_x1 = box1[2], box1_y2 = box1[3],
-            box1_x2 = box1[4];
+     float box1_y1 = box1[1], box1_x1 = box1[2], box1_y2 = box1[3],
+           box1_x2 = box1[4];
       float box2_y1 = box2[1], box2_x1 = box2[2], box2_y2 = box2[3],
             box2_x2 = box2[4];
 
@@ -255,7 +269,7 @@ class NMS_ABP {
       float IOU = 0.0f;
 
       if ((inter_y1 < inter_y2) &&
-          (inter_x1 < inter_x2))  // there is a valid intersection
+          (inter_x1 < inter_x2)) // there is a valid intersection
       {
          float intersect = AREA(inter_y1, inter_x1, inter_y2, inter_x2);
          float total = AREA(box1_y1, box1_x1, box1_y2, box1_x2) +
@@ -289,9 +303,9 @@ class NMS_ABP {
 
      std::sort(std::begin(boxes), std::end(boxes),
                [&](const auto &a, const auto &b) { return (a[5] > b[5]); });
-      for (int i = 0; (i < boxes.size()) && (selected.size() < max_output_size);
-           i++) {
-        insertSelected(selected, selectedAll, boxes[i], thres, classmap);
+     for (int i = 0; (i < boxes.size()) && (selected.size() < max_output_size);
+          i++) {
+       insertSelected(selected, selectedAll, boxes[i], thres, classmap);
       }
    }
 };
