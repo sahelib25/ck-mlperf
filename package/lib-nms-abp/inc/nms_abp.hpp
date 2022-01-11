@@ -94,6 +94,7 @@ class NMS_ABP {
 
                Conf confidence = confPtr[confItr];
                if (!above_Class_Threshold(confidence)) continue;
+               float cf = get_Score_Val(confidence);
                bbox cBox = {get_Loc_Val(locPtr[modelParams.BOX_ITR_0]),
                             get_Loc_Val(locPtr[modelParams.BOX_ITR_1]),
                             get_Loc_Val(locPtr[modelParams.BOX_ITR_2]),
@@ -104,21 +105,19 @@ class NMS_ABP {
                else
                   cBox = decodeLocationTensor(cBox, priorPtr);
                result.emplace_back(std::initializer_list<float>{
-                   idx, cBox[1], cBox[0], cBox[3], cBox[2], 0, (float)ci});
-               scores.push_back(confidence);
+                 idx, cBox[1], cBox[0], cBox[3], cBox[2], cf, (float)ci
+               });
             }
 
             if (result.size()) {
-               NMS(result, scores, modelParams.NMS_THRESHOLD,
-                   modelParams.MAX_BOXES_PER_CLASS, selected, selectedAll,
-                   modelParams.class_map);
+              NMS(result, modelParams.NMS_THRESHOLD,
+                  modelParams.MAX_BOXES_PER_CLASS, selected, selectedAll,
+                  modelParams.class_map);
             }
          }
       } else {
          std::vector<bbox> result[modelParams.NUM_CLASSES];
          std::vector<bbox> selected[modelParams.NUM_CLASSES];
-         std::vector<Conf> scores[modelParams.NUM_CLASSES];
-         float const *priorPtr = priorTensor;
          for (uint32_t bi = 0; bi < modelParams.TOTAL_NUM_BOXES;
               bi++, locPtr += 4, priorPtr += 4) {
             uint32_t confItr = bi * modelParams.NUM_CLASSES;
@@ -126,6 +125,7 @@ class NMS_ABP {
 
                Conf confidence = confPtr[confItr + ci];
                if (!above_Class_Threshold(confidence)) continue;
+               float cf = get_Score_Val(confidence);
                bbox cBox = {get_Loc_Val(locPtr[modelParams.BOX_ITR_0]),
                             get_Loc_Val(locPtr[modelParams.BOX_ITR_1]),
                             get_Loc_Val(locPtr[modelParams.BOX_ITR_2]),
@@ -136,15 +136,15 @@ class NMS_ABP {
                else
                   cBox = decodeLocationTensor(cBox, priorPtr);
                result[ci].emplace_back(std::initializer_list<float>{
-                   idx, cBox[1], cBox[0], cBox[3], cBox[2], 0, (float)ci});
-               scores[ci].push_back(confidence);
+                 idx, cBox[1], cBox[0], cBox[3], cBox[2], cf, (float)ci
+               });
             }
          }
          for (uint32_t ci = 1; ci < modelParams.NUM_CLASSES; ci++) {
             if (result[ci].size()) {
-               NMS(result[ci], scores[ci], modelParams.NMS_THRESHOLD,
-                   modelParams.MAX_BOXES_PER_CLASS, selected[ci], selectedAll,
-                   modelParams.class_map);
+              NMS(result[ci], modelParams.NMS_THRESHOLD,
+                  modelParams.MAX_BOXES_PER_CLASS, selected[ci], selectedAll,
+                  modelParams.class_map);
             }
          }
       }
@@ -269,37 +269,30 @@ class NMS_ABP {
    void insertSelected(std::vector<std::vector<float> > &selected,
                        std::vector<std::vector<float> > &selectedAll,
                        std::vector<float> &cand, const float &thres,
-                       std::vector<Conf> &scores, int index,
                        std::vector<float> &classmap) {
       for (int i = 0; i < selected.size(); i++) {
          if (computeIOU(&cand[0], &selected[i][0]) > thres) {
             return;
          }
       }
-      cand[SCORE_POSITION] = get_Score_Val(scores[index]);
+      cand[SCORE_POSITION] = cand[5];
       if (modelParams.MAP_CLASSES)
          cand[CLASS_POSITION] = classmap[cand[CLASS_POSITION]];
       selected.push_back(cand);
       selectedAll.push_back(cand);
    }
 
-   void NMS(std::vector<std::vector<float> > &boxes, std::vector<Conf> &scores,
-            const float &thres, const int &max_output_size,
+   void NMS(std::vector<std::vector<float> > &boxes, const float &thres,
+            const int &max_output_size,
             std::vector<std::vector<float> > &selected,
             std::vector<std::vector<float> > &selectedAll,
             std::vector<float> &classmap) {
-      std::vector<std::pair<std::vector<float>, Conf> > packed;
-      assert(boxes.size() == scores.size());
-      pack(boxes, scores, packed);
 
-      std::sort(
-          std::begin(packed), std::end(packed),
-          [&](const auto &a, const auto &b) { return (a.second > b.second); });
-      unpack(packed, boxes, scores);
+     std::sort(std::begin(boxes), std::end(boxes),
+               [&](const auto &a, const auto &b) { return (a[5] > b[5]); });
       for (int i = 0; (i < boxes.size()) && (selected.size() < max_output_size);
            i++) {
-         insertSelected(selected, selectedAll, boxes[i], thres, scores, i,
-                        classmap);
+        insertSelected(selected, selectedAll, boxes[i], thres, classmap);
       }
    }
 };
