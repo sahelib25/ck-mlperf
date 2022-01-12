@@ -409,6 +409,8 @@ $ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v2
 <a name="mobilenet_v3"></a>
 ### MobileNet-v3
 
+**NB:** Note that unlike [MobileNet-v1](#mobilenet_v1), [MobileNet-v2](#mobilenet_v2) and [EfficientNet](#efficientnet), [MobileNet-v3](#mobilenet_v3) does **not** require providing `--model_extra_tags,=non-quantized,quantized`.
+
 #### Accuracy
 
 ##### Neon
