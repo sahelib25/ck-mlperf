@@ -38,7 +38,7 @@
       "local": "yes",
       "name": "Python TensorFlow library",
       "sort": 50,
-      "tags": "lib,python-package,tensorflow,vpip"
+      "tags": "lib,python-package,tensorflow"
     },
     "lib-python-transformers": {
       "local": "yes",
