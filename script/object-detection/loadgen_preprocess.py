@@ -55,6 +55,7 @@ def user_conf_and_audit_config(i):
     env_to_conf         = {
         'CK_LOADGEN_MULTISTREAMNESS':                   ('samples_per_query', 1),
 
+        'CK_LOADGEN_MIN_QUERY_COUNT':                   ('min_query_count', 1),
         'CK_LOADGEN_MAX_QUERY_COUNT':                   ('max_query_count', 1),
         'CK_LOADGEN_BUFFER_SIZE':                       ('performance_sample_count_override', 1),
         'CK_LOADGEN_SAMPLES_PER_QUERY':                 ('samples_per_query', 1),
