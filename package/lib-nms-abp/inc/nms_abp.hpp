@@ -87,9 +87,6 @@ class NMS_ABP {
      priorTensor =
          read(modelParams.priorName,
               modelParams.TOTAL_NUM_BOXES * NUM_COORDINATES * sizeof(float));
-      if (modelParams.PREPROCESS_PRIOR) {
-        preprocessPrior();
-      }
    }
    void anchorBoxProcessing(const Loc *const locTensor,
                             const Conf *const confTensor,
@@ -99,75 +96,72 @@ class NMS_ABP {
       const Loc *locPtr = locTensor;
 
       float const *priorPtr = priorTensor;
-
-      if (modelParams.BOXES_INDEX == 0) {
-         for (uint32_t ci = 1; ci < modelParams.NUM_CLASSES; ci++) {
-            uint32_t confItr = ci * modelParams.OFFSET_CONF;
-            std::vector<bbox> result;
-            std::vector<bbox> selected;
-            confPtr = confTensor;
-            locPtr = locTensor;
-            priorPtr = priorTensor;
-            for (uint32_t bi = 0; bi < modelParams.TOTAL_NUM_BOXES;
-                 ++bi, confPtr++, locPtr++, priorPtr++) {
-
-               Conf confidence = confPtr[confItr];
-               if (!above_Class_Threshold(confidence)) continue;
-               float cf = get_Score_Val(confidence);
-               bbox cBox = { get_Loc_Val(locPtr[modelParams.BOX_ITR_0]),
-                             get_Loc_Val(locPtr[modelParams.BOX_ITR_1]),
-                             get_Loc_Val(locPtr[modelParams.BOX_ITR_2]),
-                             get_Loc_Val(locPtr[modelParams.BOX_ITR_3]) };
-               if (modelParams.variance.data() != NULL)
-                 cBox = decodeLocationTensor(cBox, priorPtr,
-                                             modelParams.variance.data());
-               else
-                  cBox = decodeLocationTensor(cBox, priorPtr);
-               result.emplace_back(std::initializer_list<float>{
-                 idx, cBox[1], cBox[0], cBox[3], cBox[2], cf, (float)ci
-               });
-            }
-
-            if (result.size()) {
-              NMS(result, modelParams.NMS_THRESHOLD,
-                  modelParams.MAX_BOXES_PER_CLASS, selected, selectedAll,
-                  modelParams.class_map);
-            }
-         }
-      } else {
-         std::vector<bbox> result[modelParams.NUM_CLASSES];
-         std::vector<bbox> selected[modelParams.NUM_CLASSES];
+#ifdef MODEL_R34
+      for (uint32_t ci = 1; ci < modelParams.NUM_CLASSES; ci++) {
+         uint32_t confItr = ci * modelParams.OFFSET_CONF;
+         std::vector<bbox> result;
+         std::vector<bbox> selected;
+         confPtr = confTensor;
+         locPtr = locTensor;
+         priorPtr = priorTensor;
          for (uint32_t bi = 0; bi < modelParams.TOTAL_NUM_BOXES;
-              bi++, locPtr += 4, priorPtr += 4) {
-            uint32_t confItr = bi * modelParams.NUM_CLASSES;
-            for (uint32_t ci = 1; ci < modelParams.NUM_CLASSES; ci++) {
+              ++bi, confPtr++, locPtr++, priorPtr++) {
 
-               Conf confidence = confPtr[confItr + ci];
-               if (!above_Class_Threshold(confidence)) continue;
-               float cf = get_Score_Val(confidence);
-               bbox cBox = { get_Loc_Val(locPtr[modelParams.BOX_ITR_0]),
-                             get_Loc_Val(locPtr[modelParams.BOX_ITR_1]),
-                             get_Loc_Val(locPtr[modelParams.BOX_ITR_2]),
-                             get_Loc_Val(locPtr[modelParams.BOX_ITR_3]) };
-               if (modelParams.variance.data() != NULL)
-                 cBox = decodeLocationTensor(cBox, priorPtr,
-                                             modelParams.variance.data());
-               else
-                  cBox = decodeLocationTensor(cBox, priorPtr);
-               result[ci].emplace_back(std::initializer_list<float>{
-                 idx, cBox[1], cBox[0], cBox[3], cBox[2], cf, (float)ci
-               });
-            }
+            Conf confidence = confPtr[confItr];
+            if (!above_Class_Threshold(confidence)) continue;
+            float cf = get_Score_Val(confidence);
+            bbox cBox = { get_Loc_Val(locPtr[modelParams.BOX_ITR_0]),
+                          get_Loc_Val(locPtr[modelParams.BOX_ITR_1]),
+                          get_Loc_Val(locPtr[modelParams.BOX_ITR_2]),
+                          get_Loc_Val(locPtr[modelParams.BOX_ITR_3]) };
+            if (modelParams.variance.data() != NULL)
+              cBox = decodeLocationTensor(cBox, priorPtr,
+                                          modelParams.variance.data());
+            else
+               cBox = decodeLocationTensor(cBox, priorPtr);
+            result.emplace_back(std::initializer_list<float>{
+              idx, cBox[1], cBox[0], cBox[3], cBox[2], cf, (float)ci
+            });
          }
+
+         if (result.size()) {
+           NMS(result, modelParams.NMS_THRESHOLD,
+               modelParams.MAX_BOXES_PER_CLASS, selected, selectedAll,
+               modelParams.class_map);
+         }
+#else
+      std::vector<bbox> result[modelParams.NUM_CLASSES];
+      std::vector<bbox> selected[modelParams.NUM_CLASSES];
+      for (uint32_t bi = 0; bi < modelParams.TOTAL_NUM_BOXES;
+           bi++, locPtr += 4, priorPtr += 4) {
+         uint32_t confItr = bi * modelParams.NUM_CLASSES;
          for (uint32_t ci = 1; ci < modelParams.NUM_CLASSES; ci++) {
-            if (result[ci].size()) {
-              NMS(result[ci], modelParams.NMS_THRESHOLD,
-                  modelParams.MAX_BOXES_PER_CLASS, selected[ci], selectedAll,
-                  modelParams.class_map);
-            }
+
+            Conf confidence = confPtr[confItr + ci];
+            if (!above_Class_Threshold(confidence)) continue;
+            float cf = get_Score_Val(confidence);
+            bbox cBox = { get_Loc_Val(locPtr[modelParams.BOX_ITR_0]),
+                          get_Loc_Val(locPtr[modelParams.BOX_ITR_1]),
+                          get_Loc_Val(locPtr[modelParams.BOX_ITR_2]),
+                          get_Loc_Val(locPtr[modelParams.BOX_ITR_3]) };
+            if (modelParams.variance.data() != NULL)
+              cBox = decodeLocationTensor(cBox, priorPtr,
+                                          modelParams.variance.data());
+            else
+               cBox = decodeLocationTensor(cBox, priorPtr);
+            result[ci].emplace_back(std::initializer_list<float>{
+              idx, cBox[1], cBox[0], cBox[3], cBox[2], cf, (float)ci
+            });
          }
       }
-
+      for (uint32_t ci = 1; ci < modelParams.NUM_CLASSES; ci++) {
+         if (result[ci].size()) {
+           NMS(result[ci], modelParams.NMS_THRESHOLD,
+               modelParams.MAX_BOXES_PER_CLASS, selected[ci], selectedAll,
+               modelParams.class_map);
+         }
+      }
+#endif
       int middle = selectedAll.size();
       if (middle > modelParams.MAX_DETECTIONS_PER_IMAGE) {
          middle = modelParams.MAX_DETECTIONS_PER_IMAGE;
@@ -215,10 +209,10 @@ class NMS_ABP {
    }
    bbox decodeLocationTensor(const bbox &loc, const float *const prior) {
 
-     float w = prior[0];
-     float h = prior[1];
-     float cent_x = prior[2];
-     float cent_y = prior[3];
+     float w = prior[3] - prior[1];
+     float h = prior[2] - prior[0];
+     float cent_x = prior[1] + 0.5f * w;
+     float cent_y = prior[0] + 0.5 * h;
 
      float dy = loc[0] / 10.0f;
      float dx = loc[1] / 10.0f;
