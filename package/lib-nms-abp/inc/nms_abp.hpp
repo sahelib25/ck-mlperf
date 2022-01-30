@@ -108,7 +108,8 @@ class NMS_ABP {
               ++bi, confPtr++, locPtr++, priorPtr++) {
 
             Conf confidence = confPtr[confItr];
-            if (!above_Class_Threshold(confidence)) continue;
+	    if(confidence < 10854) continue;
+            //if (!above_Class_Threshold(confidence)) continue;
             float cf = get_Score_Val(confidence);
             bbox cBox = { get_Loc_Val(locPtr[modelParams.BOX_ITR_0]),
                           get_Loc_Val(locPtr[modelParams.BOX_ITR_1]),
@@ -130,15 +131,16 @@ class NMS_ABP {
                modelParams.class_map);
          }
 #else
-      std::vector<bbox> result[modelParams.NUM_CLASSES];
-      std::vector<bbox> selected[modelParams.NUM_CLASSES];
-      for (uint32_t bi = 0; bi < modelParams.TOTAL_NUM_BOXES;
+      std::vector<bbox> result[91];
+      std::vector<bbox> selected[91];
+      for (uint32_t bi = 0; bi < 1917;
            bi++, locPtr += 4, priorPtr += 4) {
-         uint32_t confItr = bi * modelParams.NUM_CLASSES;
-         for (uint32_t ci = 1; ci < modelParams.NUM_CLASSES; ci++) {
+         uint32_t confItr = bi * 91;
+         for (uint32_t ci = 1; ci < 91; ci++) {
 
             Conf confidence = confPtr[confItr + ci];
-            if (!above_Class_Threshold(confidence)) continue;
+	    if(confidence < 76) continue;
+            //if (!above_Class_Threshold(confidence)) continue;
             float cf = get_Score_Val(confidence);
             bbox cBox = { get_Loc_Val(locPtr[modelParams.BOX_ITR_0]),
                           get_Loc_Val(locPtr[modelParams.BOX_ITR_1]),
