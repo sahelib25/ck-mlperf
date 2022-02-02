@@ -132,8 +132,8 @@ class NMS_ABP {
          }
       }
 #else
-      std::vector<bbox> result[91];
-      std::vector<bbox> selected[91];
+      std::vector<bbox> result[modelParams.NUM_CLASSES];
+      std::vector<bbox> selected[modelParams.NUM_CLASSES];
       for (uint32_t bi = 0; bi < 1917;
            bi++, locPtr += 4, priorPtr += 4) {
          uint32_t confItr = bi * 91;
