@@ -134,10 +134,10 @@ class NMS_ABP {
 #else
       std::vector<bbox> result[modelParams.NUM_CLASSES];
       std::vector<bbox> selected[modelParams.NUM_CLASSES];
-      for (uint32_t bi = 0; bi < 1917;
+      for (uint32_t bi = 0; bi < modelParams.TOTAL_NUM_BOXES;
            bi++, locPtr += 4, priorPtr += 4) {
-         uint32_t confItr = bi * 91;
-         for (uint32_t ci = 1; ci < 91; ci++) {
+         uint32_t confItr = bi * modelParams.NUM_CLASSES;
+         for (uint32_t ci = 1; ci < modelParams.NUM_CLASSES; ci++) {
 
             Conf confidence = confPtr[confItr + ci];
 	    if(confidence < 76) continue;
