@@ -14,7 +14,7 @@
     "host_processor_caches": "8MB L2 (2MB per dual cluster)/4 MB L3 (shared)",
     "host_memory_configuration": "",     
     "host_memory_capacity": "32 GB",
-    "host_storage_capacity": "400 GB",
+    "host_storage_capacity": "256 GB",
     "host_storage_type": "SanDisk Extreme microSD",
     "host_processor_interconnect": "",
     "host_networking": "",
@@ -30,11 +30,11 @@
     "accelerator_memory_configuration": "SRAM",
     "accelerator_on-chip_memories": "1MB (128KB/SM) L1 + 512KB L2 + 4MB (DLA)",
     "cooling": "",
-    "hw_notes": "DLAs are not used in the Offline and MultiStream scenarios (GPU only)",
+    "hw_notes": "",
 
-    "framework": "JetPack 4.3, TensorRT 6.0.1, cuDNN 7.6.3, CUDA 10.0.326",
-    "operating_system": "Ubuntu 18.04.5",
-    "other_software_stack": "PyCUDA 2019.1.2",
+    "framework": "",
+    "operating_system": "Ubuntu 18.04.6 LTS; kernel xavier 4.9.253-tegra #1 SMP PREEMPT (Mon Jul 26 12:19:28 PDT 2021)",
+    "other_software_stack": "Python v3.8.12; Collective Knowledge v2.6.1",
     "sw_notes": ""
   }
 }
