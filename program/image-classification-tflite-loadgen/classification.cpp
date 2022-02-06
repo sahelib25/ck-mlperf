@@ -1,5 +1,6 @@
 /*
- * Copyright (c) 2018 cTuning foundation.
+ * Copyright (c) 2018-2019 cTuning foundation.
+ * Copyright (c) 2020-2022 Krai Ltd.
  * See CK COPYRIGHT.txt for copyright details.
  *
  * SPDX-License-Identifier: BSD-3-Clause.
@@ -319,7 +320,6 @@ void TestSingleStream(Program *prg) {
   // This should have been done automatically inside ts.FromConfig() !
   ts.scenario = ( scenario_string == "SingleStream")    ? mlperf::TestScenario::SingleStream
               : ( scenario_string == "MultiStream")     ? mlperf::TestScenario::MultiStream
-              : ( scenario_string == "MultiStreamFree") ? mlperf::TestScenario::MultiStreamFree
               : ( scenario_string == "Server")          ? mlperf::TestScenario::Server
               : ( scenario_string == "Offline")         ? mlperf::TestScenario::Offline : mlperf::TestScenario::SingleStream;
 
