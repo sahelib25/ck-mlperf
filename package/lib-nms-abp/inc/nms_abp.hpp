@@ -97,14 +97,22 @@ class NMS_ABP {
 
       float const *priorPtr = priorTensor;
 #ifdef MODEL_R34
+#ifdef __amd64__
+      for (uint32_t ci = 1; ci < modelParams.NUM_CLASSES; ci++) {
+#else
       for (uint32_t ci = 1; ci < 81; ci++) {
+#endif
          uint32_t confItr = ci * modelParams.OFFSET_CONF;
          std::vector<bbox> result;
          std::vector<bbox> selected;
          confPtr = confTensor;
          locPtr = locTensor;
          priorPtr = priorTensor;
+#ifdef __amd64__
+         for (uint32_t bi = 0; bi < modelParams.NUM_BOXES;
+#else
          for (uint32_t bi = 0; bi < 15130;
+#endif
               ++bi, confPtr++, locPtr++, priorPtr++) {
 
             Conf confidence = confPtr[confItr];
@@ -132,12 +140,22 @@ class NMS_ABP {
          }
       }
 #else
+#ifdef __amd64__
       std::vector<bbox> result[modelParams.NUM_CLASSES];
       std::vector<bbox> selected[modelParams.NUM_CLASSES];
       for (uint32_t bi = 0; bi < modelParams.TOTAL_NUM_BOXES;
            bi++, locPtr += 4, priorPtr += 4) {
          uint32_t confItr = bi * modelParams.NUM_CLASSES;
          for (uint32_t ci = 1; ci < modelParams.NUM_CLASSES; ci++) {
+#else
+      std::vector<bbox> result[91];
+      std::vector<bbox> selected[91];
+      for (uint32_t bi = 0; bi < 1917;
+           bi++, locPtr += 4, priorPtr += 4) {
+         uint32_t confItr = bi * 91;
+         for (uint32_t ci = 1; ci < 91; ci++) {
+#endif
+
 
             Conf confidence = confPtr[confItr + ci];
 	    if(confidence < 76) continue;
