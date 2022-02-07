@@ -109,11 +109,11 @@ class NMS_ABP {
          locPtr = locTensor;
          priorPtr = priorTensor;
 #ifdef __amd64__
-         for (uint32_t bi = 0; bi < modelParams.NUM_BOXES;
+      for (uint32_t bi = 0; bi < modelParams.TOTAL_NUM_BOXES;
 #else
          for (uint32_t bi = 0; bi < 15130;
 #endif
-              ++bi, confPtr++, locPtr++, priorPtr++) {
+           ++bi, confPtr++, locPtr++, priorPtr++) {
 
             Conf confidence = confPtr[confItr];
 	    if(confidence < 10854) continue;
