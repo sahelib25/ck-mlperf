@@ -1,0 +1,4 @@
+inference_engine:
+  name: armnn
+  version: v21.11
+sut: odroid

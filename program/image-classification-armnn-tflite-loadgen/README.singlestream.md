@@ -38,7 +38,7 @@ The following table gives some measured `--target_latency` values.
 |             | `armnn-v20.08-opencl`          | 458                     | [v0.7](https://mlcommons.org/en/inference-edge-07) | +2% vs v0.5.                     |
 | `xavier`    | `armnn-v20.08-neon`            | 73                      | [v0.7](https://mlcommons.org/en/inference-edge-07) | Power mode: MAXN.                |
 | `rpi4`      | `armnn-v20.08-neon`            | 464                     | [v0.7](https://mlcommons.org/en/inference-edge-07) | 32-bit Linux (Debian 11).        |
-| `rpi4`      | `armnn-v20.08-neon`            | 319                     | [v0.7](https://mlcommons.org/en/inference-edge-07) | 64-bit Linux (Ubuntu 20.04).     | 
+| `rpi4`      | `armnn-v20.08-neon`            | 319                     | [v0.7](https://mlcommons.org/en/inference-edge-07) | 64-bit Linux (Ubuntu 20.04).     |
 | `rpi4`      | `armnn-v19.08-neon`            | 448                     | [v0.5](https://mlcommons.org/en/inference-edge-05) |                                  |
 | `firefly`   | `armnn-v19.08-neon`            | 391                     | [v0.5](https://mlcommons.org/en/inference-edge-05) |                                  |
 |             | `armnn-v19.08-opencl`          | 448                     | [v0.5](https://mlcommons.org/en/inference-edge-05) | Mali-T860 MP4 slower than CPU.   |
@@ -54,26 +54,35 @@ Specifying `--group.closed` runs the benchmark in the following modes required f
 - Performance with the given `--target_latency`.
 - Compliance tests (TEST01, TEST04-A/B, TEST05) with the given `--target_latency`.
 
+Specifying `--group.open` runs the benchmark in the following modes required for the Open division:
+- Accuracy with the given `--dataset_size`.
+- Performance with the given `--target_latency`.
+
+
 **NB:** This mode is supported only with CK &leq; v1.17.0 or &geq; v2.6.0:
 
 ```
 python3 -m pip install ck==2.6.1
 ```
+<a name="resnet50"></a>
+### ResNet50
+
+#### "All-in-one"
 
 ##### Neon
 
 ```bash
-time ck run cmdgen:benchmark.image-classification.tflite-loadgen --verbose   \
---model=resnet50 --group.closed --scenario=singlestream --dataset_size=50000 \
---library=armnn-v21.11-neon --sut=odroid --target_latency=350
+time ck run cmdgen:benchmark.image-classification.tflite-loadgen --verbose --sut=odroid \
+--group.closed --scenario=singlestream --dataset_size=50000 \
+--model=resnet50 --library=armnn-v21.11-neon --target_latency=350
 ```
 
 ##### OpenCL
 
 ```bash
-time ck run cmdgen:benchmark.image-classification.tflite-loadgen --verbose   \
---model=resnet50 --group.closed --scenario=singlestream --dataset_size=50000 \
---library=armnn-v21.11-opencl --sut=odroid --target_latency=250
+time ck run cmdgen:benchmark.image-classification.tflite-loadgen --verbose --sut=odroid \
+--group.closed --scenario=singlestream --dataset_size=50000 \
+--model=resnet50 --library=armnn-v21.11-opencl --target_latency=250
 ```
 
 #### Accuracy
@@ -81,19 +90,17 @@ time ck run cmdgen:benchmark.image-classification.tflite-loadgen --verbose   \
 ##### Neon
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-neon \
---model=resnet50 --scenario=singlestream --mode=accuracy --dataset_size=50000 \
---verbose --sut=firefly
-...
+time ck run cmdgen:benchmark.image-classification.tflite-loadgen --verbose --sut=odroid \
+--scenario=singlestream --mode=accuracy --dataset_size=50000 \
+--model=resnet50 --library=armnn-v21.11-neon 
 ```
 
 ##### OpenCL
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-opencl \
---model=resnet50 --scenario=singlestream --mode=accuracy --dataset_size=50000 \
---verbose --sut=firefly
-...
+time ck run cmdgen:benchmark.image-classification.tflite-loadgen --verbose --sut=odroid \
+--scenario=singlestream --mode=accuracy --dataset_size=50000 \
+--model=resnet50 --library=armnn-v21.11-opencl 
 ```
 
 #### Performance
@@ -101,17 +108,17 @@ $ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v2
 ##### Neon
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-neon \
---model=resnet50 --scenario=singlestream --mode=performance --target_latency=400 \
---verbose --sut=firefly
+time ck run cmdgen:benchmark.image-classification.tflite-loadgen --verbose --sut=odroid \
+--scenario=singlestream --mode=performance \
+--model=resnet50 --library=armnn-v21.11-neon --target_latency=350
 ```
 
 ##### OpenCL
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-opencl \
---model=resnet50 --scenario=singlestream --mode=performance --target_latency=400 \
---verbose --sut=firefly
+time ck run cmdgen:benchmark.image-classification.tflite-loadgen --verbose --sut=odroid \
+--scenario=singlestream --mode=performance \
+--model=resnet50 --library=armnn-v21.11-opencl --target_latency=250
 ```
 
 #### Compliance
@@ -119,42 +126,58 @@ $ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v2
 ##### Neon
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-neon \
---model=resnet50 --scenario=singlestream --compliance,=TEST04-A,TEST04-B,TEST05,TEST01 \
---verbose --sut=firefly
+time ck run cmdgen:benchmark.image-classification.tflite-loadgen --verbose --sut=odroid \
+--scenario=singlestream --compliance,=TEST04-A,TEST04-B,TEST05,TEST01 \
+--model=resnet50 --library=armnn-v21.11-neon --target_latency=350
 ```
 
 ##### OpenCL
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-opencl \
---model=resnet50 --scenario=singlestream --compliance,=TEST04-A,TEST04-B,TEST05,TEST01 \
---verbose --sut=firefly
+time ck run cmdgen:benchmark.image-classification.tflite-loadgen --verbose --sut=odroid \
+--scenario=singlestream --compliance,=TEST04-A,TEST04-B,TEST05,TEST01 \
+--library=armnn-v21.11-opencl --model=resnet50 --target_latency=250
 ```
 
 <a name="efficientnet"></a>
 ### EfficientNet
 
-#### Accuracy
+#### "All-in-one"
 
 ##### Neon
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-neon \
---model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,effnet --variation_prefix=lite --separator=:` \
---model_extra_tags,=non-quantized,quantized \
---scenario=singlestream --mode=accuracy --dataset_size=50000 \
---verbose --sut=firefly
+time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.11-neon --verbose --sut=odroid \
+--model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tflite,effnet --variation_prefix=lite --separator=:) \
+--model_extra_tags,=non-quantized,quantized --scenario=singlestream --group.open --dataset_size=50000 \
+--target_latency_file=$(ck find program:image-classification-armnn-tflite-loadgen)/target_latency.txt
 ```
 
 ##### OpenCL
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-opencl \
---model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,effnet --variation_prefix=lite --separator=:` \
---model_extra_tags,=non-quantized,quantized \
---scenario=singlestream --mode=accuracy --dataset_size=50000 \
---verbose --sut=firefly
+time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.11-opencl --verbose --sut=odroid \
+--model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tflite,effnet --variation_prefix=lite --separator=:) \
+--model_extra_tags,=non-quantized,quantized --scenario=singlestream --group.open --dataset_size=50000 \
+--target_latency_file=$(ck find program:image-classification-armnn-tflite-loadgen)/target_latency.txt
+```
+
+#### Accuracy
+
+##### Neon
+
+```bash
+time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.11-neon --verbose --sut=odroid \
+--model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tflite,effnet --variation_prefix=lite --separator=:) \
+--model_extra_tags,=non-quantized,quantized --scenario=singlestream --mode=accuracy --dataset_size=50000
+```
+
+##### OpenCL
+
+```bash
+time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.11-opencl --verbose --sut=odroid \
+--model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tflite,effnet --variation_prefix=lite --separator=:) \
+--model_extra_tags,=non-quantized,quantized --scenario=singlestream --mode=accuracy --dataset_size=50000
 ```
 
 #### Performance
@@ -164,31 +187,25 @@ $ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v2
 ###### Use a uniform target latency
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-neon \
---model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,effnet --variation_prefix=lite --separator=:` \
---model_extra_tags,=non-quantized,quantized \
---scenario=singlestream --mode=performance --target_latency=10 \
---verbose --sut=firefly
+time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.11-neon --verbose --sut=odroid \
+--model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tflite,effnet --variation_prefix=lite --separator=:) \
+--model_extra_tags,=non-quantized,quantized --scenario=singlestream --mode=performance --target_latency=10
 ```
 
 ###### [Estimate target latencies](https://github.com/krai/ck-mlperf/tree/master/program/generate-target-latency)
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-neon \
---model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,effnet --variation_prefix=lite --separator=:` \
---model_extra_tags,=non-quantized,quantized \
---mode=performance --scenario=range_singlestream --max_query_count=256 \
---verbose --sut=firefly
+time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.11-neon --verbose --sut=odroid \
+--model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tflite,effnet --variation_prefix=lite --separator=:) \
+--model_extra_tags,=non-quantized,quantized --mode=performance --scenario=range_singlestream --max_query_count=256
 
-$ $(ck find program:generate-target-latency)/run.py --tags=inference_engine.armnn,inference_engine_version.v21.05 | \
+$(ck find program:generate-target-latency)/run.py --tags=inference_engine.armnn,inference_engine_version.v21.11 | \
 sort | tee $(ck find program:image-classification-armnn-tflite-loadgen)/target_latency.txt
 
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-neon \
---model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,effnet --variation_prefix=lite --separator=:` \
---model_extra_tags,=non-quantized,quantized \
---mode=performance --scenario=singlestream \
---target_latency_file=$(ck find program:image-classification-armnn-tflite-loadgen)/target_latency.txt \
---verbose --sut=firefly
+time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.11-neon --verbose --sut=odroid \
+--model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tflite,effnet --variation_prefix=lite --separator=:) \
+--model_extra_tags,=non-quantized,quantized --mode=performance --scenario=singlestream \
+--target_latency_file=$(ck find program:image-classification-armnn-tflite-loadgen)/target_latency.txt
 ```
 
 ##### OpenCL
@@ -196,57 +213,66 @@ $ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v2
 ###### Use a uniform target latency
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-opencl \
---model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,effnet --variation_prefix=lite --separator=:` \
---model_extra_tags,=non-quantized,quantized \
---scenario=singlestream --mode=performance --target_latency=10 \
---verbose --sut=firefly
+time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.11-opencl --verbose --sut=odroid \
+--model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tflite,effnet --variation_prefix=lite --separator=:) \
+--model_extra_tags,=non-quantized,quantized --scenario=singlestream --mode=performance --target_latency=10
 ```
 
 ###### [Estimate target latencies](https://github.com/krai/ck-mlperf/tree/master/program/generate-target-latency)
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-opencl \
---model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,effnet --variation_prefix=lite --separator=:` \
---model_extra_tags,=non-quantized,quantized \
---mode=performance --scenario=range_singlestream --max_query_count=256 \
---verbose --sut=firefly
+time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.11-opencl --verbose --sut=odroid \
+--model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tflite,effnet --variation_prefix=lite --separator=:) \
+--model_extra_tags,=non-quantized,quantized --mode=performance --scenario=range_singlestream --max_query_count=256
 
-$ $(ck find program:generate-target-latency)/run.py --tags=inference_engine.armnn,inference_engine_version.v21.05 | \
+$(ck find program:generate-target-latency)/run.py --tags=inference_engine.armnn,inference_engine_version.v21.11 | \
 sort | tee $(ck find program:image-classification-armnn-tflite-loadgen)/target_latency.txt
 
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-opencl \
---model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,effnet --variation_prefix=lite --separator=:` \
---model_extra_tags,=non-quantized,quantized \
---mode=performance --scenario=singlestream \
---target_latency_file=$(ck find program:image-classification-armnn-tflite-loadgen)/target_latency.txt \
---verbose --sut=firefly
+time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.11-opencl --verbose --sut=odroid \
+--model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tflite,effnet --variation_prefix=lite --separator=:) \
+--model_extra_tags,=non-quantized,quantized --mode=performance --scenario=singlestream \
+--target_latency_file=$(ck find program:image-classification-armnn-tflite-loadgen)/target_latency.txt
 ```
-
 
 <a name="mobilenet_v1"></a>
 ### MobileNet-v1
 
-#### Accuracy
+#### "All-in-one"
 
 ##### Neon
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-neon \
---model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v1 --variation_prefix=v1- --separator=:` \
---model_extra_tags,=non-quantized,quantized \
---scenario=singlestream --mode=accuracy --dataset_size=50000 \
---verbose --sut=firefly
+time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.11-neon --verbose --sut=odroid \
+--model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v1 --variation_prefix=v1- --separator=:) \
+--model_extra_tags,=non-quantized,quantized --scenario=singlestream --group.open --dataset_size=50000 \
+--target_latency_file=$(ck find program:image-classification-armnn-tflite-loadgen)/target_latency.txt
 ```
 
 ##### OpenCL
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-opencl \
---model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v1 --variation_prefix=v1- --separator=:` \
---model_extra_tags,=non-quantized,quantized \
---scenario=singlestream --mode=accuracy --dataset_size=50000 \
---verbose --sut=firefly
+time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.11-opencl --verbose --sut=odroid \
+--model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v1 --variation_prefix=v1- --separator=:) \
+--model_extra_tags,=non-quantized,quantized --scenario=singlestream --group.open --dataset_size=50000 \
+--target_latency_file=$(ck find program:image-classification-armnn-tflite-loadgen)/target_latency.txt
+```
+
+#### Accuracy
+
+##### Neon
+
+```bash
+time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.11-neon --verbose --sut=odroid \
+--model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v1 --variation_prefix=v1- --separator=:) \
+--model_extra_tags,=non-quantized,quantized --scenario=singlestream --mode=accuracy --dataset_size=50000
+```
+
+##### OpenCL
+
+```bash
+time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.11-opencl --verbose --sut=odroid \
+--model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v1 --variation_prefix=v1- --separator=:) \
+--model_extra_tags,=non-quantized,quantized --scenario=singlestream --mode=accuracy --dataset_size=50000
 ```
 
 #### Performance
@@ -256,31 +282,25 @@ $ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v2
 ###### Use a uniform target latency
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-neon \
---model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v1 --variation_prefix=v1- --separator=:` \
---model_extra_tags,=non-quantized,quantized \
---scenario=singlestream --mode=performance --target_latency=5 \
---verbose --sut=firefly
+time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.11-neon --verbose --sut=odroid \
+--model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v1 --variation_prefix=v1- --separator=:) \
+--model_extra_tags,=non-quantized,quantized --scenario=singlestream --mode=performance --target_latency=5
 ```
 
 ##### [Estimate target latencies](https://github.com/krai/ck-mlperf/tree/master/program/generate-target-latency)
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-neon \
---model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v1 --variation_prefix=v1- --separator=:` \
---model_extra_tags,=non-quantized,quantized \
---mode=performance --scenario=range_singlestream --max_query_count=256 \
---verbose --sut=firefly
+time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.11-neon --verbose --sut=odroid \
+--model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v1 --variation_prefix=v1- --separator=:) \
+--model_extra_tags,=non-quantized,quantized --mode=performance --scenario=range_singlestream --max_query_count=256
 
-$ $(ck find program:generate-target-latency)/run.py --tags=inference_engine.armnn,inference_engine_version.v21.05 | \
+$(ck find program:generate-target-latency)/run.py --tags=inference_engine.armnn,inference_engine_version.v21.11 | \
 sort | tee $(ck find program:image-classification-armnn-tflite-loadgen)/target_latency.txt
 
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-neon \
---model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v1 --variation_prefix=v1- --separator=:` \
---model_extra_tags,=non-quantized,quantized \
---mode=performance --scenario=singlestream \
---target_latency_file=$(ck find program:image-classification-armnn-tflite-loadgen)/target_latency.txt \
---verbose --sut=firefly
+time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.11-neon --verbose --sut=odroid \
+--model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v1 --variation_prefix=v1- --separator=:) \
+--model_extra_tags,=non-quantized,quantized --mode=performance --scenario=singlestream \
+--target_latency_file=$(ck find program:image-classification-armnn-tflite-loadgen)/target_latency.txt
 ```
 
 ##### OpenCL
@@ -288,56 +308,66 @@ $ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v2
 ###### Use a uniform target latency
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-opencl \
---model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v1 --variation_prefix=v1- --separator=:` \
---model_extra_tags,=non-quantized,quantized \
---scenario=singlestream --mode=performance --target_latency=5 \
---verbose --sut=firefly
+time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.11-opencl --verbose --sut=odroid \
+--model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v1 --variation_prefix=v1- --separator=:) \
+--model_extra_tags,=non-quantized,quantized --scenario=singlestream --mode=performance --target_latency=5
 ```
 
 ###### [Estimate target latencies](https://github.com/krai/ck-mlperf/tree/master/program/generate-target-latency)
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-opencl \
---model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v1 --variation_prefix=v1- --separator=:` \
---model_extra_tags,=non-quantized,quantized \
---mode=performance --scenario=range_singlestream --max_query_count=256 \
---verbose --sut=firefly
+time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.11-opencl --verbose --sut=odroid \
+--model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v1 --variation_prefix=v1- --separator=:) \
+--model_extra_tags,=non-quantized,quantized --mode=performance --scenario=range_singlestream --max_query_count=256
 
-$ $(ck find program:generate-target-latency)/run.py --tags=inference_engine.armnn,inference_engine_version.v21.05 | \
+$(ck find program:generate-target-latency)/run.py --tags=inference_engine.armnn,inference_engine_version.v21.11 | \
 sort | tee $(ck find program:image-classification-armnn-tflite-loadgen)/target_latency.txt
 
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-opencl \
---model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v1 --variation_prefix=v1- --separator=:` \
---model_extra_tags,=non-quantized,quantized \
---mode=performance --scenario=singlestream \
---target_latency_file=$(ck find program:image-classification-armnn-tflite-loadgen)/target_latency.txt \
---verbose --sut=firefly
+time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.11-opencl --verbose --sut=odroid \
+--model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v1 --variation_prefix=v1- --separator=:) \
+--model_extra_tags,=non-quantized,quantized --mode=performance --scenario=singlestream \
+--target_latency_file=$(ck find program:image-classification-armnn-tflite-loadgen)/target_latency.txt
 ```
 
 <a name="mobilenet_v2"></a>
 ### MobileNet-v2
+
+#### "All-in-one"
+
+##### Neon
+
+```bash
+time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.11-neon --verbose --sut=odroid \
+--model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v2 --variation_prefix=v2- --separator=:) \
+--model_extra_tags,=non-quantized,quantized --scenario=singlestream --group.open --dataset_size=50000 \
+--target_latency_file=$(ck find program:image-classification-armnn-tflite-loadgen)/target_latency.txt
+```
+
+##### OpenCL
+
+```bash
+time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.11-opencl --verbose --sut=odroid \
+--model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v2 --variation_prefix=v2- --separator=:) \
+--model_extra_tags,=non-quantized,quantized --scenario=singlestream --group.open --dataset_size=50000 \
+--target_latency_file=$(ck find program:image-classification-armnn-tflite-loadgen)/target_latency.txt
+```
 
 #### Accuracy
 
 ##### Neon
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-neon \
---model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v2 --variation_prefix=v2- --separator=:` \
---model_extra_tags,=non-quantized,quantized \
---scenario=singlestream --mode=accuracy --dataset_size=50000 \
---verbose --sut=firefly
+time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.11-neon --verbose --sut=odroid \
+--model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v2 --variation_prefix=v2- --separator=:) \
+--model_extra_tags,=non-quantized,quantized --scenario=singlestream --mode=accuracy --dataset_size=50000
 ```
 
 ##### OpenCL
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-opencl \
---model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v2 --variation_prefix=v2- --separator=:` \
---model_extra_tags,=non-quantized,quantized \
---scenario=singlestream --mode=accuracy --dataset_size=50000 \
---verbose --sut=firefly
+time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.11-opencl --verbose --sut=odroid \
+--model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v2 --variation_prefix=v2- --separator=:) \
+--model_extra_tags,=non-quantized,quantized --scenario=singlestream --mode=accuracy --dataset_size=50000
 ```
 
 #### Performance
@@ -347,31 +377,25 @@ $ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v2
 ###### Use a uniform target latency
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-neon \
---model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v2 --variation_prefix=v2- --separator=:` \
---model_extra_tags,=non-quantized,quantized \
---scenario=singlestream --mode=performance --target_latency=5 \
---verbose --sut=firefly
+time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.11-neon --verbose --sut=odroid \
+--model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v2 --variation_prefix=v2- --separator=:) \
+--model_extra_tags,=non-quantized,quantized --scenario=singlestream --mode=performance --target_latency=5
 ```
 
 ###### [Estimate target latencies](https://github.com/krai/ck-mlperf/tree/master/program/generate-target-latency)
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-neon \
---model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v2 --variation_prefix=v2- --separator=:` \
---model_extra_tags,=non-quantized,quantized \
---mode=performance --scenario=range_singlestream --max_query_count=256 \
---verbose --sut=firefly
+time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.11-neon --verbose --sut=odroid \
+--model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v2 --variation_prefix=v2- --separator=:) \
+--model_extra_tags,=non-quantized,quantized --mode=performance --scenario=range_singlestream --max_query_count=256
 
-$ $(ck find program:generate-target-latency)/run.py --tags=inference_engine.armnn,inference_engine_version.v21.05 | \
+$(ck find program:generate-target-latency)/run.py --tags=inference_engine.armnn,inference_engine_version.v21.11 | \
 sort | tee $(ck find program:image-classification-armnn-tflite-loadgen)/target_latency.txt
 
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-neon \
---model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v1 --variation_prefix=v1- --separator=:` \
---model_extra_tags,=non-quantized,quantized \
---mode=performance --scenario=singlestream \
---target_latency_file=$(ck find program:image-classification-armnn-tflite-loadgen)/target_latency.txt \
---verbose --sut=firefly
+time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.11-neon --verbose --sut=odroid \
+--model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v2 --variation_prefix=v2- --separator=:) \
+--model_extra_tags,=non-quantized,quantized --mode=performance --scenario=singlestream \
+--target_latency_file=$(ck find program:image-classification-armnn-tflite-loadgen)/target_latency.txt
 ```
 
 ##### OpenCL
@@ -379,31 +403,25 @@ $ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v2
 ###### Use a uniform target latency
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-opencl \
---model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v2 --variation_prefix=v2- --separator=:` \
---model_extra_tags,=non-quantized,quantized \
---scenario=singlestream --mode=performance --target_latency=5 \
---verbose --sut=firefly
+time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.11-opencl --verbose --sut=odroid \
+--model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v2 --variation_prefix=v2- --separator=:) \
+--model_extra_tags,=non-quantized,quantized --scenario=singlestream --mode=performance --target_latency=5
 ```
 
 ###### [Estimate target latencies](https://github.com/krai/ck-mlperf/tree/master/program/generate-target-latency)
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-opencl \
---model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v2 --variation_prefix=v2- --separator=:` \
---model_extra_tags,=non-quantized,quantized \
---mode=performance --scenario=range_singlestream --max_query_count=256 \
---verbose --sut=firefly
+time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.11-opencl --verbose --sut=odroid \
+--model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v2 --variation_prefix=v2- --separator=:) \
+--model_extra_tags,=non-quantized,quantized --mode=performance --scenario=range_singlestream --max_query_count=256
 
-$ $(ck find program:generate-target-latency)/run.py --tags=inference_engine.armnn,inference_engine_version.v21.05 | \
+$(ck find program:generate-target-latency)/run.py --tags=inference_engine.armnn,inference_engine_version.v21.11 | \
 sort | tee $(ck find program:image-classification-armnn-tflite-loadgen)/target_latency.txt
 
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-opencl \
---model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v1 --variation_prefix=v1- --separator=:` \
---model_extra_tags,=non-quantized,quantized \
---mode=performance --scenario=singlestream \
---target_latency_file=$(ck find program:image-classification-armnn-tflite-loadgen)/target_latency.txt \
---verbose --sut=firefly
+time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.11-opencl --verbose --sut=odroid \
+--model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v2 --variation_prefix=v2- --separator=:) \
+--model_extra_tags,=non-quantized,quantized --mode=performance --scenario=singlestream \
+--target_latency_file=$(ck find program:image-classification-armnn-tflite-loadgen)/target_latency.txt
 ```
 
 <a name="mobilenet_v3"></a>
@@ -411,24 +429,42 @@ $ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v2
 
 **NB:** Note that unlike [MobileNet-v1](#mobilenet_v1), [MobileNet-v2](#mobilenet_v2) and [EfficientNet](#efficientnet), [MobileNet-v3](#mobilenet_v3) does **not** require providing `--model_extra_tags,=non-quantized,quantized`.
 
-#### Accuracy
+#### "All-in-one"
 
 ##### Neon
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-neon \
---model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v3 --variation_prefix=v3- --separator=:` \
---scenario=singlestream --mode=accuracy --dataset_size=50000 \
---verbose --sut=firefly
+time ck run cmdgen:benchmark.image-classification.tflite-loadgen --verbose --sut=odroid \
+--model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v3 --variation_prefix=v3- --separator=:) \
+--target_latency_file=$(ck find program:image-classification-armnn-tflite-loadgen)/target_latency.odroid.txt \
+--library=armnn-v21.11-neon --scenario=singlestream --group.open --dataset_size=50000
 ```
 
 ##### OpenCL
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-opencl \
---model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v3 --variation_prefix=v3- --separator=:` \
---scenario=singlestream --mode=accuracy --dataset_size=50000 \
---verbose --sut=firefly
+time ck run cmdgen:benchmark.image-classification.tflite-loadgen --verbose --sut=odroid \
+--model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v3 --variation_prefix=v3- --separator=:) \
+--target_latency_file=$(ck find program:image-classification-armnn-tflite-loadgen)/target_latency.odroid.txt \
+--library=armnn-v21.11-opencl --scenario=singlestream --group.open --dataset_size=50000
+```
+
+#### Accuracy
+
+##### Neon
+
+```bash
+time ck run cmdgen:benchmark.image-classification.tflite-loadgen --verbose --sut=odroid \
+--model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v3 --variation_prefix=v3- --separator=:) \
+--scenario=singlestream --mode=accuracy --dataset_size=50000 --library=armnn-v21.11-neon
+```
+
+##### OpenCL
+
+```bash
+time ck run cmdgen:benchmark.image-classification.tflite-loadgen --verbose --sut=odroid \
+--model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v3 --variation_prefix=v3- --separator=:) \
+--scenario=singlestream --mode=accuracy --dataset_size=50000 --library=armnn-v21.11-opencl
 ```
 
 #### Performance
@@ -438,28 +474,29 @@ $ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v2
 ###### Use a uniform target latency
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-neon \
---model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v3 --variation_prefix=v3- --separator=:` \
---scenario=singlestream --mode=performance --target_latency=6 \
---verbose --sut=firefly
+time ck run cmdgen:benchmark.image-classification.tflite-loadgen --verbose --sut=odroid \
+--model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v3 --variation_prefix=v3- --separator=:) \
+--scenario=singlestream --mode=performance --library=armnn-v21.11-neon --target_latency=6
 ```
 
 ###### [Estimate target latencies](https://github.com/krai/ck-mlperf/tree/master/program/generate-target-latency)
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-neon \
---model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v3 --variation_prefix=v3- --separator=:` \
---mode=performance --scenario=range_singlestream --max_query_count=256 \
---verbose --sut=firefly
+time ck run cmdgen:benchmark.image-classification.tflite-loadgen --verbose --sut=odroid \
+--model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v3 --variation_prefix=v3- --separator=:) \
+--mode=performance --scenario=range_singlestream --max_query_count=256 --library=armnn-v21.11-neon
+```
 
-$ $(ck find program:generate-target-latency)/run.py --tags=inference_engine.armnn,inference_engine_version.v21.05 | \
-sort | tee $(ck find program:image-classification-armnn-tflite-loadgen)/target_latency.txt
+```bash
+$(ck find program:generate-target-latency)/run.py --tags=inference_engine.armnn,inference_engine_version.v21.11 | \
+sort | tee $(ck find program:image-classification-armnn-tflite-loadgen)/target_latency.odroid.txt
+```
 
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-neon \
---model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v3 --variation_prefix=v3- --separator=:` \
---mode=performance --scenario=singlestream \
---target_latency_file=$(ck find program:image-classification-armnn-tflite-loadgen)/target_latency.txt \
---verbose --sut=firefly
+```bash
+time ck run cmdgen:benchmark.image-classification.tflite-loadgen --verbose --sut=odroid \
+--model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v3 --variation_prefix=v3- --separator=:) \
+--mode=performance --scenario=singlestream  --library=armnn-v21.11-neon \
+--target_latency_file=$(ck find program:image-classification-armnn-tflite-loadgen)/target_latency.odroid.txt
 ```
 
 ##### OpenCL
@@ -467,26 +504,27 @@ $ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v2
 ###### Use a uniform target latency
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-opencl \
---model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v3 --variation_prefix=v3- --separator=:` \
---scenario=singlestream --mode=performance --target_latency=6 \
---verbose --sut=firefly
+time ck run cmdgen:benchmark.image-classification.tflite-loadgen --verbose --sut=odroid \
+--model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v3 --variation_prefix=v3- --separator=:) \
+--scenario=singlestream --mode=performance --library=armnn-v21.11-opencl --target_latency=6
 ```
 
 ###### [Estimate target latencies](https://github.com/krai/ck-mlperf/tree/master/program/generate-target-latency)
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-opencl \
---model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v3 --variation_prefix=v3- --separator=:` \
---mode=performance --scenario=range_singlestream --max_query_count=256 \
---verbose --sut=firefly
+time ck run cmdgen:benchmark.image-classification.tflite-loadgen --verbose --sut=odroid \
+--model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v3 --variation_prefix=v3- --separator=:) \
+--mode=performance --scenario=range_singlestream --max_query_count=256 --library=armnn-v21.11-opencl
+```
 
-$ $(ck find program:generate-target-latency)/run.py --tags=inference_engine.armnn,inference_engine_version.v21.05 | \
-sort | tee $(ck find program:image-classification-armnn-tflite-loadgen)/target_latency.txt
+```bash
+$(ck find program:generate-target-latency)/run.py --tags=inference_engine.armnn,inference_engine_version.v21.11 | \
+sort | tee $(ck find program:image-classification-armnn-tflite-loadgen)/target_latency.odroid.txt
+```
 
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-opencl \
---model:=`ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v3 --variation_prefix=v3- --separator=:` \
---mode=performance --scenario=singlestream \
---target_latency_file=$(ck find program:image-classification-armnn-tflite-loadgen)/target_latency.txt \
---verbose --sut=firefly
+```bash
+time ck run cmdgen:benchmark.image-classification.tflite-loadgen --verbose --sut=odroid \
+--model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v3 --variation_prefix=v3- --separator=:) \
+--mode=performance --scenario=singlestream  --library=armnn-v21.11-opencl \
+--target_latency_file=$(ck find program:image-classification-armnn-tflite-loadgen)/target_latency.odroid.txt
 ```
