@@ -38,9 +38,9 @@ python3 -m pip install ck==2.6.1
 #### "All-in-one"
 
 ```bash
-time ck run cmdgen:benchmark.image-classification.tflite-loadgen --verbose --sut=odroid \
+time ck run cmdgen:benchmark.image-classification.tflite-loadgen --verbose \
 --group.closed --scenario=singlestream --dataset_size=50000 \
---model=resnet50 --library=tflite-v2.7.1-ruy --target_latency=500
+--model=resnet50 --library=tflite-v2.7.1-ruy --target_latency=500 --sut=odroid
 ```
 
 #### Accuracy
@@ -73,10 +73,10 @@ time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=tflit
 #### "All-in-one"
 
 ```bash
-time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=tflite-v2.7.1-ruy --verbose --sut=odroid \
+time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=tflite-v2.7.1-ruy --verbose \
 --model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tflite,effnet --variation_prefix=lite --separator=:) \
 --model_extra_tags,=non-quantized,quantized --scenario=singlestream --group.open --dataset_size=50000 \
---target_latency_file=$(ck find program:image-classification-tflite-loadgen)/target_latency.txt
+--target_latency_file=$(ck find program:image-classification-tflite-loadgen)/target_latency.txt --sut=odroid
 ```
 
 #### Accuracy
@@ -109,10 +109,14 @@ time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=tflit
 --model_extra_tags,=non-quantized,quantized \
 --mode=performance --scenario=range_singlestream --max_query_count=256 \
 --verbose --sut=odroid
+```
 
+```bash
 $(ck find program:generate-target-latency)/run.py --tags=inference_engine.tflite,inference_engine_version.v2.7.1 | \
 sort | tee $(ck find program:image-classification-tflite-loadgen)/target_latency.txt
+```
 
+```bash
 time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=tflite-v2.7.1-ruy \
 --model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tflite,effnet --variation_prefix=lite --separator=:) \
 --model_extra_tags,=non-quantized,quantized \
@@ -127,10 +131,10 @@ time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=tflit
 #### "All-in-one"
 
 ```bash
-time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=tflite-v2.7.1-ruy --verbose --sut=odroid \
+time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=tflite-v2.7.1-ruy --verbose \
 --model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v1 --variation_prefix=v1- --separator=:) \
 --model_extra_tags,=non-quantized,quantized --scenario=singlestream --group.open --dataset_size=50000 \
---target_latency_file=$(ck find program:image-classification-tflite-loadgen)/target_latency.txt
+--target_latency_file=$(ck find program:image-classification-tflite-loadgen)/target_latency.txt --sut=odroid
 ```
 
 #### Accuracy
@@ -163,10 +167,14 @@ time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=tflit
 --model_extra_tags,=non-quantized,quantized \
 --mode=performance --scenario=range_singlestream --max_query_count=256 \
 --verbose --sut=odroid
+```
 
+```bash
 $(ck find program:generate-target-latency)/run.py --tags=inference_engine.tflite,inference_engine_version.v2.7.1 | \
 sort | tee $(ck find program:image-classification-tflite-loadgen)/target_latency.txt
+```
 
+```bash
 time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=tflite-v2.7.1-ruy \
 --model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v1 --variation_prefix=v1- --separator=:) \
 --model_extra_tags,=non-quantized,quantized \
@@ -181,10 +189,10 @@ time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=tflit
 #### "All-in-one"
 
 ```bash
-time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=tflite-v2.7.1-ruy --verbose --sut=odroid \
+time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=tflite-v2.7.1-ruy --verbose \
 --model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v2 --variation_prefix=v2- --separator=:) \
 --model_extra_tags,=non-quantized,quantized --scenario=singlestream --group.open --dataset_size=50000 \
---target_latency_file=$(ck find program:image-classification-tflite-loadgen)/target_latency.txt
+--target_latency_file=$(ck find program:image-classification-tflite-loadgen)/target_latency.txt --sut=odroid
 ```
 
 #### Accuracy
@@ -217,10 +225,14 @@ time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=tflit
 --model_extra_tags,=non-quantized,quantized \
 --mode=performance --scenario=range_singlestream --max_query_count=256 \
 --verbose --sut=odroid
+```
 
+```bash
 $(ck find program:generate-target-latency)/run.py --tags=inference_engine.tflite,inference_engine_version.v2.5.0 | \
 sort | tee $(ck find program:image-classification-tflite-loadgen)/target_latency.txt
+```
 
+```bash
 time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=tflite-v2.7.1-ruy \
 --model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v1 --variation_prefix=v1- --separator=:) \
 --model_extra_tags,=non-quantized,quantized \
@@ -237,10 +249,10 @@ time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=tflit
 #### "All-in-one"
 
 ```bash
-time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=tflite-v2.7.1-ruy --verbose --sut=odroid \
+time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=tflite-v2.7.1-ruy --verbose \
 --model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v3 --variation_prefix=v3- --separator=:) \
 --scenario=singlestream --group.open --dataset_size=50000 \
---target_latency_file=$(ck find program:image-classification-tflite-loadgen)/target_latency.txt
+--target_latency_file=$(ck find program:image-classification-tflite-loadgen)/target_latency.txt --sut=odroid
 ```
 
 #### Accuracy
@@ -270,10 +282,14 @@ time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=tflit
 --model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v3 --variation_prefix=v3- --separator=:) \
 --mode=performance --scenario=range_singlestream --max_query_count=256 \
 --verbose --sut=odroid
+```
 
+```bash
 $(ck find program:generate-target-latency)/run.py --tags=inference_engine.tflite,inference_engine_version.v2.7.1 | \
 sort | tee $(ck find program:image-classification-tflite-loadgen)/target_latency.txt
+```
 
+```bash
 time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=tflite-v2.7.1-ruy \
 --model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v3 --variation_prefix=v3- --separator=:) \
 --mode=performance --scenario=singlestream \
