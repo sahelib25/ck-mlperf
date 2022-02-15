@@ -53,6 +53,9 @@
       "odroid": {
         "compiler_tags": "gcc,v7"
       },
+      "rpi3": {
+        "compiler_tags": "gcc,v11"
+      },
       "rpi4": {
         "compiler_tags": "gcc,v11"
       },
