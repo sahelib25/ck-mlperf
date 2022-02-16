@@ -89,7 +89,7 @@ time docker run -it --rm ${CK_IMAGE} \
   --env.CK_LOADGEN_EXTRA_PARAMS='--count 50' \
   \
   --env.CK_MODEL_PROFILE=tf_yolo \
-  --dep_add_tags.weights=yolo-v3-coco \
+  --dep_add_tags.weights=tf1-zoo,yolo-v3-coco \
   \
   --env.CK_INFERENCE_ENGINE=tensorflow \
   --env.CK_INFERENCE_ENGINE_BACKEND=default-cpu \
@@ -501,7 +501,7 @@ time docker run -it --rm ${CK_IMAGE} \
   \
   --env.CK_LOADGEN_MODE='--accuracy' \
   --env.CK_LOADGEN_EXTRA_PARAMS='--count 5000 --performance-sample-count 500' \
-  --dep_add_tags.weights=yolo-v3-coco \
+  --dep_add_tags.weights=tf1-zoo,yolo-v3-coco \
   --env.CK_MODEL_PROFILE=tf_yolo \
   --env.CK_INFERENCE_ENGINE=tensorflow \
   --dep_add_tags.inference-engine-backend=default-cpu \
