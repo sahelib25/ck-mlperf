@@ -1,0 +1,15 @@
+{
+  "backup_data_uid": "37c3ec30fd3e4261",
+  "backup_module_uid": "194e44c4cacd5101",
+  "backup_module_uoa": "sut",
+  "control": {
+    "engine": "CK",
+    "iso_datetime": "2022-02-16T16:35:58.943282",
+    "version": [
+      "2",
+      "6",
+      "1"
+    ]
+  },
+  "data_name": "odroid"
+}
