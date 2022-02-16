@@ -7,10 +7,10 @@
     "system_name": "Firefly-RK3399 (firefly)",
 
     "number_of_nodes": "1",
-    "host_processor_model_name": "Arm Cortex-A72 MP2 (big); Arm Cortex-A53 MP4 (LITTLE)",
+    "host_processor_model_name": "Rockchip RK3399: Arm Cortex-A72 MP2 (big); Arm Cortex-A53 MP4 (LITTLE)",
     "host_processors_per_node": "1",
     "host_processor_core_count": "2 (big); 4 (LITTLE)",
-    "host_processor_frequency": "1800 MHz (big), 1400 MHz (LITTLE)",
+    "host_processor_frequency": "1800 MHz (big); 1400 MHz (LITTLE)",
     "host_processor_caches": "L1I$ 48 KiB, L1D$ 32 KiB, L2$ 1 MiB (big); L1I$ 32 KiB, L1D$ 32 KiB, L2$ 512 KiB (LITTLE)",
     "host_memory_configuration": "-",
     "host_memory_capacity": "4 GiB",
