@@ -37,7 +37,7 @@ The table below shows currently supported models, frameworks ("inference engines
 <summary>Click to expand</summary>
 (to be updated)
 
-|  | tensorflow-v2.6.0-cpu |  |  |  |  |  |  | tensorflow-v2.6.0-gpu|  |  |  |  |  |  | tensorflow-tensorrt-dynamic |  |  |  |  |  |  | tensorflow-openvino-cpu |  |  |  |  |  |
+|  | tensorflow-v2.7.1-cpu |  |  |  |  |  |  | tensorflow-v2.7.1-gpu|  |  |  |  |  |  | tensorflow-tensorrt-dynamic |  |  |  |  |  |  | tensorflow-openvino-cpu |  |  |  |  |  |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 |  | Single Stream | Single Stream | Offline | Offline | Offline | Offline |  | Single Stream | Single Stream | Offline | Offline | Offline | Offline |  | Single Stream | Single Stream | Offline | Offline | Offline | Offline |  | Single Stream | Single Stream | Offline | Offline | Offline | Offline |
 |  | Accuracy | Performance | Accuracy | Performance | Accuracy | Performance |  | Accuracy | Performance | Accuracy | Performance | Accuracy | Performance |  | Accuracy | Performance | Accuracy | Performance | Accuracy | Performance |  | Accuracy | Performance | Accuracy | Performance | Accuracy | Performance |
@@ -77,12 +77,13 @@ The table below shows currently supported models, frameworks ("inference engines
 # A) Set Up
 ## 1. Building the Docker image
 
+In the following examples, TensorFlow 2.7.1 and NVIDIA container image for TensorRT 21.08 were used.
 **NB:** The
 [TensorRT 21.06](https://docs.nvidia.com/deeplearning/tensorrt/container-release-notes/rel_21-06.html#rel_21-06)
 release is the last one to support TensorRT 7.2, needed by TensorFlow 2.7.
 
 ```
-export CK_IMAGE_NAME=mlperf-inference-vision SDK_VER=21.06-py3 TF_VER=2.7.0
+export CK_IMAGE_NAME=mlperf-inference-vision SDK_VER=21.08-py3 TF_VER=2.7.1
 cd $(ck find program:$CK_IMAGE_NAME) && ./build.sh
 ```
 
@@ -91,7 +92,7 @@ cd $(ck find program:$CK_IMAGE_NAME) && ./build.sh
 
 ```
 Successfully built 9c39ebef9ad2
-Successfully tagged krai/mlperf-inference-vision:21.06-py3_tf-2.7.0
+Successfully tagged krai/mlperf-inference-vision:21.08-py3_tf-2.7.1
 
 real    14m29.990s
 user    0m10.826s
@@ -110,7 +111,7 @@ docker image ls ${CK_IMAGE}
 
 ```
 REPOSITORY                     TAG                  IMAGE ID       CREATED         SIZE
-krai/mlperf-inference-vision   21.06-py3_tf-2.7.0   362d3cd6ddd5   8 minutes ago   16.6GB
+krai/mlperf-inference-vision   21.08-py3_tf-2.7.1   362d3cd6ddd5   8 minutes ago   16.6GB
 ```
 
 
@@ -174,7 +175,7 @@ Example of `ssd_resnet50_v1_fpn_640x640` model:
 ```
 ck run cmdgen:benchmark.mlperf-inference-vision --verbose --docker --docker_image=${CK_IMAGE} --experiment_dir=${CK_EXPERIMENT_DIR} --sut=chai \
 --model=rcnn-nas-lowproposals-coco \
---library=tensorflow-v2.6.0-gpu --device_ids=0 \
+--library=tensorflow-v2.7.1-gpu --device_ids=0 \
 --scenario=singlestream --mode=accuracy \
 --dataset_size=50 --buffer_size=5 --batch_size=1
 ```
@@ -194,7 +195,7 @@ Example of `SingleStream` - `Accuracy` - `Batch Size 1`
 ```
 ck run cmdgen:benchmark.mlperf-inference-vision --verbose --docker --docker_image=${CK_IMAGE} --experiment_dir=${CK_EXPERIMENT_DIR} --sut=chai \
 --model=rcnn-nas-lowproposals-coco \
---library=tensorflow-v2.6.0-gpu --device_ids=0 \
+--library=tensorflow-v2.7.1-gpu --device_ids=0 \
 --scenario=singlestream --mode=accuracy \
 --dataset_size=50 --buffer_size=5 --batch_size=1
 ```
@@ -203,7 +204,7 @@ Example of `SingleStream` - `Performance` - `Batch Size 1`
 ```
 ck run cmdgen:benchmark.mlperf-inference-vision --verbose --docker --docker_image=${CK_IMAGE} --experiment_dir=${CK_EXPERIMENT_DIR} --sut=chai \
 --model=rcnn-nas-lowproposals-coco \
---library=tensorflow-v2.6.0-gpu --device_ids=0 \
+--library=tensorflow-v2.7.1-gpu --device_ids=0 \
 --scenario=singlestream --mode=performance \
 --dataset_size=50 --buffer_size=5 --batch_size=1 --target_latency=35
 ```
@@ -212,7 +213,7 @@ Example of `Offline` - `Accuracy` - `Batch Size 1`
 ```
 ck run cmdgen:benchmark.mlperf-inference-vision --verbose --docker --docker_image=${CK_IMAGE} --experiment_dir=${CK_EXPERIMENT_DIR} --sut=chai \
 --model=rcnn-nas-lowproposals-coco \
---library=tensorflow-v2.6.0-gpu --device_ids=0 \
+--library=tensorflow-v2.7.1-gpu --device_ids=0 \
 --scenario=offline --mode=accuracy \
 --dataset_size=50 --buffer_size=5 --batch_size=1
 ```
@@ -221,7 +222,7 @@ Example of `Offline` - `Performance` - `Batch Size 1`
 ```
 ck run cmdgen:benchmark.mlperf-inference-vision --verbose --docker --docker_image=${CK_IMAGE} --experiment_dir=${CK_EXPERIMENT_DIR} --sut=chai \
 --model=rcnn-nas-lowproposals-coco \
---library=tensorflow-v2.6.0-gpu --device_ids=0 \
+--library=tensorflow-v2.7.1-gpu --device_ids=0 \
 --scenario=offline --mode=performance \
 --dataset_size=50 --buffer_size=5 --batch_size=1 --target_qps=3
 ```
@@ -230,7 +231,7 @@ Example of `Offline` - `Accuracy` - `Batch Size 32`
 ```
 ck run cmdgen:benchmark.mlperf-inference-vision --verbose --docker --docker_image=${CK_IMAGE} --experiment_dir=${CK_EXPERIMENT_DIR} --sut=chai \
 --model=rcnn-nas-lowproposals-coco \
---library=tensorflow-v2.6.0-gpu --device_ids=0 \
+--library=tensorflow-v2.7.1-gpu --device_ids=0 \
 --scenario=offline --mode=accuracy \
 --dataset_size=50 --buffer_size=5 --batch_size=32
 ```
@@ -239,7 +240,7 @@ Example of `Offline` - `Performance` - `Batch Size 32`
 ```
 ck run cmdgen:benchmark.mlperf-inference-vision --verbose --docker --docker_image=${CK_IMAGE} --experiment_dir=${CK_EXPERIMENT_DIR} --sut=chai \
 --model=rcnn-nas-lowproposals-coco \
---library=tensorflow-v2.6.0-gpu --device_ids=0 \
+--library=tensorflow-v2.7.1-gpu --device_ids=0 \
 --scenario=offline --mode=performance \
 --dataset_size=50 --buffer_size=5 --batch_size=32 --target_qps=3
 ```
@@ -252,8 +253,8 @@ ck run cmdgen:benchmark.mlperf-inference-vision --verbose --docker --docker_imag
 
 | `INFERENCE_ENGINE` | `INFERENCE_ENGINE_BACKEND`  | `CUDA_VISIBLE_DEVICES`       |
 | ------------------ | --------------------------- | ---------------------------- |
-| `tensorflow-v2.6.0`| `cpu`                       | `-1`                         |
-| `tensorflow-v2.6.0`| `gpu`                       | `<device_id>`                |
+| `tensorflow-v2.7.1`| `cpu`                       | `-1`                         |
+| `tensorflow-v2.7.1`| `gpu`                       | `<device_id>`                |
 | `tensorflow`       | `tensorrt-dynamic`          | `<device_id>`                |
 | `tensorflow`       | `openvino-cpu`              | `-1`                         |
 
@@ -261,20 +262,20 @@ ck run cmdgen:benchmark.mlperf-inference-vision --verbose --docker --docker_imag
 <details>
 <summary>Click to expand</summary>
 
-Example of `tensorflow-v2.6.0-cpu`
+Example of `tensorflow-v2.7.1-cpu`
 ```
 ck run cmdgen:benchmark.mlperf-inference-vision --verbose --docker --docker_image=${CK_IMAGE} --experiment_dir=${CK_EXPERIMENT_DIR} --sut=chai \
 --model=rcnn-nas-lowproposals-coco \
---library=tensorflow-v2.6.0-cpu --device_ids=-1 \
+--library=tensorflow-v2.7.1-cpu --device_ids=-1 \
 --scenario=singlestream --mode=accuracy \
 --dataset_size=50 --buffer_size=5 --batch_size=1
 ```
 
-Example of `tensorflow-v2.6.0-gpu`
+Example of `tensorflow-v2.7.1-gpu`
 ```
 ck run cmdgen:benchmark.mlperf-inference-vision --verbose --docker --docker_image=${CK_IMAGE} --experiment_dir=${CK_EXPERIMENT_DIR} --sut=chai \
 --model=rcnn-nas-lowproposals-coco \
---library=tensorflow-v2.6.0-gpu --device_ids=0 \
+--library=tensorflow-v2.7.1-gpu --device_ids=0 \
 --scenario=singlestream --mode=accuracy \
 --dataset_size=50 --buffer_size=5 --batch_size=1
 ```

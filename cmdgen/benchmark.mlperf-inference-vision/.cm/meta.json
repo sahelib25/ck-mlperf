@@ -46,7 +46,7 @@
       }
     },
     "library": {
-      "tensorflow-v2.6.0-cpu": {
+      "tensorflow-v2.7.1-cpu": {
 	    "ck_env": [
 	      "--env.CK_INFERENCE_ENGINE=tensorflow",
 	      "--env.CK_INFERENCE_ENGINE_BACKEND=default-cpu",
@@ -55,10 +55,10 @@
 	    "deps": "",
 	    "program_name": "mlperf-inference-vision",
 	    "inference_engine": "tensorflow",
-	    "inference_engine_version": "v2.6.0",
+	    "inference_engine_version": "v2.7.1",
 	    "inference_engine_backend": "default-cpu"
       },
-      "tensorflow-v2.6.0-gpu": {
+      "tensorflow-v2.7.1-gpu": {
         "ck_env": [
 	      "--env.CK_INFERENCE_ENGINE=tensorflow",
 	      "--env.CK_INFERENCE_ENGINE_BACKEND=default-gpu",
@@ -67,7 +67,7 @@
         "deps": "",
         "program_name": "mlperf-inference-vision",
         "inference_engine": "tensorflow",
-        "inference_engine_version": "v2.6.0",
+        "inference_engine_version": "v2.7.1",
         "inference_engine_backend": "default-gpu",
 	    "runtime":"--gpus all "
       },
@@ -80,7 +80,7 @@
 	    "deps": "",
 	    "program_name": "mlperf-inference-vision",
 	    "inference_engine": "tensorflow",
-	    "inference_engine_version": "v2.5.1",
+	    "inference_engine_version": "v2.7.0",
 	    "inference_engine_backend": "openvino-cpu"
       },
       "tensorflow-openvino-gpu": {
@@ -92,7 +92,7 @@
 	    "deps": "",
 	    "program_name": "mlperf-inference-vision",
 	    "inference_engine": "tensorflow",
-	    "inference_engine_version": "v2.5.1",
+	    "inference_engine_version": "v2.7.0",
 	    "inference_engine_backend": "openvino-gpu"
      },
      "tensorflow-tensorrt-dynamic": {
@@ -104,7 +104,7 @@
 	    "deps": "",
 	    "program_name": "mlperf-inference-vision",
 	    "inference_engine": "tensorflow",
-	    "inference_engine_version": "v2.6.0",
+	    "inference_engine_version": "v2.7.1",
 	    "inference_engine_backend": "tensorrt-dynamic",
         "runtime":"--gpus all "
      }

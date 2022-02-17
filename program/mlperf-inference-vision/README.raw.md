@@ -34,12 +34,13 @@ The table below shows currently supported models, frameworks ("inference engines
 
 ## 1. Building the Docker image
 
+In the following examples, TensorFlow 2.7.1 and NVIDIA container image for TensorRT 21.08 were used.
 **NB:** The
 [TensorRT 21.06](https://docs.nvidia.com/deeplearning/tensorrt/container-release-notes/rel_21-06.html#rel_21-06)
 release is the last one to support TensorRT 7.2, needed by TensorFlow 2.7.
 
 ```
-export CK_IMAGE_NAME=mlperf-inference-vision SDK_VER=21.06-py3 TF_VER=2.7.0
+export CK_IMAGE_NAME=mlperf-inference-vision SDK_VER=21.08-py3 TF_VER=2.7.1
 cd $(ck find program:$CK_IMAGE_NAME) && ./build.sh
 ```
 
@@ -48,7 +49,7 @@ cd $(ck find program:$CK_IMAGE_NAME) && ./build.sh
 
 ```
 Successfully built 9c39ebef9ad2
-Successfully tagged krai/mlperf-inference-vision:21.06-py3_tf-2.7.0
+Successfully tagged krai/mlperf-inference-vision:21.08-py3_tf-2.7.1
 
 real    14m29.990s
 user    0m10.826s
@@ -67,7 +68,7 @@ docker image ls ${CK_IMAGE}
 
 ```
 REPOSITORY                     TAG                  IMAGE ID       CREATED         SIZE
-krai/mlperf-inference-vision   21.06-py3_tf-2.7.0   362d3cd6ddd5   8 minutes ago   16.6GB
+krai/mlperf-inference-vision   21.08-py3_tf-2.7.1   362d3cd6ddd5   8 minutes ago   16.6GB
 ```
 
 ## 2. Using the Docker image
