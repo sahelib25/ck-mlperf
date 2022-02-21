@@ -23,7 +23,7 @@
       "workload.<<<model_readable>>>"
     ],
     "record_uoa_parts": [
-      "mlperf",
+      "mlperf_v2.0",
       "<<<division>>>",
       "<<<sut>>>",
       "<<<inference_engine>>>",
@@ -286,7 +286,11 @@
 	    "ck_env": "--env.CK_LOADGEN_SCENARIO=Server",
 	    "accuracy_mode_extension": "",
 	    "performance_mode_extension": ""
-      }
+      },
+      "range_singlestream": {
+        "ck_env": "--env.CK_LOADGEN_SCENARIO=SingleStream",
+        "performance_mode_extension": "-query_count.<<<query_count>>>"
+        }
     },
     "sut": {
       "chai":{
@@ -340,13 +344,21 @@
        "record_tags": "fan_mode.###"
      }
    },
+   "container": {
+     "###": {
+       "docker_run": "time <<<docker_exec_command>>>  ### <<<docker_bash_command>>>",
+       "double_quote": "\"",
+       "escape_char": "\\"
+     }
+   },
    "docker": {
      "yes": {
-	   "group_add_opt": "--group-add <<<shared_group_id>>> ",
-	   "user_opt": "--user krai:kraig ",
-	   "docker_run": "time docker run <<<?runtime>>><<<user_opt>>><<<group_add_opt>>><<<?volume_opt>>><<<?volume_experiment>>><<<?volume_cache>>>-it --rm <<<docker_image>>>",
-	   "double_quote": "\"",
+       "docker_run": "time <<<docker_exec_command>>> <<<container>>> <<<docker_bash_command>>>",
+       "double_quote": "\"",
 	   "escape_char": "\\"
+     },
+     "container_only": {
+       "wrapped_ck_benchmark_program": "CONTAINER_ID=<<<container>>> && echo ${CONTAINER_ID};"
      }
    },
    "cache_dir": {
@@ -369,10 +381,10 @@
    },
    "experiment_dir": {
      "yes": {
-       "volume_experiment": "--volume <<<experiment_dir_default>>>:/home/krai/CK_REPOS/local/experiment "
+       "volume_experiment": "--volume <<<experiment_dir_default>>>:<<<docker_experiment_dir_default>>> "
      },
      "###": {
-       "volume_experiment": "--volume ###:/home/krai/CK_REPOS/local/experiment "
+       "volume_experiment": "--volume ###:<<<docker_experiment_dir_default>>> "
      }
    },
    "volume": {
@@ -392,11 +404,18 @@
     "ck_benchmark_program": "ck benchmark <<<run_or_benchmark_common>>> --skip_stat_analysis --process_multi_keys --repetitions=<<<repetitions>>> --record --record_repo=local --record_uoa=<<<record_uoa>>> --tags=<<<record_tags_inner>>>",
     "ck_benchmark_program_meta": "ck benchmark <<<run_or_benchmark_common_meta>>> --skip_stat_analysis --process_multi_keys --repetitions=<<<repetitions>>> --record --record_repo=local --record_uoa=<<<record_uoa>>> --tags=<<<record_tags_inner>>>",
     "ck_run_program": "ck run <<<run_or_benchmark_common>>>",
+    "container": "`docker run -dt <<<?runtime>>><<<docker_mode>>><<<docker_user>>><<<docker_group_add>>><<<?volume_opt>>><<<?volume_experiment>>><<<?volume_cache>>>-it --rm <<<docker_image>>> bash`",
     "dataset_size": "<<<recommended_dataset_size>>>",
+    "docker_exec_command": "docker exec",
+    "docker_experiment_dir_default": "/home/krai/CK_REPOS/local/experiment",
+    "docker_bash_command": "/bin/bash -c",
     "docker_image" : "krai/mlperf-inference-vision:21.06-py3_tf-2.7.0",
+    "docker_mode": "--privileged ",
+    "docker_group_add": "--group-add <<<shared_group_id>>> ",
+    "docker_user": "--user krai:kraig ",
     "device_ids": "<<<all_device_ids>>>",
     "division": "open",
-    "experiment_dir_default": "$HOME/CK/mlperf.object-detection.$(hostname).$(id -un)/experiment",
+    "experiment_dir_default": "$HOME/CK/mlperf_v2.0.object-detection.$(hostname).$(id -un)/experiment",
     "cache_dir_default": "/data/mlperf-inference-vision.cache",
     "cache_opt": "0",
     "verbosity": "<<<recommended_verbosity>>>",
