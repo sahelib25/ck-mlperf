@@ -135,6 +135,12 @@
       "name": "TensorFlow Object Detection model",
       "sort": 30,
       "tags": "model,tf,object-detection"
+    },
+    "loadgen-config": {
+      "local": "yes",
+      "name": "Loadgen Config",
+      "sort": 2,
+      "tags": "loadgen,config,from.inference.master"
     }
   },
   "run_vars": {
