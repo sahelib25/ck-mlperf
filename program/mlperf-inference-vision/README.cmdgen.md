@@ -38,20 +38,28 @@ If it does not exist:
 sudo groupadd krai
 sudo usermod -aG krai $USER
 ```
+### Set up environment
+```
+export CK_IMAGE_NAME=mlperf-inference-vision SDK_VER=21.08-py3 TF_VER=2.7.1
+export CK_IMAGE="krai/${CK_IMAGE_NAME}:${SDK_VER}_tf-${TF_VER}"
+export CK_EXPERIMENT_REPO="mlperf.object-detection.$(hostname).$(id -un)"
+export CK_EXPERIMENT_DIR="${HOME}/CK/${CK_EXPERIMENT_REPO}/experiment"
+```
 
 ### Create a new repository
 
 ```
-ck add repo:ck-object-detection.$(hostname).$(id -un) --quiet && \
-ck add ck-object-detection.$(hostname).$(id -un):experiment:dummy --common_func && \
-ck rm  ck-object-detection.$(hostname).$(id -un):experiment:dummy --force
+ck add repo:$CK_EXPERIMENT_REPO --quiet
+ck add $CK_EXPERIMENT_REPO:experiment:dummy --common_func
+ck rm  $CK_EXPERIMENT_REPO:experiment:dummy --force
 ```
 
 ### Make its `experiment` directory writable by group `krai`
 
 ```
-export CK_EXPERIMENT_DIR="$HOME/CK/ck-object-detection.$(hostname).$(id -un)/experiment"
-sudo chgrp krai $CK_EXPERIMENT_DIR -R && sudo chmod g+w $CK_EXPERIMENT_DIR -R
+chgrp -R krai $CK_EXPERIMENT_DIR
+chmod -R g+ws $CK_EXPERIMENT_DIR
+setfacl -R -d -m group:krai:rwx $CK_EXPERIMENT_DIR
 ```
 
 ### Run
@@ -71,12 +79,16 @@ docker run --user=krai:kraig --group-add $(cut -d: -f3 < <(getent group krai)) \
 #### Run a Docker command from a CmdGen command
 
 ```
-export CK_IMAGE="krai/mlperf-inference-vision-with-ck.tensorrt:21.08-py3_tf-2.7.1"
-export CK_EXPERIMENT_DIR="$HOME/CK/ck-object-detection.$(hostname).$(id -un)/experiment"
+export CK_IMAGE_NAME=mlperf-inference-vision SDK_VER=21.08-py3 TF_VER=2.7.1
+export CK_IMAGE="krai/${CK_IMAGE_NAME}:${SDK_VER}_tf-${TF_VER}"
+export CK_EXPERIMENT_REPO="mlperf.object-detection.$(hostname).$(id -un)"
+export CK_EXPERIMENT_DIR="${HOME}/CK/${CK_EXPERIMENT_REPO}/experiment"
+
+CONTAINER_ID=`ck run cmdgen:benchmark.mlperf-inference-vision --docker=container_only --out=none  --library=tensorflow-v2.7.1-gpu --docker_image=${CK_IMAGE} --experiment_dir`
+
 ck run cmdgen:benchmark.mlperf-inference-vision --verbose \
---docker --docker_image=${CK_IMAGE} --experiment_dir=${CK_EXPERIMENT_DIR} \
 --scenario=offline --mode=accuracy --dataset_size=50 --buffer_size=64 \
---model=yolo-v3-coco --library=tensorflow-v2.7.1-cpu --sut=chai
+--model=yolo-v3-coco --library=tensorflow-v2.7.1-cpu --sut=chai --container=$CONTAINER_ID
 ```
 
 ---
