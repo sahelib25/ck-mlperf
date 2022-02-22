@@ -67,8 +67,11 @@ setfacl -R -d -m group:krai:rwx $CK_EXPERIMENT_DIR
 #### Run a CmdGen command from a Docker command
 
 ```
-export CK_IMAGE="krai/mlperf-inference-vision-with-ck.tensorrt:21.08-py3_tf-2.7.1"
-export CK_EXPERIMENT_DIR="$HOME/CK/ck-object-detection.$(hostname).$(id -un)/experiment"
+export CK_IMAGE_NAME=mlperf-inference-vision SDK_VER=21.08-py3 TF_VER=2.7.1
+export CK_IMAGE="krai/${CK_IMAGE_NAME}:${SDK_VER}_tf-${TF_VER}"
+export CK_EXPERIMENT_REPO="mlperf.object-detection.$(hostname).$(id -un)"
+export CK_EXPERIMENT_DIR="${HOME}/CK/${CK_EXPERIMENT_REPO}/experiment"
+
 docker run --user=krai:kraig --group-add $(cut -d: -f3 < <(getent group krai)) \
 --volume ${CK_EXPERIMENT_DIR}:/home/krai/CK_REPOS/local/experiment --rm ${CK_IMAGE} \
 "ck run cmdgen:benchmark.mlperf-inference-vision --verbose \
