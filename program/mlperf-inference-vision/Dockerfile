@@ -172,13 +172,10 @@ RUN ck install package --tags=lib,python-package,pillow
 # NB: While Abseil has already been installed above, we install and register it
 # with CK here as well, as it is needed for LoadGen.
 RUN ck install package --tags=lib,python-package,absl
-# Install LoadGen from the official MLPerf Inference repo.
-RUN ck install package --tags=mlperf,inference,source,upstream.master
-RUN ck install package --tags=lib,python-package,mlperf,loadgen
-# Install the official vision app with CK modifications and make it use
-# the default LoadGen config file.
+# Install the official vision app with CK modifications
 RUN ck install package --tags=mlperf,inference,source,krai.vision_with_ck
-RUN ck detect  soft    --tags=loadgen,config,from.inference.master
+# Install loadGen
+RUN ck install package --tags=lib,python-package,mlperf,loadgen
 # Allow the program to create tmp files when running under an external user.
 RUN chmod -R g+rwx $(ck find program:mlperf-inference-vision)
 #-----------------------------------------------------------------------------#
@@ -191,6 +188,12 @@ RUN chmod -R g+rwx $(ck find program:mlperf-inference-vision)
 # with the TensorFlow CPU backend and the SSD-MobileNet-FPN model.
 #-----------------------------------------------------------------------------#
 CMD ["ck run program:mlperf-inference-vision --cmd_key=direct --skip_print_timers \
---env.CK_LOADGEN_SCENARIO=Offline --env.CK_LOADGEN_MODE='--accuracy' --env.CK_LOADGEN_EXTRA_PARAMS='--count 50' \
---env.CK_LOADGEN_BACKEND=tensorflow --env.CUDA_VISIBLE_DEVICES=-1 --dep_add_tags.lib-tensorflow=vpip \
---env.CK_LOADGEN_REF_PROFILE=tf1_object_det_zoo --env.CK_METRIC_TYPE=COCO --dep_add_tags.weights=ssd,mobilenet-v1,fpn"]
+  --env.CK_LOADGEN_EXTRA_PARAMS='--count 50 --performance-sample-count 64 --query-count 2048 --target-latency 35' \
+  --env.CK_LOADGEN_SCENARIO=Offline \
+  --env.CK_OPTIMIZE_GRAPH='True' \
+  \
+  --dep_add_tags.weights=tf1-zoo,ssd_mobilenet_v1_coco \
+  --env.CK_MODEL_PROFILE=tf1_object_det_zoo \
+  --env.CK_INFERENCE_ENGINE=tensorflow \
+  --env.CK_INFERENCE_ENGINE_BACKEND=default-cpu \
+  --env.CUDA_VISIBLE_DEVICES=-1"]
