@@ -328,6 +328,61 @@ time docker run -it --rm ${CK_IMAGE} \
   --env.CK_INFERENCE_ENGINE_BACKEND=default-cpu \
   --env.CUDA_VISIBLE_DEVICES=-1"
 ```
+### Use a uniform target latency
+
+Set up environment:
+
+```
+export CK_IMAGE_NAME=mlperf-inference-vision SDK_VER=21.08-py3 TF_VER=2.7.1
+export CK_IMAGE="krai/${CK_IMAGE_NAME}:${SDK_VER}_tf-${TF_VER}"
+export CK_EXPERIMENT_REPO="mlperf_v2.0.object-detection.$(hostname).$(id -un)"
+export CK_EXPERIMENT_DIR="${HOME}/CK/${CK_EXPERIMENT_REPO}/experiment"
+```
+
+Create container:
+
+```
+CONTAINER_ID=`ck run cmdgen:benchmark.mlperf-inference-vision --docker=container_only \
+--out=none  --library=tensorflow-v2.7.1-gpu --docker_image=${CK_IMAGE} --experiment_dir`
+```
+
+For `tf1-zoo` models:
+```
+time ck run cmdgen:benchmark.mlperf-inference-vision --verbose --sut=chai \
+--model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tf1-zoo --separator=:) \
+--library=tensorflow-v2.7.1-gpu --device_ids=1 --scenario=range_singlestream --mode=performance \
+--dataset_size=5000  --batch_size=1 \
+--target_latency=200 \
+--container=$CONTAINER_ID
+```
+
+### Estimate target latencies
+
+```
+time ck run cmdgen:benchmark.mlperf-inference-vision --verbose \
+--sut=chai --model:=$(ck list_variations misc --query_module_uoa=package \
+--tags=model,tf1-zoo --separator=:) --library=tensorflow-v2.7.1-gpu \
+--device_ids=1 --scenario=range_singlestream --mode=performance --dataset_size=5000 \
+--batch_size=1 --query_count=1024 --container=$CONTAINER_ID
+```
+Create target_latency.chai.txt
+
+```
+$(ck find program:generate-target-latency)/run.py \
+--tags=inference_engine.tensorflow,inference_engine_version.v2.7.1 \
+--repo_uoa=$CK_EXPERIMENT_REPO | sort \
+| tee -a $(ck find program:mlperf-inference-vision)/target_latency.chai.txt
+```
+
+For `tf1-zoo` models:
+```
+time ck run cmdgen:benchmark.mlperf-inference-vision --verbose --sut=chai \
+--model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tf1-zoo --separator=:) \
+--library=tensorflow-v2.7.1-gpu --device_ids=1 --scenario=range_singlestream --mode=performance \
+--dataset_size=5000  --batch_size=1 \
+--target_latency_file=$(ck find program:mlperf-inference-vision)/target_latency.chai.txt \
+--container=$CONTAINER_ID
+```
 
 ## 3. Specify a Scenario
 
