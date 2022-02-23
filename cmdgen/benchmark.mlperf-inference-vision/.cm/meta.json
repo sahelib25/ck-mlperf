@@ -3,7 +3,8 @@
     "ck_env": [
       "--env.CK_LOADGEN_DATASET_SIZE=<<<dataset_size>>>",
       "--env.CK_VERBOSE=<<<verbosity>>>",
-      "--env.CK_BATCH_SIZE=<<<batch_size>>>"
+      "--env.CK_BATCH_SIZE=<<<batch_size>>>",
+      "--env.CK_LOADGEN_BUFFER_SIZE=<<<recommended_buffer_size>>>"
     ],
     "deps": [
       "--dep_add_tags.python=v3",
@@ -12,6 +13,7 @@
     ],
     "record_tags": [
       "mlperf",
+      "mlperf_v2.0",
       "division.<<<division>>>",
       "task.object-detection",
       "platform.<<<sut>>>",
@@ -39,7 +41,7 @@
   "build_map": {
     "buffer_size": {
       "###": {
-        "ck_env": "--env.CK_LOADGEN_BUFFER_SIZE=###",
+        "recommended_buffer_size": "###",
         "record_tags": "buffer_size.###<<<?batch_size_offline>>>",
         "record_uoa_parts": "buffer_size.###<<<?batch_size_offline>>>",
         "performance_sample_count_option" : " --performance-sample-count ###"
@@ -149,7 +151,6 @@
       },
       "ssd-inception-v2-coco": {
         "ck_env": "--env.CK_MODEL_PROFILE=tf1_object_det_zoo",
-        "recommended_buffer_size": "64",
         "tf_zoo": "tf1-zoo",
         "model_tags": [ "###" ]
       },
@@ -196,7 +197,6 @@
       "ssd-resnet50-v1-fpn-sbp-coco": {
         "ck_env": "--env.CK_MODEL_PROFILE=tf1_object_det_zoo",
         "tf_zoo": "tf1-zoo",
-        "recommended_buffer_size": "64",
         "model_tags": [ "###" ]
       },
       "yolo-v3-coco": {
@@ -217,6 +217,7 @@
       "ssd_resnet50_v1_fpn_1024x1024": {
         "ck_env": "--env.CK_MODEL_PROFILE=tf2_object_det_zoo",
         "tf_zoo": "tf2-zoo",
+        "recommended_buffer_size": "64",
         "model_tags": [ "###" ]
       },
       "ssd_resnet101_v1_fpn_640x640": {
@@ -226,6 +227,7 @@
       },
       "ssd_resnet101_v1_fpn_1024x1024": {
         "ck_env": "--env.CK_MODEL_PROFILE=tf2_object_det_zoo",
+        "recommended_buffer_size": "64",
         "tf_zoo": "tf2-zoo",
         "model_tags": [ "###" ]
       },
@@ -237,6 +239,7 @@
        "ssd_resnet152_v1_fpn_1024x1024": {
         "ck_env": "--env.CK_MODEL_PROFILE=tf2_object_det_zoo",
         "tf_zoo": "tf2-zoo",
+        "recommended_buffer_size": "64",
         "model_tags": [ "###" ]
       },
        "ssd_mobilenet_v2_320x320": {
@@ -289,8 +292,8 @@
       },
       "range_singlestream": {
         "ck_env": "--env.CK_LOADGEN_SCENARIO=SingleStream",
-        "performance_mode_extension": "-query_count.<<<query_count>>>"
-        }
+        "performance_mode_extension": ""
+      }
     },
     "sut": {
       "chai":{

@@ -85,7 +85,7 @@ def main(args):
                     characteristic["run"]["mlperf_log"]["detail"]
                 )
                 latency_ms = math.ceil(detail["result_mean_latency_ns"] / 10 ** 6)
-
+                query_count = tags.get("max_query_count", tags.get("query_count"))
                 print(
                     "{:35} {:-4} # max_query_count={}".format(
                         tags["platform"]
@@ -94,7 +94,7 @@ def main(args):
                         + ","
                         + tags["workload"],
                         latency_ms,
-                        tags["max_query_count"],
+                        query_count,
                     ),
                     file=args.out,
                 )
@@ -103,7 +103,7 @@ def main(args):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--repo-uoa",
+        "--repo_uoa",
         metavar="REPO_UOA",
         type=str,
         default="local",
