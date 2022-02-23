@@ -10,3 +10,13 @@ chai,tensorflow-v2.7.1-default-gpu,ssd-mobilenet-v1-fpn-sbp-coco   62 # max_quer
 chai,tensorflow-v2.7.1-default-gpu,ssd_mobilenet_v1_quantized_coco   44 # max_query_count=1024
 chai,tensorflow-v2.7.1-default-gpu,ssd-resnet50-v1-fpn-sbp-coco   75 # max_query_count=1024
 chai,tensorflow-v2.7.1-default-gpu,yolo-v3-coco   51 # max_query_count=1024
+chai,tensorflow-v2.7.1-default-gpu,ssd_mobilenet_v1_fpn_640x640  297 # max_query_count=1024
+chai,tensorflow-v2.7.1-default-gpu,ssd_mobilenet_v2_320x320  273 # max_query_count=1024
+chai,tensorflow-v2.7.1-default-gpu,ssd_mobilenet_v2_fpnlite_320x320  281 # max_query_count=1024
+chai,tensorflow-v2.7.1-default-gpu,ssd_mobilenet_v2_fpnlite_640x640  290 # max_query_count=1024
+chai,tensorflow-v2.7.1-default-gpu,ssd_resnet101_v1_fpn_1024x1024  363 # max_query_count=1024
+chai,tensorflow-v2.7.1-default-gpu,ssd_resnet101_v1_fpn_640x640  332 # max_query_count=1024
+chai,tensorflow-v2.7.1-default-gpu,ssd_resnet152_v1_fpn_1024x1024  379 # max_query_count=1024
+chai,tensorflow-v2.7.1-default-gpu,ssd_resnet152_v1_fpn_640x640  347 # max_query_count=1024
+chai,tensorflow-v2.7.1-default-gpu,ssd_resnet50_v1_fpn_1024x1024  347 # max_query_count=1024
+chai,tensorflow-v2.7.1-default-gpu,ssd_resnet50_v1_fpn_640x640  313 # max_query_count=1024
