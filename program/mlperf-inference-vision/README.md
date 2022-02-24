@@ -128,7 +128,7 @@ sudo usermod -aG krai $USER
 ### Create a new repository
 
 ```
-export CK_EXPERIMENT_REPO="mlperf.object-detection.$(hostname).$(id -un)"
+export CK_EXPERIMENT_REPO="mlperf_v2.0.object-detection.$(hostname).$(id -un)"
 ck add repo:${CK_EXPERIMENT_REPO} --quiet && \
 ck add ${CK_EXPERIMENT_REPO}:experiment:dummy --common_func && \
 ck rm  ${CK_EXPERIMENT_REPO}:experiment:dummy --force
