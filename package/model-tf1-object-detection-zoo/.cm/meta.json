@@ -117,7 +117,6 @@
         "rcnn-nas",
         "nas",
         "lowproposals",
-        "non-quantized",
         "vcoco"
       ]
     },
@@ -144,7 +143,6 @@
         "resnet101-v1",
         "rcnn-resnet101-v1",
         "lowproposals",
-        "non-quantized",
         "vcoco"
       ]
     },
@@ -169,7 +167,6 @@
         "resnet50-v1",
         "rcnn-resnet50-v1",
         "lowproposals",
-        "non-quantized",
         "vcoco"
       ]
     },
@@ -245,7 +242,8 @@
         "fpn",
         "shared-box-predictor",
         "sbp",
-        "vcoco"
+        "vcoco",
+        "non-quantized"
       ]
     },
     "ssd_mobilenet_v1_coco": {
