@@ -350,7 +350,7 @@ For `tf1-zoo` models:
 ```
 time ck run cmdgen:benchmark.mlperf-inference-vision --verbose --sut=chai \
 --model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tf1-zoo --separator=:) \
---library=tensorflow-v2.7.1-gpu --device_ids=1 --scenario=range_singlestream --mode=performance \
+--library=tensorflow-v2.7.1-gpu --device_ids=1 --scenario=singlestream --mode=performance \
 --dataset_size=5000  --batch_size=1 \
 --target_latency=200 \
 --container=$CONTAINER_ID
@@ -378,9 +378,9 @@ For `tf1-zoo` models:
 ```
 time ck run cmdgen:benchmark.mlperf-inference-vision --verbose --sut=chai \
 --model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tf1-zoo --separator=:) \
---library=tensorflow-v2.7.1-gpu --device_ids=1 --scenario=range_singlestream --mode=performance \
+--library=tensorflow-v2.7.1-gpu --device_ids=1 --scenario=singlestream --mode=performance \
 --dataset_size=5000  --batch_size=1 \
---target_latency_file=$(ck find program:mlperf-inference-vision)/target_latency.chai.txt \
+--target_latency_file=/home/krai/CK_REPOS/ck-mlperf/program/mlperf-inference-vision/target_latency.chai.txt \
 --container=$CONTAINER_ID
 ```
 
