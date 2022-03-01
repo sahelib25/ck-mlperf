@@ -293,6 +293,10 @@
       "range_singlestream": {
         "ck_env": "--env.CK_LOADGEN_SCENARIO=SingleStream",
         "performance_mode_extension": ""
+      },
+      "range_offline": {
+        "ck_env": "--env.CK_LOADGEN_SCENARIO=Offline",
+        "performance_mode_extension": ""
       }
     },
     "sut": {
@@ -322,6 +326,14 @@
         "record_tags": "target_latency.<<<?escape_char>>>$CK_LOADGEN_TARGET_LATENCY",
         "target_latency": "<<<?escape_char>>>$CK_LOADGEN_TARGET_LATENCY"
       }
+   },
+   "target_qps_file": {
+     "###": {
+       "shell_preamble": "export CK_LOADGEN_TARGET_QPS=<<<?escape_char>>>$(awk -vX=<<<?escape_char>>>\"<<<sut>>>,<<<inference_engine>>>-<<<inference_engine_version>>>-<<<inference_engine_backend>>>,<<<model_readable>>><<<?escape_char>>>\" 'X==<<<?escape_char>>>$1{print <<<?escape_char>>>$2;exit}' < ###); [ <<<?escape_char>>>\"<<<?escape_char>>>$CK_LOADGEN_TARGET_QPS<<<?escape_char>>>\" ] || { echo 'Error: entry <<<sut>>>,<<<inference_engine>>>-<<<inference_engine_version>>>-<<<inference_engine_backend>>>,<<<model_readable>>> not found in ###, exiting'; exit 1; }; ",
+       "ck_env": "--env.CK_LOADGEN_TARGET_QPS=<<<?escape_char>>>$CK_LOADGEN_TARGET_QPS",
+       "record_tags": "target_qps.<<<?escape_char>>>$CK_LOADGEN_TARGET_QPS",
+       "target_qps": "<<<?escape_char>>>$CK_LOADGEN_TARGET_QPS"
+       }
    },
    "query_count": {
      "###": {

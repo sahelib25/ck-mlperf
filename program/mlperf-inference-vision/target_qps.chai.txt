@@ -1,0 +1,1 @@
+chai,tensorflow-v2.7.1-default-gpu,rcnn-nas-lowproposals-coco  5.2 # max_query_count=1024
