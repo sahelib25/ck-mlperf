@@ -278,9 +278,9 @@
         "MODEL_LABELMAP_NAME": "COCO",
         "MODEL_MODEL_ID": "ssd_mobilenet_v1_quantized_coco",
         "MODEL_MODEL_NAME": "SSD-MobileNet-v1 QUANTIZED COCO",
-        "MODEL_PACKAGE_NAME": "ssd_mobilenet_v1_coco_2018_01_28.tar.gz",
-        "MODEL_PACKAGE_NAME1": "ssd_mobilenet_v1_coco_2018_01_28",
-        "MODEL_PACKAGE_URL": "https://zenodo.org/record/3361502/files/"
+        "MODEL_PACKAGE_NAME": "ssd_mobilenet_v1_quantized_300x300_coco14_sync_2018_07_18.tar.gz",
+        "MODEL_PACKAGE_NAME1": "ssd_mobilenet_v1_quantized_300x300_coco14_sync_2018_07_18",
+        "MODEL_PACKAGE_URL": "http://download.tensorflow.org/models/object_detection/"
       },
       "extra_tags": [
         "ssd",
