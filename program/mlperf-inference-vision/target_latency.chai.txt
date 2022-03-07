@@ -42,3 +42,7 @@ chai,tensorflow-v2.7.1-default-cpu,ssd_resnet50_v1_fpn_1024x1024  713 # max_quer
 chai,tensorflow-v2.7.1-default-cpu,ssd_resnet50_v1_fpn_640x640  355 # max_query_count=1024
 chai,tensorflow-v2.7.1-default-cpu,ssd-resnet50-v1-fpn-sbp-coco  215 # max_query_count=1024
 chai,tensorflow-v2.7.1-default-cpu,yolo-v3-coco  157 # max_query_count=1024
+chai,tensorflow-v2.7.0-openvino-cpu,rcnn-inception-v2-coco  183 # max_query_count=1024
+chai,tensorflow-v2.7.0-openvino-cpu,rcnn-resnet101-lowproposals-coco  200 # max_query_count=1024
+chai,tensorflow-v2.7.0-openvino-cpu,rcnn-resnet50-lowproposals-coco  191 # max_query_count=1024
+chai,tensorflow-v2.7.0-openvino-cpu,yolo-v3-coco   87 # max_query_count=1024
