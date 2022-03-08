@@ -7,10 +7,6 @@ import math
 import os.path
 import sys
 
-def round_math(num, n):
-    num = int( num * 10**n + 0.5 )/(10**n)
-    return num
-
 def ck_access(**kwargs):
     r = ck.access(kwargs)
     if r["return"] > 0:
@@ -87,8 +83,7 @@ def main(args):
                 detail = parse_mlperf_log_detail(
                     characteristic["run"]["mlperf_log"]["detail"]
                 )
-                #qps = math.ceil(detail["result_samples_per_second"] )
-                qps = round_math(detail["result_samples_per_second"], 1 )
+                qps = math.ceil(detail["result_samples_per_second"] )
                 query_count = tags.get("max_query_count", tags.get("query_count"))
                 print(
                     "{:35} {:-4} # max_query_count={}".format(

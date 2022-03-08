@@ -42,8 +42,8 @@
     "buffer_size": {
       "###": {
         "recommended_buffer_size": "###",
-        "record_tags": "buffer_size.###<<<?batch_size_offline>>>",
-        "record_uoa_parts": "buffer_size.###<<<?batch_size_offline>>>",
+        "record_tags": "buffer_size.###",
+        "record_uoa_parts": "buffer_size.###",
         "performance_sample_count_option" : " --performance-sample-count ###"
       }
     },
@@ -123,7 +123,7 @@
 	      "--env.CK_LOADGEN_EXTRA_PARAMS=\\'--count <<<dataset_size>>><<<?performance_sample_count_option>>> --cache <<<cache_opt>>>\\'",
 	      "--env.CK_OPTIMIZE_GRAPH=\\'False\\'"
     	],
-	    "mode_extension": "-dataset_size.<<<dataset_size>>>",
+	    "mode_extension": "<<<?batch_size_offline>>>-dataset_size.<<<dataset_size>>>",
         "recommended_dataset_size": "5000",
         "output_file": "accuracy.txt",
 	    "recommended_verbosity": "1"
@@ -137,7 +137,7 @@
 	      "--env.CK_LOADGEN_EXTRA_PARAMS=\\'--count <<<dataset_size>>><<<?qps_option>>><<<?latency_option>>> --performance-sample-count <<<buffer_size>>><<<?query_count_option>>> --cache <<<cache_opt>>>\\'",
 	      "--env.CK_OPTIMIZE_GRAPH=\\'True\\'"
 		],
-	    "mode_extension": "<<<performance_mode_extension>>><<<?query_count_acc>>>",
+	    "mode_extension": "<<<?batch_size_offline>>><<<performance_mode_extension>>><<<?query_count_acc>>>",
 	    "recommended_dataset_size": "1024",
         "output_file": "mlperf_log_summary.txt",
 	    "recommended_verbosity": "0"
