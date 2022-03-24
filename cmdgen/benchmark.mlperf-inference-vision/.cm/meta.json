@@ -140,7 +140,8 @@
 	    "mode_extension": "<<<?batch_size_offline>>><<<performance_mode_extension>>><<<?query_count_acc>>>",
 	    "recommended_dataset_size": "1024",
         "output_file": "mlperf_log_summary.txt",
-	    "recommended_verbosity": "0"
+        "recommended_verbosity": "0",
+        "record_tags": "batch_size.<<<batch_size>>>"
       }
     },
     "model": {
@@ -334,6 +335,15 @@
        "record_tags": "target_qps.<<<?escape_char>>>$CK_LOADGEN_TARGET_QPS",
        "target_qps": "<<<?escape_char>>>$CK_LOADGEN_TARGET_QPS",
        "batch_size_file": "<<<?escape_char>>>$BATCH_SIZE"
+       }
+   },
+   "target_qps_batch_size_file": {
+     "###": {
+       "shell_preamble": "IFS=' ' read -r -a params <<< <<<?escape_char>>>$(/home/krai/CK_REPOS/ck-mlperf/program/generate-target-qps/select_batch_size_qps.py --sut=<<<sut>>> --inference=<<<inference_engine>>>-<<<inference_engine_version>>>-<<<inference_engine_backend>>> --model=<<<model>>> --input_file=### --batch_size=<<<batch_size>>>); export CK_BATCH_SIZE=<<<?escape_char>>>${params[0]}; export CK_LOADGEN_TARGET_QPS=<<<?escape_char>>>${params[1]}; ",
+       "ck_env": "--env.CK_LOADGEN_TARGET_QPS=<<<?escape_char>>>$CK_LOADGEN_TARGET_QPS --env.CK_BATCH_SIZE=<<<?escape_char>>>$CK_BATCH_SIZE",
+       "record_tags": "target_qps.<<<?escape_char>>>$CK_LOADGEN_TARGET_QPS",
+       "target_qps": "<<<?escape_char>>>$CK_LOADGEN_TARGET_QPS",
+       "batch_size_file": "<<<?escape_char>>>$CK_BATCH_SIZE"
        }
    },
    "query_count": {
