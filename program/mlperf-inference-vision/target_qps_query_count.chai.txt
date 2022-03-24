@@ -1,0 +1,4 @@
+chai,tensorflow-v2.7.1-default-cpu,ssd-inception-v2-coco  105 # max_query_count=1024
+chai,tensorflow-v2.7.1-default-cpu,ssd_mobilenet_v1_coco  240 # max_query_count=1024
+chai,tensorflow-v2.7.1-default-cpu,ssd_mobilenet_v1_quantized_coco  238 # max_query_count=1024
+chai,tensorflow-v2.7.1-default-cpu,ssdlite-mobilenet-v2-coco  231 # max_query_count=1024
