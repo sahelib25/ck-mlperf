@@ -195,5 +195,5 @@ CMD ["ck run program:mlperf-inference-vision --cmd_key=direct --skip_print_timer
   --dep_add_tags.weights=tf1-zoo,ssd_mobilenet_v1_coco \
   --env.CK_MODEL_PROFILE=tf1_object_det_zoo \
   --env.CK_INFERENCE_ENGINE=tensorflow \
-  --env.CK_INFERENCE_ENGINE_BACKEND=default-cpu \
+  --env.CK_INFERENCE_ENGINE_BACKEND=default.cpu \
   --env.CUDA_VISIBLE_DEVICES=-1"]

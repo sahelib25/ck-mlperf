@@ -51,51 +51,51 @@
       "tensorflow-v2.7.1-cpu": {
 	    "ck_env": [
 	      "--env.CK_INFERENCE_ENGINE=tensorflow",
-	      "--env.CK_INFERENCE_ENGINE_BACKEND=default-cpu",
+	      "--env.CK_INFERENCE_ENGINE_BACKEND=default.cpu",
 	      "--env.CUDA_VISIBLE_DEVICES=-1"
 	    ],
 	    "deps": "",
 	    "program_name": "mlperf-inference-vision",
 	    "inference_engine": "tensorflow",
 	    "inference_engine_version": "v2.7.1",
-	    "inference_engine_backend": "default-cpu"
+	    "inference_engine_backend": "default.cpu"
       },
       "tensorflow-v2.7.1-gpu": {
         "ck_env": [
 	      "--env.CK_INFERENCE_ENGINE=tensorflow",
-	      "--env.CK_INFERENCE_ENGINE_BACKEND=default-gpu",
+	      "--env.CK_INFERENCE_ENGINE_BACKEND=default.gpu",
 	      "--env.CUDA_VISIBLE_DEVICES=<<<device_ids>>>"
 	    ],
         "deps": "",
         "program_name": "mlperf-inference-vision",
         "inference_engine": "tensorflow",
         "inference_engine_version": "v2.7.1",
-        "inference_engine_backend": "default-gpu",
+        "inference_engine_backend": "default.gpu",
 	    "runtime":"--gpus all "
       },
       "tensorflow-openvino-cpu": {
 	    "ck_env": [
 	      "--env.CK_INFERENCE_ENGINE=tensorflow",
-	      "--env.CK_INFERENCE_ENGINE_BACKEND=openvino-cpu",
+	      "--env.CK_INFERENCE_ENGINE_BACKEND=openvino.cpu",
 	      "--env.CUDA_VISIBLE_DEVICES=-1"
 	    ],
 	    "deps": "",
 	    "program_name": "mlperf-inference-vision",
 	    "inference_engine": "tensorflow",
 	    "inference_engine_version": "v2.7.0",
-	    "inference_engine_backend": "openvino-cpu"
+	    "inference_engine_backend": "openvino.cpu"
       },
       "tensorflow-openvino-gpu": {
 	    "ck_env": [
 	      "--env.CK_INFERENCE_ENGINE=tensorflow",
-	      "--env.CK_INFERENCE_ENGINE_BACKEND=openvino-gpu",
+	      "--env.CK_INFERENCE_ENGINE_BACKEND=openvino.gpu",
 	      "--env.CUDA_VISIBLE_DEVICES=-1"
 	    ],
 	    "deps": "",
 	    "program_name": "mlperf-inference-vision",
 	    "inference_engine": "tensorflow",
 	    "inference_engine_version": "v2.7.0",
-	    "inference_engine_backend": "openvino-gpu"
+	    "inference_engine_backend": "openvino.gpu"
      },
      "tensorflow-tensorrt-dynamic": {
 	    "ck_env": [
