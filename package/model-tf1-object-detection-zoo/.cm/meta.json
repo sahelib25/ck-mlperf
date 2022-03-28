@@ -280,7 +280,7 @@
         "MODEL_MODEL_NAME": "SSD-MobileNet-v1 QUANTIZED COCO",
         "MODEL_PACKAGE_NAME": "ssd_mobilenet_v1_quantized_300x300_coco14_sync_2018_07_18.tar.gz",
         "MODEL_PACKAGE_NAME1": "ssd_mobilenet_v1_quantized_300x300_coco14_sync_2018_07_18",
-        "MODEL_PACKAGE_URL": "http://download.tensorflow.org/models/object_detection/"
+        "MODEL_PACKAGE_URL": "http://download.tensorflow.org/models/object_detection"
       },
       "extra_tags": [
         "ssd",
