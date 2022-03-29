@@ -297,7 +297,8 @@
       },
       "range_offline": {
         "ck_env": "--env.CK_LOADGEN_SCENARIO=Offline",
-        "performance_mode_extension": ""
+        "performance_mode_extension": "",
+        "batch_size_offline":"-batch_size.<<<batch_size>>>"
       }
     },
     "sut": {
