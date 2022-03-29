@@ -20,7 +20,7 @@
       "*PACKAGE_NAME": "$<<MODEL_PACKAGE_NAME>>$",
       "*PACKAGE_NAME1": "$<<MODEL_PACKAGE_NAME1>>$",
       "*PACKAGE_URL": "$<<MODEL_PACKAGE_URL>>$",
-      "*FROZEN_GRAPH": "$<<MODEL_FROZEN_GRAPH>>$",
+      "FROZEN_GRAPH": "frozen_inference_graph.pb",
       "PACKAGE_UNTAR": "YES",
       "PACKAGE_UNZIP": "YES",
       "PIPELINE_CONFIG": "pipeline.config",
@@ -31,7 +31,7 @@
     "version": "reference"
   },
   "end_full_path": {
-    "*linux": "$<<MODEL_FROZEN_GRAPH>>$"
+    "linux": "frozen_inference_graph.pb"
   },
   "only_for_host_os_tags": [
     "linux"
@@ -62,8 +62,7 @@
         "MODEL_MODEL_NAME": "Faster-RCNN-Inception-ResNet-v2 lowproposals",
         "MODEL_PACKAGE_NAME": "faster_rcnn_inception_resnet_v2_atrous_lowproposals_coco_2018_01_28.tar.gz",
         "MODEL_PACKAGE_NAME1": "faster_rcnn_inception_resnet_v2_atrous_lowproposals_coco_2018_01_28",
-        "MODEL_PACKAGE_URL": "http://download.tensorflow.org/models/object_detection",
-        "MODEL_FROZEN_GRAPH": "frozen_inference_graph.pb"
+        "MODEL_PACKAGE_URL": "http://download.tensorflow.org/models/object_detection"
       },
       "extra_tags": [
         "rcnn",
@@ -88,8 +87,7 @@
         "MODEL_MODEL_NAME": "Faster-RCNN Inception-v2",
         "MODEL_PACKAGE_NAME": "faster_rcnn_inception_v2_coco_2018_01_28.tar.gz",
         "MODEL_PACKAGE_NAME1": "faster_rcnn_inception_v2_coco_2018_01_28",
-        "MODEL_PACKAGE_URL": "http://download.tensorflow.org/models/object_detection",
-        "MODEL_FROZEN_GRAPH": "frozen_inference_graph.pb"
+        "MODEL_PACKAGE_URL": "http://download.tensorflow.org/models/object_detection"
       },
       "extra_tags": [
         "rcnn",
@@ -111,8 +109,7 @@
         "MODEL_MODEL_NAME": "Faster-RCNN-NAS lowproposals COCO",
         "MODEL_PACKAGE_NAME": "faster_rcnn_nas_lowproposals_coco_2018_01_28.tar.gz",
         "MODEL_PACKAGE_NAME1": "faster_rcnn_nas_lowproposals_coco_2018_01_28",
-        "MODEL_PACKAGE_URL": "http://download.tensorflow.org/models/object_detection",
-        "MODEL_FROZEN_GRAPH": "frozen_inference_graph.pb"
+        "MODEL_PACKAGE_URL": "http://download.tensorflow.org/models/object_detection"
       },
       "extra_tags": [
         "rcnn",
@@ -135,8 +132,7 @@
         "MODEL_MODEL_NAME": "Faster-RCNN-ResNet101 lowproposals",
         "MODEL_PACKAGE_NAME": "faster_rcnn_resnet101_lowproposals_coco_2018_01_28.tar.gz",
         "MODEL_PACKAGE_NAME1": "faster_rcnn_resnet101_lowproposals_coco_2018_01_28",
-        "MODEL_PACKAGE_URL": "http://download.tensorflow.org/models/object_detection",
-        "MODEL_FROZEN_GRAPH": "frozen_inference_graph.pb"
+        "MODEL_PACKAGE_URL": "http://download.tensorflow.org/models/object_detection"
       },
       "extra_tags": [
         "rcnn",
@@ -162,8 +158,7 @@
         "MODEL_MODEL_NAME": "Faster-RCNN-ResNet50 lowproposals",
         "MODEL_PACKAGE_NAME": "faster_rcnn_resnet50_lowproposals_coco_2018_01_28.tar.gz",
         "MODEL_PACKAGE_NAME1": "faster_rcnn_resnet50_lowproposals_coco_2018_01_28",
-        "MODEL_PACKAGE_URL": "http://download.tensorflow.org/models/object_detection",
-        "MODEL_FROZEN_GRAPH": "frozen_inference_graph.pb"
+        "MODEL_PACKAGE_URL": "http://download.tensorflow.org/models/object_detection"
       },
       "extra_tags": [
         "rcnn",
@@ -187,8 +182,7 @@
         "MODEL_MODEL_NAME": "SSD-Inception-v2 COCO",
         "MODEL_PACKAGE_NAME": "ssd_inception_v2_coco_2018_01_28.tar.gz",
         "MODEL_PACKAGE_NAME1": "ssd_inception_v2_coco_2018_01_28",
-        "MODEL_PACKAGE_URL": "http://download.tensorflow.org/models/object_detection",
-        "MODEL_FROZEN_GRAPH": "frozen_inference_graph.pb"
+        "MODEL_PACKAGE_URL": "http://download.tensorflow.org/models/object_detection"
       },
       "extra_tags": [
         "ssd",
@@ -210,8 +204,7 @@
         "MODEL_MODEL_NAME": "SSD-MobileNet-v1 FPN SBP COCO",
         "MODEL_PACKAGE_NAME": "ssd_mobilenet_v1_fpn_shared_box_predictor_640x640_coco14_sync_2018_07_03.tar.gz",
         "MODEL_PACKAGE_NAME1": "ssd_mobilenet_v1_fpn_shared_box_predictor_640x640_coco14_sync_2018_07_03",
-        "MODEL_PACKAGE_URL": "http://download.tensorflow.org/models/object_detection",
-        "MODEL_FROZEN_GRAPH": "frozen_inference_graph.pb"
+        "MODEL_PACKAGE_URL": "http://download.tensorflow.org/models/object_detection"
       },
       "extra_tags": [
         "ssd",
@@ -238,8 +231,7 @@
         "MODEL_MODEL_NAME": "SSD-ResNet50-v1 FPN SBP COCO",
         "MODEL_PACKAGE_NAME": "ssd_resnet50_v1_fpn_shared_box_predictor_640x640_coco14_sync_2018_07_03.tar.gz",
         "MODEL_PACKAGE_NAME1": "ssd_resnet50_v1_fpn_shared_box_predictor_640x640_coco14_sync_2018_07_03",
-        "MODEL_PACKAGE_URL": "http://download.tensorflow.org/models/object_detection",
-        "MODEL_FROZEN_GRAPH": "frozen_inference_graph.pb"
+        "MODEL_PACKAGE_URL": "http://download.tensorflow.org/models/object_detection"
       },
       "extra_tags": [
         "ssd",
@@ -266,8 +258,7 @@
         "MODEL_MODEL_NAME": "SSD-MobileNet-v1 COCO",
         "MODEL_PACKAGE_NAME": "ssd_mobilenet_v1_coco_2018_01_28.tar.gz",
         "MODEL_PACKAGE_NAME1": "ssd_mobilenet_v1_coco_2018_01_28",
-        "MODEL_PACKAGE_URL": "http://download.tensorflow.org/models/object_detection",
-        "MODEL_FROZEN_GRAPH": "frozen_inference_graph.pb"
+        "MODEL_PACKAGE_URL": "http://download.tensorflow.org/models/object_detection"
       },
       "extra_tags": [
         "ssd",
@@ -289,8 +280,7 @@
         "MODEL_MODEL_NAME": "SSD-MobileNet-v1 QUANTIZED COCO",
         "MODEL_PACKAGE_NAME": "ssd_mobilenet_v1_quantized_300x300_coco14_sync_2018_07_18.tar.gz",
         "MODEL_PACKAGE_NAME1": "ssd_mobilenet_v1_quantized_300x300_coco14_sync_2018_07_18",
-        "MODEL_PACKAGE_URL": "http://download.tensorflow.org/models/object_detection",
-        "MODEL_FROZEN_GRAPH": "tflite_graph.pb"
+        "MODEL_PACKAGE_URL": "http://download.tensorflow.org/models/object_detection"
       },
       "extra_tags": [
         "ssd",
@@ -312,8 +302,7 @@
         "MODEL_MODEL_NAME": "SSDLite-MobileNet-v2 COCO",
         "MODEL_PACKAGE_NAME": "ssdlite_mobilenet_v2_coco_2018_05_09.tar.gz",
         "MODEL_PACKAGE_NAME1": "ssdlite_mobilenet_v2_coco_2018_05_09",
-        "MODEL_PACKAGE_URL": "http://download.tensorflow.org/models/object_detection",
-        "MODEL_FROZEN_GRAPH": "frozen_inference_graph.pb"
+        "MODEL_PACKAGE_URL": "http://download.tensorflow.org/models/object_detection"
       },
       "extra_tags": [
         "ssdlite",
@@ -335,8 +324,7 @@
         "MODEL_MODEL_NAME": "YOLO-v3 COCO",
         "MODEL_PACKAGE_NAME": "yolo_v3_coco.tar.gz",
         "MODEL_PACKAGE_NAME1": "aaa",
-        "MODEL_PACKAGE_URL": "https://zenodo.org/record/3386327/files/",
-        "MODEL_FROZEN_GRAPH": "frozen_inference_graph.pb"
+        "MODEL_PACKAGE_URL": "https://zenodo.org/record/3386327/files/"
       },
       "extra_tags": [
         "yolo",
