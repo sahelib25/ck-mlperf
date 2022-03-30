@@ -23,7 +23,7 @@ def main(args):
             target_latency = line[1]
             inference_model_list = line[0].split(',')
             if (inference_model_list[0] == list_tags["sut"] and inference_model_list[1] == inference_str):
-                if ( int(target_latency) <= args.latency_threshold ):
+                if ( int(target_latency) <= args.latency_threshold and inference_model_list[2] != "ssd_mobilenet_v1_quantized_coco"):
                     if light_models_str != "":
                         light_models_str= light_models_str + args.separator + inference_model_list[2]
                     else:

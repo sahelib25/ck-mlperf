@@ -83,17 +83,20 @@ def main(args):
                 detail = parse_mlperf_log_detail(
                     characteristic["run"]["mlperf_log"]["detail"]
                 )
-                qps = math.ceil(detail["result_samples_per_second"] )
+                qps = str(math.ceil(detail["result_samples_per_second"] ))
                 query_count = tags.get("max_query_count", tags.get("query_count"))
                 print(
-                    "{:35} {:-4} # max_query_count={}".format(
+                    "{:50}".format(
                         tags["platform"]
                         + ","
                         + library_backend
                         + ","
-                        + tags["workload"],
-                        qps,
-                        query_count,
+                        + tags["workload"]
+                        + ","
+                        +"batch_size="
+                        +tags["batch_size"]
+                        + ","
+                        + qps,
                     ),
                     file=args.out,
                 )
