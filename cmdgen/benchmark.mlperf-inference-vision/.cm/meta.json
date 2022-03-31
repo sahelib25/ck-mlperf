@@ -331,15 +331,6 @@
    },
    "target_qps_file": {
      "###": {
-       "shell_preamble": "export CK_LOADGEN_TARGET_QPS=<<<?escape_char>>>$(awk -vX=<<<?escape_char>>>\"<<<sut>>>,<<<inference_engine>>>-<<<inference_engine_version>>>-<<<inference_engine_backend>>>,<<<model_readable>>><<<?escape_char>>>\" 'X==<<<?escape_char>>>$1{print <<<?escape_char>>>$2;exit}' < ###); [ <<<?escape_char>>>\"<<<?escape_char>>>$CK_LOADGEN_TARGET_QPS<<<?escape_char>>>\" ] || { echo 'Error: entry <<<sut>>>,<<<inference_engine>>>-<<<inference_engine_version>>>-<<<inference_engine_backend>>>,<<<model_readable>>> not found in ###, exiting'; exit 1; }; export BATCH_SIZE=<<<?escape_char>>>$(awk -vX=<<<?escape_char>>>\"<<<sut>>>,<<<inference_engine>>>-<<<inference_engine_version>>>-<<<inference_engine_backend>>>,<<<model_readable>>><<<?escape_char>>>\" 'X==<<<?escape_char>>>$1{print <<<?escape_char>>>$5;exit}' < ###); [ <<<?escape_char>>>\"<<<?escape_char>>>$BATCH_SIZE<<<?escape_char>>>\" ] || { echo 'Batch_size is not for entry <<<sut>>>,<<<inference_engine>>>-<<<inference_engine_version>>>-<<<inference_engine_backend>>>,<<<model_readable>>> in ###. Batch_size by default or set value is used.'; export BATCH_SIZE=<<<batch_size_default>>>; };",
-       "ck_env": "--env.CK_LOADGEN_TARGET_QPS=<<<?escape_char>>>$CK_LOADGEN_TARGET_QPS",
-       "record_tags": "target_qps.<<<?escape_char>>>$CK_LOADGEN_TARGET_QPS",
-       "target_qps": "<<<?escape_char>>>$CK_LOADGEN_TARGET_QPS",
-       "batch_size_file": "<<<?escape_char>>>$BATCH_SIZE"
-       }
-   },
-   "target_qps_batch_size_file": {
-     "###": {
        "shell_preamble": "IFS=' ' read -r -a params <<< <<<?escape_char>>>$(/home/krai/CK_REPOS/ck-mlperf/program/generate-target-qps/select_batch_size_qps.py --sut=<<<sut>>> --inference=<<<inference_engine>>>-<<<inference_engine_version>>>-<<<inference_engine_backend>>> --model=<<<model>>> --input_file=### --batch_size=<<<batch_size>>>); export CK_BATCH_SIZE=<<<?escape_char>>>${params[0]}; export CK_LOADGEN_TARGET_QPS=<<<?escape_char>>>${params[1]}; ",
        "ck_env": "--env.CK_LOADGEN_TARGET_QPS=<<<?escape_char>>>$CK_LOADGEN_TARGET_QPS --env.CK_BATCH_SIZE=<<<?escape_char>>>$CK_BATCH_SIZE",
        "record_tags": "target_qps.<<<?escape_char>>>$CK_LOADGEN_TARGET_QPS",
