@@ -83,7 +83,10 @@ def main(args):
                 detail = parse_mlperf_log_detail(
                     characteristic["run"]["mlperf_log"]["detail"]
                 )
-                qps = str(math.ceil(detail["result_samples_per_second"] ))
+                if tags["inference_engine_backend"] == "default.gpu":
+                    qps = str(math.ceil(detail["result_samples_per_second"]*1.1 ))
+                else:
+                    qps = str(math.ceil(detail["result_samples_per_second"] ))
                 query_count = tags.get("max_query_count", tags.get("query_count"))
                 print(
                     "{:50}".format(
