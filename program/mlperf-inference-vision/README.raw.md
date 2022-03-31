@@ -6,28 +6,28 @@ The table below shows currently supported models, frameworks ("inference engines
 
 | `MODEL_NAME`                                 | `INFERENCE_ENGINE`  | `INFERENCE_ENGINE_BACKEND`                 |
 | -------------------------------------------- | ------------------- | ------------------------------------------ |
-| `rcnn-nas-lowproposals-coco`                 | `tensorflow`        | `default-cpu`,`default-gpu`,`openvino-cpu` |
-| `rcnn-resnet50-lowproposals-coco`            | `tensorflow`        | `default-cpu`,`default-gpu`,`openvino-cpu` |
-| `rcnn-resnet101-lowproposals-coco`           | `tensorflow`        | `default-cpu`,`default-gpu`,`openvino-cpu` |
-| `rcnn-inception-resnet-v2-lowproposals-coco` | `tensorflow`        | `default-cpu`,`default-gpu`,`openvino-cpu` |
-| `rcnn-inception-v2-coco`                     | `tensorflow`        | `default-cpu`,`default-gpu`,`openvino-cpu` |
-| `ssd-inception-v2-coco`                      | `tensorflow`        | `default-cpu`,`default-gpu`                |
-| `ssd_mobilenet_v1_coco`                      | `tensorflow`        | `default-cpu`,`default-gpu`                |
-| `ssd_mobilenet_v1_quantized_coco`            | `tensorflow`        | `default-cpu`,`default-gpu`                |
-| `ssd-mobilenet-v1-fpn-sbp-coco`              | `tensorflow`        | `default-cpu`,`default-gpu`                |
-| `ssd-resnet50-v1-fpn-sbp-coco`               | `tensorflow`        | `default-cpu`,`default-gpu`                |
-| `ssdlite-mobilenet-v2-coco`                  | `tensorflow`        | `default-cpu`,`default-gpu`                |
-| `yolo-v3-coco`                               | `tensorflow`        | `default-cpu`,`default-gpu`,`openvino-cpu` |
-| `ssd_resnet50_v1_fpn_640x640`                | `tensorflow`        | `default-cpu`,`default-gpu`                |
-| `ssd_resnet50_v1_fpn_1024x1024`              | `tensorflow`        | `default-cpu`,`default-gpu`                |
-|`ssd_resnet101_v1_fpn_640x640`                | `tensorflow`        | `default-cpu`,`default-gpu`                |
-|`ssd_resnet101_v1_fpn_1024x1024`              | `tensorflow`        | `default-cpu`,`default-gpu`                |
-|`ssd_resnet152_v1_fpn_640x640`                | `tensorflow`        | `default-cpu`,`default-gpu`                |
-|`ssd_resnet152_v1_fpn_1024x1024`              | `tensorflow`        | `default-cpu`,`default-gpu`                |
-|`ssd_mobilenet_v2_320x320`                    | `tensorflow`        | `default-cpu`,`default-gpu`                |
-|`ssd_mobilenet_v1_fpn_640x640`                | `tensorflow`        | `default-cpu`,`default-gpu`                |
-|`ssd_mobilenet_v2_fpnlite_320x320`            | `tensorflow`        | `default-cpu`,`default-gpu`                |
-|`ssd_mobilenet_v2_fpnlite_640x640`            | `tensorflow`        | `default-cpu`,`default-gpu`                |
+| `rcnn-nas-lowproposals-coco`                 | `tensorflow`        | `default.cpu`,`default.gpu`,`openvino.cpu` |
+| `rcnn-resnet50-lowproposals-coco`            | `tensorflow`        | `default.cpu`,`default.gpu`,`openvino.cpu` |
+| `rcnn-resnet101-lowproposals-coco`           | `tensorflow`        | `default.cpu`,`default.gpu`,`openvino.cpu` |
+| `rcnn-inception-resnet-v2-lowproposals-coco` | `tensorflow`        | `default.cpu`,`default.gpu`,`openvino.cpu` |
+| `rcnn-inception-v2-coco`                     | `tensorflow`        | `default.cpu`,`default.gpu`,`openvino.cpu` |
+| `ssd-inception-v2-coco`                      | `tensorflow`        | `default.cpu`,`default.gpu`                |
+| `ssd_mobilenet_v1_coco`                      | `tensorflow`        | `default.cpu`,`default.gpu`                |
+| `ssd_mobilenet_v1_quantized_coco`            | `tensorflow`        | `default.cpu`,`default.gpu`                |
+| `ssd-mobilenet-v1-fpn-sbp-coco`              | `tensorflow`        | `default.cpu`,`default.gpu`                |
+| `ssd-resnet50-v1-fpn-sbp-coco`               | `tensorflow`        | `default.cpu`,`default.gpu`                |
+| `ssdlite-mobilenet-v2-coco`                  | `tensorflow`        | `default.cpu`,`default.gpu`                |
+| `yolo-v3-coco`                               | `tensorflow`        | `default.cpu`,`default.gpu`,`openvino.cpu` |
+| `ssd_resnet50_v1_fpn_640x640`                | `tensorflow`        | `default.cpu`,`default.gpu`                |
+| `ssd_resnet50_v1_fpn_1024x1024`              | `tensorflow`        | `default.cpu`,`default.gpu`                |
+|`ssd_resnet101_v1_fpn_640x640`                | `tensorflow`        | `default.cpu`,`default.gpu`                |
+|`ssd_resnet101_v1_fpn_1024x1024`              | `tensorflow`        | `default.cpu`,`default.gpu`                |
+|`ssd_resnet152_v1_fpn_640x640`                | `tensorflow`        | `default.cpu`,`default.gpu`                |
+|`ssd_resnet152_v1_fpn_1024x1024`              | `tensorflow`        | `default.cpu`,`default.gpu`                |
+|`ssd_mobilenet_v2_320x320`                    | `tensorflow`        | `default.cpu`,`default.gpu`                |
+|`ssd_mobilenet_v1_fpn_640x640`                | `tensorflow`        | `default.cpu`,`default.gpu`                |
+|`ssd_mobilenet_v2_fpnlite_320x320`            | `tensorflow`        | `default.cpu`,`default.gpu`                |
+|`ssd_mobilenet_v2_fpnlite_640x640`            | `tensorflow`        | `default.cpu`,`default.gpu`                |
 
 
 # A) Building the environment with Docker
@@ -93,7 +93,7 @@ time docker run -it --rm ${CK_IMAGE} \
   --dep_add_tags.weights=tf1-zoo,yolo-v3-coco \
   \
   --env.CK_INFERENCE_ENGINE=tensorflow \
-  --env.CK_INFERENCE_ENGINE_BACKEND=default-cpu \
+  --env.CK_INFERENCE_ENGINE_BACKEND=default.cpu \
   --env.CUDA_VISIBLE_DEVICES=-1"
 ```
 
@@ -192,7 +192,7 @@ time docker run -it --rm ${CK_IMAGE} \
 
   # Backend_Specifications
   --env.CK_INFERENCE_ENGINE=tensorflow \
-  --env.CK_INFERENCE_ENGINE_BACKEND=default-cpu \
+  --env.CK_INFERENCE_ENGINE_BACKEND=default.cpu \
   # Pass in relevant devices: CPU/GPU
   --env.CUDA_VISIBLE_DEVICES=-1 \
 
@@ -252,7 +252,7 @@ time docker run -it --rm ${CK_IMAGE} \
   --env.CK_LOADGEN_MODE='--accuracy' \
   --env.CK_LOADGEN_EXTRA_PARAMS='--count 50' \
   --env.CK_INFERENCE_ENGINE=tensorflow \
-  --env.CK_INFERENCE_ENGINE_BACKEND=default-cpu \
+  --env.CK_INFERENCE_ENGINE_BACKEND=default.cpu \
   --env.CUDA_VISIBLE_DEVICES=-1"
 ```
 
@@ -267,7 +267,7 @@ time docker run -it --rm ${CK_IMAGE} \
   --env.CK_LOADGEN_MODE='--accuracy' \
   --env.CK_LOADGEN_EXTRA_PARAMS='--count 50' \
   --env.CK_INFERENCE_ENGINE=tensorflow \
-  --env.CK_INFERENCE_ENGINE_BACKEND=default-cpu \
+  --env.CK_INFERENCE_ENGINE_BACKEND=default.cpu \
   --env.CUDA_VISIBLE_DEVICES=-1"
 ```
 </details>
@@ -290,7 +290,7 @@ time docker run -it --rm ${CK_IMAGE}
   --dep_add_tags.weights=tf1-zoo,ssd_mobilenet_v1_coco \
   --env.CK_MODEL_PROFILE=tf1_object_det_zoo \
   --env.CK_INFERENCE_ENGINE=tensorflow \
-  --env.CK_INFERENCE_ENGINE_BACKEND=default-cpu \
+  --env.CK_INFERENCE_ENGINE_BACKEND=default.cpu \
   --env.CUDA_VISIBLE_DEVICES=-1 \
   --env.CK_LOADGEN_SCENARIO=SingleStream"
 ```
@@ -310,7 +310,7 @@ time docker run -it --rm ${CK_IMAGE} \
   --dep_add_tags.weights=tf1-zoo,ssd_mobilenet_v1_coco \
   --env.CK_MODEL_PROFILE=tf1_object_det_zoo \
   --env.CK_INFERENCE_ENGINE=tensorflow \
-  --env.CK_INFERENCE_ENGINE_BACKEND=default-cpu \
+  --env.CK_INFERENCE_ENGINE_BACKEND=default.cpu \
   --env.CUDA_VISIBLE_DEVICES=-1"
 ```
 
@@ -325,7 +325,7 @@ time docker run -it --rm ${CK_IMAGE} \
   --dep_add_tags.weights=tf1-zoo,ssd_mobilenet_v1_coco \
   --env.CK_MODEL_PROFILE=tf1_object_det_zoo \
   --env.CK_INFERENCE_ENGINE=tensorflow \
-  --env.CK_INFERENCE_ENGINE_BACKEND=default-cpu \
+  --env.CK_INFERENCE_ENGINE_BACKEND=default.cpu \
   --env.CUDA_VISIBLE_DEVICES=-1"
 ```
 ### Use a uniform target latency
@@ -383,6 +383,406 @@ time ck run cmdgen:benchmark.mlperf-inference-vision --verbose --sut=chai \
 --target_latency_file=/home/krai/CK_REPOS/ck-mlperf/program/mlperf-inference-vision/target_latency.chai.txt \
 --container=$CONTAINER_ID
 ```
+### Use a uniform target qps
+
+Set up environment:
+
+```
+export CK_IMAGE_NAME=mlperf-inference-vision SDK_VER=22.01-py3 TF_VER=2.7.1
+export CK_IMAGE="krai/${CK_IMAGE_NAME}:${SDK_VER}_tf-${TF_VER}"
+export CK_EXPERIMENT_REPO="mlperf_v2.0.object-detection.$(hostname).$(id -un)"
+export CK_EXPERIMENT_DIR="${HOME}/CK/${CK_EXPERIMENT_REPO}/experiment"
+```
+
+Create container:
+
+```
+CONTAINER_ID=`ck run cmdgen:benchmark.mlperf-inference-vision --docker=container_only \
+--out=none  --library=tensorflow-v2.7.1-gpu --docker_image=${CK_IMAGE} --experiment_dir`
+```
+
+For "light" models (`target_latency` <= 80 in the `target_latency.chai.txt`):
+```
+time ck run cmdgen:benchmark.mlperf-inference-vision --verbose --sut=chai \
+--model:=$($(ck find program:generate-target-qps)/get_light_models.py \
+--tags=sut.chai,inference_engine.tensorflow,inference_engine_version.v2.7.1,inference_engine_backend.default.gpu \
+--input_file=$(ck find program:mlperf-inference-vision)/target_latency.chai.txt) \
+--library=tensorflow-v2.7.1-gpu --device_ids=1 --scenario=offline --mode=performance \
+--dataset_size=5000 --batch_size=1 \
+--target_qps=20 \
+--container=$CONTAINER_ID
+```
+### Estimate target qps and batch size
+
+Run `cmdgen:benchmark.mlperf-inference-visio` with 
+
+`--query_count=4096` for `default.gpu` or `--query_count=1024` for `default.cpu` and `openvino.cpu`
+
+`--scenario=range_offline`, 
+
+`--batch_size,=1,4,8,16` for `default.gpu` or `--batch_size,=1,2,4,8` for `default.cpu`, `openvino.cpu`.
+
+```
+time ck run cmdgen:benchmark.mlperf-inference-vision --verbose \
+--sut=chai --model:=$($(ck find program:generate-target-qps)/get_light_models.py \
+--tags=sut.chai,inference_engine.tensorflow,inference_engine_version.v2.7.1,inference_engine_backend.default.gpu \
+--input_file=$(ck find program:mlperf-inference-vision)/target_latency.chai.txt) \
+--library=tensorflow-v2.7.1-gpu \
+--device_ids=1 --scenario=range_offline --mode=performance --dataset_size=5000 \
+--batch_size,=1,4,8,16 --query_count=4096 --container=$CONTAINER_ID
+```
+
+Create `target_qps.chai.txt`
+
+```
+$(ck find program:generate-target-qps)/run.py \
+--tags=inference_engine.tensorflow,inference_engine_version.v2.7.1 \
+--repo_uoa=$CK_EXPERIMENT_REPO | sort \
+| tee -a $(ck find program:mlperf-inference-vision)/target_qps.chai.txt
+```
+
+#### Examples
+<details>
+<summary>Click to expand</summary>
+
+```
+maria@chai:~$ cat $(ck find program:mlperf-inference-vision)/target_qps.chai.txt
+chai,tensorflow-v2.7.1-default.gpu,rcnn-inception-v2-coco,batch_size=1,20
+chai,tensorflow-v2.7.1-default.gpu,rcnn-inception-v2-coco,batch_size=16,25
+chai,tensorflow-v2.7.1-default.gpu,rcnn-inception-v2-coco,batch_size=4,24
+chai,tensorflow-v2.7.1-default.gpu,rcnn-inception-v2-coco,batch_size=8,24
+chai,tensorflow-v2.7.1-default.gpu,rcnn-resnet50-lowproposals-coco,batch_size=1,23
+chai,tensorflow-v2.7.1-default.gpu,rcnn-resnet50-lowproposals-coco,batch_size=16,32
+chai,tensorflow-v2.7.1-default.gpu,rcnn-resnet50-lowproposals-coco,batch_size=4,27
+chai,tensorflow-v2.7.1-default.gpu,rcnn-resnet50-lowproposals-coco,batch_size=8,28
+chai,tensorflow-v2.7.1-default.gpu,ssd-inception-v2-coco,batch_size=1,21
+chai,tensorflow-v2.7.1-default.gpu,ssd-inception-v2-coco,batch_size=16,35
+chai,tensorflow-v2.7.1-default.gpu,ssd-inception-v2-coco,batch_size=4,32
+chai,tensorflow-v2.7.1-default.gpu,ssd-inception-v2-coco,batch_size=8,34
+chai,tensorflow-v2.7.1-default.gpu,ssdlite-mobilenet-v2-coco,batch_size=1,25
+chai,tensorflow-v2.7.1-default.gpu,ssdlite-mobilenet-v2-coco,batch_size=16,39
+chai,tensorflow-v2.7.1-default.gpu,ssdlite-mobilenet-v2-coco,batch_size=4,36
+chai,tensorflow-v2.7.1-default.gpu,ssdlite-mobilenet-v2-coco,batch_size=8,39
+chai,tensorflow-v2.7.1-default.gpu,ssd_mobilenet_v1_coco,batch_size=1,28
+chai,tensorflow-v2.7.1-default.gpu,ssd_mobilenet_v1_coco,batch_size=16,40
+chai,tensorflow-v2.7.1-default.gpu,ssd_mobilenet_v1_coco,batch_size=4,36
+chai,tensorflow-v2.7.1-default.gpu,ssd_mobilenet_v1_coco,batch_size=8,39
+chai,tensorflow-v2.7.1-default.gpu,ssd-mobilenet-v1-fpn-sbp-coco,batch_size=1,18
+chai,tensorflow-v2.7.1-default.gpu,ssd-mobilenet-v1-fpn-sbp-coco,batch_size=16,33
+chai,tensorflow-v2.7.1-default.gpu,ssd-mobilenet-v1-fpn-sbp-coco,batch_size=4,32
+chai,tensorflow-v2.7.1-default.gpu,ssd-mobilenet-v1-fpn-sbp-coco,batch_size=8,33
+chai,tensorflow-v2.7.1-default.gpu,ssd-resnet50-v1-fpn-sbp-coco,batch_size=1,14
+chai,tensorflow-v2.7.1-default.gpu,ssd-resnet50-v1-fpn-sbp-coco,batch_size=16,27
+chai,tensorflow-v2.7.1-default.gpu,ssd-resnet50-v1-fpn-sbp-coco,batch_size=4,25
+chai,tensorflow-v2.7.1-default.gpu,ssd-resnet50-v1-fpn-sbp-coco,batch_size=8,27
+chai,tensorflow-v2.7.1-default.gpu,yolo-v3-coco,batch_size=1,31
+chai,tensorflow-v2.7.1-default.gpu,yolo-v3-coco,batch_size=16,64
+chai,tensorflow-v2.7.1-default.gpu,yolo-v3-coco,batch_size=4,71
+chai,tensorflow-v2.7.1-default.gpu,yolo-v3-coco,batch_size=8,68
+```
+  
+</details>
+<br>
+  
+For "light" models:
+
+1. `batch_size` is presented in `$(ck find program:mlperf-inference-vision)/target_qps.chai.txt`. 
+
+`target_qps` is set to a value  that corresponds to a given `batch_size` for each model.
+
+```
+time ck run cmdgen:benchmark.mlperf-inference-vision --verbose \
+--sut=chai --model:=$($(ck find program:generate-target-qps)/get_light_models.py \
+--tags=sut.chai,inference_engine.tensorflow,inference_engine_version.v2.7.1,inference_engine_backend.default.gpu \
+--input_file=$(ck find program:mlperf-inference-vision)/target_latency.chai.txt) \
+--library=tensorflow-v2.7.1-gpu \
+--device_ids=1 --scenario=offline --mode=performance --dataset_size=5000 \
+--batch_size=4 \
+--target_qps_file=/home/krai/CK_REPOS/ck-mlperf/program/mlperf-inference-vision/target_qps.chai.txt \
+--container=$CONTAINER_ID
+```
+
+#### Examples
+<details>
+<summary>Click to expand</summary>
+  
+```
+maria@chai:~/CK/ck-mlperf/program/mlperf-inference-vision$ time ck run cmdgen:benchmark.mlperf-inference-vision --verbose \
+--sut=chai --model=ssd_mobilenet_v1_coco --library=tensorflow-v2.7.1-gpu --device_ids=1 --scenario=offline --mode=performance \
+--dataset_size=5000 --batch_size=4 \
+--target_qps_file=/home/krai/CK_REPOS/ck-mlperf/program/mlperf-inference-vision/target_qps.chai.txt \
+--container=$CONTAINER_ID
+...
+export CK_BATCH_SIZE=4
+export CK_CPU_FREQUENCY=max
+export CK_GPU_FREQUENCY=max
+export CK_INFERENCE_ENGINE=tensorflow
+export CK_INFERENCE_ENGINE_BACKEND=default.gpu
+export CK_LOADGEN_BUFFER_SIZE=256
+export CK_LOADGEN_DATASET_SIZE=5000
+export CK_LOADGEN_EXTRA_PARAMS="--count 5000 --qps $CK_LOADGEN_TARGET_QPS --performance-sample-count 256 --cache 0"                                                     export CK_LOADGEN_MODE=
+export CK_LOADGEN_SCENARIO=Offline
+export CK_LOADGEN_TARGET_QPS=36
+...
+================================================                                                                                                                        MLPerf Results Summary
+================================================
+SUT name : PySUT
+Scenario : Offline
+Mode     : PerformanceOnly
+Samples per second: 35.0436
+Result is : VALID
+  Min duration satisfied : Yes
+  Min queries satisfied : Yes
+  Early stopping satisfied: Yes
+
+================================================
+Additional Stats
+================================================
+Min latency (ns)                : 16063930859
+Max latency (ns)                : 701298703761
+Mean latency (ns)               : 360012787583
+50.00 percentile latency (ns)   : 360008370165
+90.00 percentile latency (ns)   : 636558727329
+95.00 percentile latency (ns)   : 671297709534
+97.00 percentile latency (ns)   : 684586117475
+99.00 percentile latency (ns)   : 699137120608
+99.90 percentile latency (ns)   : 701224657563
+
+================================================
+Test Parameters Used
+================================================
+samples_per_query : 24576
+target_qps : 36
+target_latency (ns): 0
+max_async_queries : 1
+min_duration (ms): 600000
+max_duration (ms): 0
+min_query_count : 1
+max_query_count : 0
+qsl_rng_seed : 6655344265603136530
+sample_index_rng_seed : 15863379492028895792
+schedule_rng_seed : 12662793979680847247
+accuracy_log_rng_seed : 0
+accuracy_log_probability : 0
+accuracy_log_sampling_target : 0
+print_timestamps : 0
+performance_issue_unique : 0
+performance_issue_same : 0
+performance_issue_same_index : 0
+performance_sample_count : 256
+
+No warnings encountered during test.
+
+No errors encountered during test.
+0.11user 0.09system 12:05.67elapsed 0%CPU (0avgtext+0avgdata 59236maxresident)k
+  0inputs+0outputs (0major+7649minor)pagefaults 0swaps
+==========================================================================================
+
+real    12m5.782s
+user    0m0.206s
+sys     0m0.109s
+```
+  
+</details>
+<br>
+
+2. `batch_size` is not presented in `$(ck find program:mlperf-inference-vision)/target_qps.chai.txt`. 
+
+`target_qps` is set to a maximum value for each model.
+
+```
+time ck run cmdgen:benchmark.mlperf-inference-vision --verbose \
+--sut=chai --model:=$($(ck find program:generate-target-qps)/get_light_models.py \
+--tags=sut.chai,inference_engine.tensorflow,inference_engine_version.v2.7.1,inference_engine_backend.default.gpu \
+--input_file=$(ck find program:mlperf-inference-vision)/target_latency.chai.txt) \
+--library=tensorflow-v2.7.1-gpu \
+--device_ids=1 --scenario=offline --mode=performance --dataset_size=5000 \
+--batch_size=3 \
+--target_qps_file=/home/krai/CK_REPOS/ck-mlperf/program/mlperf-inference-vision/target_qps.chai.txt \
+--container=$CONTAINER_ID
+```
+#### Examples
+<details>
+<summary>Click to expand</summary>
+  
+```
+maria@chai:~/CK/ck-mlperf/program/mlperf-inference-vision$ time ck run cmdgen:benchmark.mlperf-inference-vision --verbose \
+--sut=chai --model=ssd_mobilenet_v1_coco --library=tensorflow-v2.7.1-gpu --device_ids=1 --scenario=offline --mode=performance \
+--dataset_size=5000 --batch_size=3 \
+--target_qps_file=/home/krai/CK_REPOS/ck-mlperf/program/mlperf-inference-vision/target_qps.chai.txt \
+--container=$CONTAINER_ID
+...
+export CK_BATCH_SIZE=3                                                                                                                                                  export CK_CPU_FREQUENCY=max
+export CK_GPU_FREQUENCY=max
+export CK_INFERENCE_ENGINE=tensorflow
+export CK_INFERENCE_ENGINE_BACKEND=default.gpu                                                                                                                          export CK_LOADGEN_BUFFER_SIZE=256
+export CK_LOADGEN_DATASET_SIZE=5000
+export CK_LOADGEN_EXTRA_PARAMS="--count 5000 --qps $CK_LOADGEN_TARGET_QPS --performance-sample-count 256 --cache 0"                                                     export CK_LOADGEN_MODE=
+export CK_LOADGEN_SCENARIO=Offline
+export CK_LOADGEN_TARGET_QPS=40
+...
+MLPerf Results Summary
+================================================
+SUT name : PySUT
+Scenario : Offline
+Mode     : PerformanceOnly
+Samples per second: 33.4703
+Result is : VALID
+  Min duration satisfied : Yes
+  Min queries satisfied : Yes
+  Early stopping satisfied: Yes
+
+================================================
+Additional Stats
+================================================
+Min latency (ns)                : 14834928607
+Max latency (ns)                : 788759960558
+Mean latency (ns)               : 403001855289
+50.00 percentile latency (ns)   : 402672669788
+90.00 percentile latency (ns)   : 714740129370
+95.00 percentile latency (ns)   : 753728258386
+97.00 percentile latency (ns)   : 768572763858
+99.00 percentile latency (ns)   : 784403814732
+99.90 percentile latency (ns)   : 788626111655
+
+================================================
+Test Parameters Used
+================================================
+samples_per_query : 26400
+target_qps : 40
+target_latency (ns): 0
+max_async_queries : 1
+min_duration (ms): 600000
+max_duration (ms): 0
+min_query_count : 1
+max_query_count : 0
+qsl_rng_seed : 6655344265603136530
+sample_index_rng_seed : 15863379492028895792
+schedule_rng_seed : 12662793979680847247
+accuracy_log_rng_seed : 0
+accuracy_log_probability : 0
+accuracy_log_sampling_target : 0
+print_timestamps : 0
+performance_issue_unique : 0
+performance_issue_same : 0
+performance_issue_same_index : 0
+performance_sample_count : 256
+
+No warnings encountered during test.
+
+No errors encountered during test.
+0.12user 0.09system 13:33.06elapsed 0%CPU (0avgtext+0avgdata 59212maxresident)k
+0inputs+0outputs (0major+7665minor)pagefaults 0swaps
+==========================================================================================
+
+real    13m33.166s
+user    0m0.211s
+sys     0m0.117s 
+```
+  
+</details>
+<br>
+
+3. `batch_size` is not set.
+
+`target_qps` is set to a maximum value  and `batch_size` is set to a value that corresponds to a maximum `target_qps` in `$(ck find program:mlperf-inference-vision)/target_qps.chai.txt` for each model. 
+
+```
+time ck run cmdgen:benchmark.mlperf-inference-vision --verbose \
+--sut=chai --model:=$($(ck find program:generate-target-qps)/get_light_models.py \
+--tags=sut.chai,inference_engine.tensorflow,inference_engine_version.v2.7.1,inference_engine_backend.default.gpu \
+--input_file=$(ck find program:mlperf-inference-vision)/target_latency.chai.txt) \
+--library=tensorflow-v2.7.1-gpu \
+--device_ids=1 --scenario=offline --mode=performance --dataset_size=5000 \
+--target_qps_file=/home/krai/CK_REPOS/ck-mlperf/program/mlperf-inference-vision/target_qps.chai.txt \
+--container=$CONTAINER_ID
+```
+
+#### Examples
+<details>
+<summary>Click to expand</summary>
+  
+```
+maria@chai:~/CK/ck-mlperf/program/mlperf-inference-vision$ time ck run cmdgen:benchmark.mlperf-inference-vision --verbose \
+--sut=chai --model=ssd_mobilenet_v1_coco --library=tensorflow-v2.7.1-gpu --device_ids=1 --scenario=offline --mode=performance \
+--dataset_size=5000 --target_qps_file=/home/krai/CK_REPOS/ck-mlperf/program/mlperf-inference-vision/target_qps.chai.txt \
+--container=$CONTAINER_ID
+...
+  
+export CK_BATCH_SIZE=16
+export CK_CPU_FREQUENCY=max
+export CK_GPU_FREQUENCY=max
+export CK_INFERENCE_ENGINE=tensorflow
+export CK_INFERENCE_ENGINE_BACKEND=default.gpu
+export CK_LOADGEN_BUFFER_SIZE=256
+export CK_LOADGEN_DATASET_SIZE=5000
+export CK_LOADGEN_EXTRA_PARAMS="--count 5000 --qps $CK_LOADGEN_TARGET_QPS --performance-sample-count 256 --cache 0"
+export CK_LOADGEN_MODE=
+export CK_LOADGEN_SCENARIO=Offline
+export CK_LOADGEN_TARGET_QPS=40   
+...
+================================================  
+MLPerf Results Summary
+================================================
+SUT name : PySUT
+Scenario : Offline
+Mode     : PerformanceOnly
+Samples per second: 38.9646
+Result is : VALID
+  Min duration satisfied : Yes
+  Min queries satisfied : Yes
+  Early stopping satisfied: Yes
+
+================================================
+Additional Stats
+================================================
+Min latency (ns)                : 28058236730
+Max latency (ns)                : 677537944945
+Mean latency (ns)               : 358745212845
+50.00 percentile latency (ns)   : 362242670288
+90.00 percentile latency (ns)   : 626526519749
+95.00 percentile latency (ns)   : 660320060012
+97.00 percentile latency (ns)   : 671160987618
+99.00 percentile latency (ns)   : 676811114462
+99.90 percentile latency (ns)   : 677535089893
+
+================================================
+Test Parameters Used
+================================================
+samples_per_query : 26400
+target_qps : 40
+target_latency (ns): 0
+max_async_queries : 1
+min_duration (ms): 600000
+max_duration (ms): 0
+min_query_count : 1
+max_query_count : 0
+qsl_rng_seed : 6655344265603136530
+sample_index_rng_seed : 15863379492028895792
+schedule_rng_seed : 12662793979680847247
+accuracy_log_rng_seed : 0
+accuracy_log_probability : 0
+accuracy_log_sampling_target : 0
+print_timestamps : 0
+performance_issue_unique : 0
+performance_issue_same : 0
+performance_issue_same_index : 0
+performance_sample_count : 256
+
+No warnings encountered during test.
+
+No errors encountered during test.
+0.12user 0.06system 11:42.49elapsed 0%CPU (0avgtext+0avgdata 59128maxresident)k
+0inputs+0outputs (0major+7689minor)pagefaults 0swaps
+==========================================================================================
+
+real    11m42.598s
+user    0m0.223s
+sys     0m0.078s  
+```
+  
+</details>
+<br>
 
 ## 3. Specify a Scenario
 
