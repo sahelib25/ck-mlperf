@@ -802,7 +802,7 @@ time docker run -it --rm ${CK_IMAGE} \
   --dep_add_tags.weights=tf1-zoo,ssd_mobilenet_v1_coco \
   --env.CK_MODEL_PROFILE=tf1_object_det_zoo \
   --env.CK_INFERENCE_ENGINE=tensorflow \
-  --env.CK_INFERENCE_ENGINE_BACKEND=default-cpu \
+  --env.CK_INFERENCE_ENGINE_BACKEND=default.cpu \
   --env.CUDA_VISIBLE_DEVICES=-1"
 ```
 
@@ -822,7 +822,7 @@ time docker run -it --rm ${CK_IMAGE} \
   --dep_add_tags.weights=tf1-zoo,ssd_mobilenet_v1_coco \
   --env.CK_MODEL_PROFILE=tf1_object_det_zoo \
   --env.CK_INFERENCE_ENGINE=tensorflow \
-  --env.CK_INFERENCE_ENGINE_BACKEND=default-cpu \
+  --env.CK_INFERENCE_ENGINE_BACKEND=default.cpu \
   --env.CUDA_VISIBLE_DEVICES=-1"
 ```
 
@@ -838,7 +838,7 @@ time docker run -it --rm ${CK_IMAGE} \
 --dep_add_tags.weights=tf1-zoo,ssd_mobilenet_v1_coco \
 --env.CK_MODEL_PROFILE=tf1_object_det_zoo \
 --env.CK_INFERENCE_ENGINE=tensorflow \
---env.CK_INFERENCE_ENGINE_BACKEND=default-cpu \
+--env.CK_INFERENCE_ENGINE_BACKEND=default.cpu \
 --env.CUDA_VISIBLE_DEVICES=-1"
 ```
 
@@ -866,7 +866,7 @@ time docker run -it --rm ${CK_IMAGE} \
   --dep_add_tags.weights=tf1-zoo,ssd_mobilenet_v1_coco \
   --env.CK_MODEL_PROFILE=tf1_object_det_zoo \
   --env.CK_INFERENCE_ENGINE=tensorflow \
-  --env.CK_INFERENCE_ENGINE_BACKEND=default-cpu \
+  --env.CK_INFERENCE_ENGINE_BACKEND=default.cpu \
   --env.CUDA_VISIBLE_DEVICES=-1"
 ```
 #### Offline - Performance - Batch Size 1
@@ -880,7 +880,7 @@ time docker run -it --rm ${CK_IMAGE} \
   --dep_add_tags.weights=tf1-zoo,ssd_mobilenet_v1_coco \
   --env.CK_MODEL_PROFILE=tf1_object_det_zoo \
   --env.CK_INFERENCE_ENGINE=tensorflow \
-  --env.CK_INFERENCE_ENGINE_BACKEND=default-cpu \
+  --env.CK_INFERENCE_ENGINE_BACKEND=default.cpu \
   --env.CUDA_VISIBLE_DEVICES=-1"
 ```
 #### Single Stream - Accuracy - Batch Size 1
@@ -894,7 +894,7 @@ time docker run -it --rm ${CK_IMAGE} \
   --dep_add_tags.weights=tf1-zoo,ssd_mobilenet_v1_coco \
   --env.CK_MODEL_PROFILE=tf1_object_det_zoo \
   --env.CK_INFERENCE_ENGINE=tensorflow \
-  --env.CK_INFERENCE_ENGINE_BACKEND=default-cpu \
+  --env.CK_INFERENCE_ENGINE_BACKEND=default.cpu \
   --env.CUDA_VISIBLE_DEVICES=-1"
 ```
 #### Single Stream - Performance - Batch Size 1
@@ -908,7 +908,7 @@ time docker run -it --rm ${CK_IMAGE} \
   --dep_add_tags.weights=tf1-zoo,ssd_mobilenet_v1_coco \
   --env.CK_MODEL_PROFILE=tf1_object_det_zoo \
   --env.CK_INFERENCE_ENGINE=tensorflow \
-  --env.CK_INFERENCE_ENGINE_BACKEND=default-cpu \
+  --env.CK_INFERENCE_ENGINE_BACKEND=default.cpu \
   --env.CUDA_VISIBLE_DEVICES=-1"
 ```
 #### Offline - Accuracy - Batch Size 32
@@ -923,7 +923,7 @@ time docker run -it --rm ${CK_IMAGE} \
   --dep_add_tags.weights=tf1-zoo,ssd_mobilenet_v1_coco \
   --env.CK_MODEL_PROFILE=tf1_object_det_zoo \
   --env.CK_INFERENCE_ENGINE=tensorflow \
-  --env.CK_INFERENCE_ENGINE_BACKEND=default-cpu \
+  --env.CK_INFERENCE_ENGINE_BACKEND=default.cpu \
   --env.CUDA_VISIBLE_DEVICES=-1"
 ```
 #### Offline - Performance - Batch Size 32
@@ -938,7 +938,7 @@ time docker run -it --rm ${CK_IMAGE} \
   --dep_add_tags.weights=tf1-zoo,ssd_mobilenet_v1_coco \
   --env.CK_MODEL_PROFILE=tf1_object_det_zoo \
   --env.CK_INFERENCE_ENGINE=tensorflow \
-  --env.CK_INFERENCE_ENGINE_BACKEND=default-cpu \
+  --env.CK_INFERENCE_ENGINE_BACKEND=default.cpu \
   --env.CUDA_VISIBLE_DEVICES=-1"
 ```
 </details>
@@ -960,7 +960,7 @@ time docker run -it --rm ${CK_IMAGE} \
   --dep_add_tags.weights=tf1-zoo,yolo-v3-coco \
   --env.CK_MODEL_PROFILE=tf_yolo \
   --env.CK_INFERENCE_ENGINE=tensorflow \
-  --dep_add_tags.inference-engine-backend=default-cpu \
+  --dep_add_tags.inference-engine-backend=default.cpu \
   --env.CUDA_VISIBLE_DEVICES=-1 \
   --env.CK_LOADGEN_SCENARIO=SingleStream"
 ```
@@ -972,12 +972,12 @@ time docker run -it --rm ${CK_IMAGE} \
 
 | `INFERENCE_ENGINE` | `INFERENCE_ENGINE_BACKEND`  | `CUDA_VISIBLE_DEVICES`       |
 | ------------------ | --------------------------- | ---------------------------- |
-| `tensorflow`       | `default-cpu`               | `-1`                         |
-| `tensorflow`       | `default-gpu`               | `<device_id>`                |
+| `tensorflow`       | `default.cpu`               | `-1`                         |
+| `tensorflow`       | `default.gpu`               | `<device_id>`                |
 | `tensorflow`       | `tensorrt-dynamic`          | `<device_id>`                |
-| `tensorflow`       | `openvino-cpu`              | `-1`                         |
-| `tensorflow`       | `openvino-gpu` (not tested) | `-1` (integrated Intel GPU)  |
-| `tensorflow`       | `openvino-gpu` (not tested) | `0` (discreet Intel GPU)     |
+| `tensorflow`       | `openvino.cpu`              | `-1`                         |
+| `tensorflow`       | `openvino.gpu` (not tested) | `-1` (integrated Intel GPU)  |
+| `tensorflow`       | `openvino.gpu` (not tested) | `0` (discreet Intel GPU)     |
 
 ### Examples
 <details>
@@ -988,7 +988,7 @@ time docker run -it --rm ${CK_IMAGE} \
 time docker run -it --rm ${CK_IMAGE} \
 "ck run program:mlperf-inference-vision --cmd_key=direct --skip_print_timers \
   --env.CK_INFERENCE_ENGINE=tensorflow \
-  --env.CK_INFERENCE_ENGINE_BACKEND=default-cpu \
+  --env.CK_INFERENCE_ENGINE_BACKEND=default.cpu \
   --env.CUDA_VISIBLE_DEVICES=-1 \
   \
   --env.CK_LOADGEN_SCENARIO=SingleStream \
@@ -1004,7 +1004,7 @@ time docker run -it --rm ${CK_IMAGE} \
 time docker run --gpus all -it --rm ${CK_IMAGE} \
 "ck run program:mlperf-inference-vision --cmd_key=direct --skip_print_timers \
   --env.CK_INFERENCE_ENGINE=tensorflow \
-  --env.CK_INFERENCE_ENGINE_BACKEND=default-gpu \
+  --env.CK_INFERENCE_ENGINE_BACKEND=default.gpu \
   --env.CUDA_VISIBLE_DEVICES=0 \
   \
   --env.CK_LOADGEN_SCENARIO=SingleStream \
@@ -1037,7 +1037,7 @@ time docker run --gpus all -it --rm ${CK_IMAGE} \
 time docker run -it --rm ${CK_IMAGE} \
 "ck run program:mlperf-inference-vision --cmd_key=direct --skip_print_timers \
   --env.CK_INFERENCE_ENGINE=tensorflow \
-  --env.CK_INFERENCE_ENGINE_BACKEND=openvino-cpu \
+  --env.CK_INFERENCE_ENGINE_BACKEND=openvino.cpu \
   --env.CUDA_VISIBLE_DEVICES=-1 \
   \
   --env.CK_LOADGEN_SCENARIO=SingleStream \
@@ -1055,7 +1055,7 @@ If the machine has an Intel chip with an integrated GPU, set `--env.CUDA_VISIBLE
 time docker run -it --rm ${CK_IMAGE} \
 "ck run program:mlperf-inference-vision --cmd_key=direct --skip_print_timers \
   --env.CK_INFERENCE_ENGINE=tensorflow \
-  --env.CK_INFERENCE_ENGINE_BACKEND=openvino-gpu \
+  --env.CK_INFERENCE_ENGINE_BACKEND=openvino.gpu \
   --env.CUDA_VISIBLE_DEVICES=-1 \
   \
   --env.CK_LOADGEN_SCENARIO=SingleStream \
@@ -1073,7 +1073,7 @@ If the machine has a discreet Intel GPU, set `--env.CUDA_VISIBLE_DEVICES=0`:
 time docker run -it --rm ${CK_IMAGE} \
 "ck run program:mlperf-inference-vision --cmd_key=direct --skip_print_timers \
   --env.CK_INFERENCE_ENGINE=tensorflow \
-  --env.CK_INFERENCE_ENGINE_BACKEND=openvino-gpu \
+  --env.CK_INFERENCE_ENGINE_BACKEND=openvino.gpu \
   --env.CUDA_VISIBLE_DEVICES=0 \
   \
   --env.CK_LOADGEN_SCENARIO=SingleStream \
