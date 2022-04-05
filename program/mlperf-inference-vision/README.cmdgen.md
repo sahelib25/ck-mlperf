@@ -179,8 +179,8 @@ It will affect the following flags in the ck environment:
 
 |INFERENCE_ENGINE|INFERENCE_ENGINE_BACKEND|DEVICE_IDS|
 |---|---|---|
-|`tensorflow` |`default-cpu` |`-1`|
-|`tensorflow` |`default-gpu` |`<device_id>`|
+|`tensorflow` |`default.cpu` |`-1`|
+|`tensorflow` |`default.gpu` |`<device_id>`|
 |`tensorflow` |`tensorrt-dynamic` |`<device_id>`|
-|`tensorflow` |`openvino-cpu`|`-1`|
-|`tensorflow` |`openvino-gpu` |`-1` for an Intel chip with an integrated GPU; `0` for an Intel GPU|
+|`tensorflow` |`openvino.cpu`|`-1`|
+|`tensorflow` |`openvino.gpu` |`-1` for an Intel chip with an integrated GPU; `0` for an Intel GPU|
