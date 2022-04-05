@@ -43,7 +43,7 @@ $ cd $(ck find program:generate-target-qps) && ./run.py \
 ```bash
 $ $(ck find ck-mlperf:program:generate-target-qps)/run.py --tags=inference_engine.tensorflow,inference_engine_version.v2.7.1 --repo_uoa=$CK_EXPERIMENT_REPO | \
 sort | tee -a $(ck find ck-mlperf:program:mlperf-inference-vision)/target_qps.chai.txt
-chai,tensorflow-v2.7.1-default-gpu,rcnn-nas-lowproposals-coco  5.2 # max_query_count=1024
+chai,tensorflow-v2.7.1-default.gpu,rcnn-nas-lowproposals-coco  5.2 # max_query_count=1024
 
 ```
 
