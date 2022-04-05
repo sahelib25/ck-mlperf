@@ -8,28 +8,28 @@ The table below shows currently supported models, frameworks ("inference engines
 
 | `MODEL_NAME`                                 | `INFERENCE_ENGINE`  | `INFERENCE_ENGINE_BACKEND`                 |
 | -------------------------------------------- | ------------------- | ------------------------------------------ |
-| `rcnn-nas-lowproposals-coco`                 | `tensorflow`        | `default-cpu`,`default-gpu`,`openvino-cpu` |
-| `rcnn-resnet50-lowproposals-coco`            | `tensorflow`        | `default-cpu`,`default-gpu`,`openvino-cpu` |
-| `rcnn-resnet101-lowproposals-coco`           | `tensorflow`        | `default-cpu`,`default-gpu`,`openvino-cpu` |
-| `rcnn-inception-resnet-v2-lowproposals-coco` | `tensorflow`        | `default-cpu`,`default-gpu`,`openvino-cpu` |
-| `rcnn-inception-v2-coco`                     | `tensorflow`        | `default-cpu`,`default-gpu`,`openvino-cpu` |
-| `ssd-inception-v2-coco`                      | `tensorflow`        | `default-cpu`,`default-gpu`                |
-| `ssd_mobilenet_v1_coco`                      | `tensorflow`        | `default-cpu`,`default-gpu`                |
-| `ssd_mobilenet_v1_quantized_coco`            | `tensorflow`        | `default-cpu`,`default-gpu`                |
-| `ssd-mobilenet-v1-fpn-sbp-coco`              | `tensorflow`        | `default-cpu`,`default-gpu`                |
-| `ssd-resnet50-v1-fpn-sbp-coco`               | `tensorflow`        | `default-cpu`,`default-gpu`                |
-| `ssdlite-mobilenet-v2-coco`                  | `tensorflow`        | `default-cpu`,`default-gpu`                |
-| `yolo-v3-coco`                               | `tensorflow`        | `default-cpu`,`default-gpu`,`openvino-cpu` |
-| `ssd_resnet50_v1_fpn_640x640`                | `tensorflow`        | `default-cpu`,`default-gpu`                |
-| `ssd_resnet50_v1_fpn_1024x1024`              | `tensorflow`        | `default-cpu`,`default-gpu`                |
-| `ssd_resnet101_v1_fpn_640x640`               | `tensorflow`        | `default-cpu`,`default-gpu`                |
-| `ssd_resnet101_v1_fpn_1024x1024`             | `tensorflow`        | `default-cpu`,`default-gpu`                |
-| `ssd_resnet152_v1_fpn_640x640`               | `tensorflow`        | `default-cpu`,`default-gpu`                |
-| `ssd_resnet152_v1_fpn_1024x1024`             | `tensorflow`        | `default-cpu`,`default-gpu`                |
-| `ssd_mobilenet_v2_320x320`                   | `tensorflow`        | `default-cpu`,`default-gpu`                |
-| `ssd_mobilenet_v1_fpn_640x640`               | `tensorflow`        | `default-cpu`,`default-gpu`                |
-| `ssd_mobilenet_v2_fpnlite_320x320`           | `tensorflow`        | `default-cpu`,`default-gpu`                |
-| `ssd_mobilenet_v2_fpnlite_640x640`           | `tensorflow`        | `default-cpu`,`default-gpu`                |
+| `rcnn-nas-lowproposals-coco`                 | `tensorflow`        | `default.cpu`,`default.gpu`,`openvino.cpu` |
+| `rcnn-resnet50-lowproposals-coco`            | `tensorflow`        | `default.cpu`,`default.gpu`,`openvino.cpu` |
+| `rcnn-resnet101-lowproposals-coco`           | `tensorflow`        | `default.cpu`,`default.gpu`,`openvino.cpu` |
+| `rcnn-inception-resnet-v2-lowproposals-coco` | `tensorflow`        | `default.cpu`,`default.gpu`,`openvino.cpu` |
+| `rcnn-inception-v2-coco`                     | `tensorflow`        | `default.cpu`,`default.gpu`,`openvino.cpu` |
+| `ssd-inception-v2-coco`                      | `tensorflow`        | `default.cpu`,`default.gpu`                |
+| `ssd_mobilenet_v1_coco`                      | `tensorflow`        | `default.cpu`,`default.gpu`                |
+| `ssd_mobilenet_v1_quantized_coco`            | `tensorflow`        | `default.cpu`,`default.gpu`                |
+| `ssd-mobilenet-v1-fpn-sbp-coco`              | `tensorflow`        | `default.cpu`,`default.gpu`                |
+| `ssd-resnet50-v1-fpn-sbp-coco`               | `tensorflow`        | `default.cpu`,`default.gpu`                |
+| `ssdlite-mobilenet-v2-coco`                  | `tensorflow`        | `default.cpu`,`default.gpu`                |
+| `yolo-v3-coco`                               | `tensorflow`        | `default.cpu`,`default.gpu`,`openvino.cpu` |
+| `ssd_resnet50_v1_fpn_640x640`                | `tensorflow`        | `default.cpu`,`default.gpu`                |
+| `ssd_resnet50_v1_fpn_1024x1024`              | `tensorflow`        | `default.cpu`,`default.gpu`                |
+| `ssd_resnet101_v1_fpn_640x640`               | `tensorflow`        | `default.cpu`,`default.gpu`                |
+| `ssd_resnet101_v1_fpn_1024x1024`             | `tensorflow`        | `default.cpu`,`default.gpu`                |
+| `ssd_resnet152_v1_fpn_640x640`               | `tensorflow`        | `default.cpu`,`default.gpu`                |
+| `ssd_resnet152_v1_fpn_1024x1024`             | `tensorflow`        | `default.cpu`,`default.gpu`                |
+| `ssd_mobilenet_v2_320x320`                   | `tensorflow`        | `default.cpu`,`default.gpu`                |
+| `ssd_mobilenet_v1_fpn_640x640`               | `tensorflow`        | `default.cpu`,`default.gpu`                |
+| `ssd_mobilenet_v2_fpnlite_320x320`           | `tensorflow`        | `default.cpu`,`default.gpu`                |
+| `ssd_mobilenet_v2_fpnlite_640x640`           | `tensorflow`        | `default.cpu`,`default.gpu`                |
 
 
 ### Supported Backend-Scenario-BatchSize Combinations
@@ -256,7 +256,7 @@ ck run cmdgen:benchmark.mlperf-inference-vision --verbose --docker --docker_imag
 | `tensorflow-v2.7.1`| `cpu`                       | `-1`                         |
 | `tensorflow-v2.7.1`| `gpu`                       | `<device_id>`                |
 | `tensorflow`       | `tensorrt-dynamic`          | `<device_id>`                |
-| `tensorflow`       | `openvino-cpu`              | `-1`                         |
+| `tensorflow`       | `openvino.cpu`              | `-1`                         |
 
 ### Examples
 <details>
