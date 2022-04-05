@@ -983,7 +983,7 @@ time docker run -it --rm ${CK_IMAGE} \
 <details>
 <summary>Click to expand</summary>
 
-#### `tensorflow/default-cpu/-1`
+#### `tensorflow/default.cpu/-1`
 ```
 time docker run -it --rm ${CK_IMAGE} \
 "ck run program:mlperf-inference-vision --cmd_key=direct --skip_print_timers \
@@ -999,7 +999,7 @@ time docker run -it --rm ${CK_IMAGE} \
   --dep_add_tags.weights=tf1-zoo,rcnn-inception-v2-coco"
 ```
 
-#### `tensorflow/default-gpu/0`
+#### `tensorflow/default.gpu/0`
 ```
 time docker run --gpus all -it --rm ${CK_IMAGE} \
 "ck run program:mlperf-inference-vision --cmd_key=direct --skip_print_timers \
@@ -1031,7 +1031,7 @@ time docker run --gpus all -it --rm ${CK_IMAGE} \
   --dep_add_tags.weights=tf2-zoo,ssd_resnet50_v1_fpn_640x640"
 ```
 
-#### `tensorflow/openvino-cpu/-1`
+#### `tensorflow/openvino.cpu/-1`
 
 ```
 time docker run -it --rm ${CK_IMAGE} \
@@ -1048,7 +1048,7 @@ time docker run -it --rm ${CK_IMAGE} \
   --dep_add_tags.weights=tf1-zoo,rcnn-inception-v2-coco"
 ```
 
-#### `tensorflow/openvino-gpu/-1` (not tested)
+#### `tensorflow/openvino.gpu/-1` (not tested)
 
 If the machine has an Intel chip with an integrated GPU, set `--env.CUDA_VISIBLE_DEVICES=-1`:
 ```
@@ -1066,7 +1066,7 @@ time docker run -it --rm ${CK_IMAGE} \
   --dep_add_tags.weights=tf1-zoo,rcnn-inception-v2-coco"
 ```
 
-#### `tensorflow/openvino-gpu/0` (not tested)
+#### `tensorflow/openvino.gpu/0` (not tested)
 
 If the machine has a discreet Intel GPU, set `--env.CUDA_VISIBLE_DEVICES=0`:
 ```
@@ -1089,4 +1089,4 @@ time docker run -it --rm ${CK_IMAGE} \
 # C) TO DO
 - Consider to support SSD models to use `openvino` inference engine backend ([link](https://github.com/openvinotoolkit/openvino_tensorflow/issues/201))
 - Models from TF2 object detection zoo have issues running in `Offline` scenario. 
-- Extend supports for `openvino-gpu` inference engine backend
+- Extend supports for `openvino.gpu` inference engine backend
