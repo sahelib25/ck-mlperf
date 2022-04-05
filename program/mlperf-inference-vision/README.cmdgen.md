@@ -25,7 +25,7 @@ time docker run -it --rm ${CK_IMAGE} \
     --env.CK_MODEL_PROFILE=tf_yolo \
     \
     --env.CK_INFERENCE_ENGINE=tensorflow \
-    --env.CK_INFERENCE_ENGINE_BACKEND=default-cpu\
+    --env.CK_INFERENCE_ENGINE_BACKEND=default.cpu\
     --env.CUDA_VISIBLE_DEVICES=-1"
 ```
 
@@ -87,7 +87,8 @@ export CK_IMAGE="krai/${CK_IMAGE_NAME}:${SDK_VER}_tf-${TF_VER}"
 export CK_EXPERIMENT_REPO="mlperf.object-detection.$(hostname).$(id -un)"
 export CK_EXPERIMENT_DIR="${HOME}/CK/${CK_EXPERIMENT_REPO}/experiment"
 
-CONTAINER_ID=`ck run cmdgen:benchmark.mlperf-inference-vision --docker=container_only --out=none  --library=tensorflow-v2.7.1-gpu --docker_image=${CK_IMAGE} --experiment_dir`
+CONTAINER_ID=`ck run cmdgen:benchmark.mlperf-inference-vision --docker=container_only --out=none \
+--library=tensorflow-v2.7.1-gpu --docker_image=${CK_IMAGE} --experiment_dir`
 
 ck run cmdgen:benchmark.mlperf-inference-vision --verbose \
 --scenario=offline --mode=accuracy --dataset_size=50 --buffer_size=64 \
