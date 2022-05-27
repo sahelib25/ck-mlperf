@@ -11,6 +11,7 @@
       "ML_MODEL_IMAGE_WIDTH": "640",
       "ML_MODEL_IMAGE_HEIGHT": "640",
 
+      "MODEL_INPUT_LAYER_NAME": "input_tensor:0",
       "MODEL_OUTPUT_LAYER_NAME": "num_detections:0,detection_classes:0,detection_boxes:0,detection_scores:0",
       "MODEL_DATASET_TYPE": "coco",
       "MODEL_OUTPUT_LAYER_BBOXES": "detection_boxes",
