@@ -24,7 +24,7 @@ EXTRA_PYTHON_SITE=${INSTALL_DIR}/python_deps_site
 mkdir -p ${EXTRA_PYTHON_SITE}/lib
 ln -s lib ${EXTRA_PYTHON_SITE}/lib64
 
-SHORT_PYTHON_VERSION=`"${CK_ENV_COMPILER_PYTHON_FILE}" -c 'import sys;print(sys.version[:3])'`
+SHORT_PYTHON_VERSION=`${CK_ENV_COMPILER_PYTHON_FILE} -c 'import sys; version=sys.version.split("."); print(version[0]+"."+version[1])'`
 export PACKAGE_LIB_DIR="${EXTRA_PYTHON_SITE}/lib/python${SHORT_PYTHON_VERSION}/site-packages"
 export PYTHONPATH=$PACKAGE_LIB_DIR:$PYTHONPATH
 
@@ -47,12 +47,10 @@ ln -s $PACKAGE_LIB_DIR ${INSTALL_DIR}/build
 
 POST_INSTALL_SCRIPT="$ORIGINAL_PACKAGE_DIR/post-install.sh"
 if [ -e "$POST_INSTALL_SCRIPT" ]; then
-    echo "Running $POST_INSTALL_SCRIPT ..."
-    . $POST_INSTALL_SCRIPT
-
-    if [ "${?}" != "0" ] ; then
-      echo "Error: running $POST_INSTALL_SCRIPT failed"
-      exit 1
-    fi
+  echo "Running $POST_INSTALL_SCRIPT ..."
+  . $POST_INSTALL_SCRIPT
+  if [ "${?}" != "0" ] ; then
+    echo "Error: running $POST_INSTALL_SCRIPT failed"
+    exit 1
+  fi
 fi
-
