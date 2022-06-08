@@ -55,6 +55,7 @@
     },
     "for.qaic": {
         "extra_env": {
+            "PIP_INSTALL_OPTIONS": "--ignore-installed protobuf==3.20.1",
             "PATCH_CHECKER": "YES"
         } 
     }
