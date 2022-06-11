@@ -30,12 +30,12 @@
     "accelerator_memory_configuration": "-",
     "accelerator_on-chip_memories": "-",
 
-    "cooling": "Flirc Raspberry Pi 4 case, the Kodi edition (https://flirc.tv/more/kodi-edition-raspberry-pi-4-case)",
+    "cooling": "Flirc Raspberry Pi 4 case, the Kodi edition (https://flirc.tv/collections/case/products/flirc-raspberrypi4-kodi)",
     "hw_notes": "https://www.raspberrypi.org/products/raspberry-pi-4-model-b/specifications/",
 
     "framework": "",
-    "operating_system": "Ubuntu 21.10; kernel rpi4 5.13.0-1011-raspi #13-Ubuntu SMP PREEMPT (Fri Nov 19 18:40:23 UTC 2021)",
-    "other_software_stack": "GCC 11.2.0; Python 3.9.7",
+    "operating_system": "Ubuntu 21.10; kernel rpi4 5.15.0-1011-raspi #13-Ubuntu SMP PREEMPT (Thu Jun 2 11:44:34 UTC 2022)",
+    "other_software_stack": "GCC 11.2.0; Python 3.10.4",
     "sw_notes": ""
   }
 }
