@@ -1,0 +1,26 @@
+{
+  "auto_detect": "yes",
+  "customize": {
+    "check_that_exists": "yes",
+    "ck_version": 10,
+    "env_prefix": "CK_ENV_DATASET_OPENIMAGES_MLPERF",
+    "extra_search_dirs": {
+      "linux": [
+        "/datasets",
+        "/data"
+      ]
+    },
+    "limit_recursion_dir_search": {
+      "linux": 5
+    },
+    "soft_file_universal": "info.json",
+    "version": "1.0"
+  },
+  "soft_name": "OpenImages for MLPerf Inference",
+  "tags": [
+    "dataset",
+    "openimages",
+    "mlperf",
+    "object-detection"
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "check_exit_status": "yes",
+  "customize": {
+    "install_env": {
+      "*PACKAGE_VERSION": "0"
+    },
+    "no_os_in_suggested_path": "yes",
+    "no_ver_in_suggested_path": "yes",
+    "package_name": "OpenImages",
+    "skip_file_check": "yes"
+  },
+  "deps": {
+    "mlperf-inference-src": {
+      "add_to_path": "no",
+      "local": "yes",
+      "name": "MLPerf Inference source",
+      "sort": 70,
+      "tags": "mlperf,inference,source,upstream.master"
+    },
+    "python": {
+      "local": "yes",
+      "name": "Python",
+      "sort": 30,
+      "tags": "compiler,python"
+    }
+  },
+  "end_full_path_universal": "open-images-v6-mlperf/info.json",
+  "only_for_host_os_tags": [],
+  "only_for_target_os_tags": [],
+  "process_script": "install",
+  "soft_uoa": "160844a394f4bb6d",
+  "suggested_path": "dataset-openimages-for-object-detection",
+  "tags": [
+    "dataset",
+    "openimages",
+    "subset",
+    "mlperf"
+  ],
+  "variations": {
+    "calibration": {
+      "extra_env": {
+        "DATASET_CALIBRATION": "yes"
+      }
+    }
+  }
+}
