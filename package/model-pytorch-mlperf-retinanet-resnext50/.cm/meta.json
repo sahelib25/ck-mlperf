@@ -1,0 +1,45 @@
+{
+  "check_exit_status": "yes",
+  "customize": {
+    "install_env": {
+      "ML_MODEL_DATA_LAYOUT": "NCHW",
+      "ML_MODEL_MODEL_NAME": "Retinanet ResNext50",
+      "MODEL_IMAGE_HEIGHT": "800",
+      "MODEL_IMAGE_WIDTH": "800",
+      "PACKAGE_NAME": "retinanet_model_10.zip",
+      "PACKAGE_SKIP_CLEAN_PACKAGE": "YES",
+      "PACKAGE_SKIP_LINUX_MAKE": "YES",
+      "PACKAGE_UNZIP": "YES",
+      "PACKAGE_URL": "https://zenodo.org/record/6605272/files/",
+      "PACKAGE_VERSION": "1.5",
+      "PACKAGE_WGET": "YES"
+    },
+    "no_os_in_suggested_path": "yes",
+    "no_ver_in_suggested_path": "yes",
+    "skip_file_check": "yes"
+  },
+  "end_full_path_universal": "retinanet_model_10.pth",
+  "only_for_host_os_tags": [],
+  "only_for_target_os_tags": [],
+  "package_extra_name": " (MLPerf Retinanet ResNext50 Pytorch)",
+  "process_script": "install",
+  "soft_uoa": "019c75bd62700599",
+  "suggested_path": "model-pytorch-retinanet-resnext50-mlperf-downloaded",
+  "tags": [
+    "model",
+    "object-detection",
+    "pytorch",
+    "nchw",
+    "resnext50",
+    "retinanet",
+    "side.800",
+    "mlperf",
+    "downloaded",
+    "non-quantized",
+    "vopenimages"
+  ],
+  "use_scripts_from_another_entry": {
+    "data_uoa": "download-and-install-package",
+    "module_uoa": "script"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "auto_detect": "yes",
+  "customize": {
+    "check_that_exists": "yes",
+    "ck_version": 10,
+    "env_prefix": "CK_ENV_PYTORCH_MODEL",
+    "soft_file_universal": "*.pth"
+  },
+  "soft_name": "Pytorch model",
+  "tags": [
+    "pytorch",
+    "model"
+  ],
+  "template": "yes",
+  "template_type": "Pytorch model"
+}
