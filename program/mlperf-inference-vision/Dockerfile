@@ -89,8 +89,8 @@ RUN ck install package --tags=lib,tensorflow,python-package --force_version=${TF
 # Remove NumPy v1.19.5 which conflicts with Python COCO API.
 RUN find /home/krai/CK_TOOLS/lib-python-tensorflow* -maxdepth 5 -name 'numpy*' \
     -exec rm -r {} \;
-# Install OpenVINO Inference Engine on top of TensorFlow v2.7.0.
-RUN ${CK_PYTHON} -m pip install tensorflow==2.7.0 --user
+# Install OpenVINO Inference Engine on top of TensorFlow v2.8.0.
+RUN ${CK_PYTHON} -m pip install tensorflow==2.8.0 --user
 RUN ck install package --tags=lib,tensorflow,python-package,openvino
 #-----------------------------------------------------------------------------#
 
