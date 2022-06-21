@@ -1,0 +1,101 @@
+{
+    "check_exit_status": "yes",
+    "customize": {
+        "install_env": {
+            "ML_MODEL_GIVEN_CHANNEL_MEANS": "123.68 116.78 103.94",
+            "ML_MODEL_MODEL_NAME": "resnet50",
+            "ML_MODEL_TO_CONVERT": "resnet50_v1",
+            "MODEL_INPUT_LAYER_NAME": "input_tensor:0",
+            "MODEL_NORMALIZE_DATA": "0",
+            "MODEL_OUTPUT_LAYER_NAME": "softmax_tensor:0",
+            "MODEL_SUBTRACT_MEAN": "YES",
+            "PACKAGE_VERSION": "1.5"
+        },
+        "no_os_in_suggested_path": "yes",
+        "no_ver_in_suggested_path": "yes",
+        "package_name": "TFLite Model Quantized",
+        "skip_file_check": "yes"
+    },
+    "deps": {
+        "lib-tensorflow": {
+            "local": "yes",
+            "name": "TensorFlow library",
+            "sort": 10,
+            "tags": "lib,tensorflow,vprebuilt",
+            "version_from": [
+                2,
+                9,
+                1
+            ]
+        },
+        "model-source": {
+            "local": "yes",
+            "name": "Original TensorFlow model",
+            "sort": 20,
+            "tags": "model,image-classification,tf,mlperf",
+            "update_tags_if_env": {
+                "mlperf,resnet": [
+                    {
+                        "ML_MODEL_TO_CONVERT": "resnet50_v1.5,from-zenodo"
+                    }
+                ]
+            }
+        },
+        "dataset": {
+            "enable_if_env": [
+                {
+                    "MODEL_QUANTIZATION_LEVEL": [
+                        "int8"
+                    ]
+                }
+            ],
+            "local": "yes",
+            "name": "Representative Dataset",
+            "sort": 30,
+            "tags": "dataset,imagenet,first.500"
+        }
+    },
+    "end_full_path_universal": "converted_model.tflite",
+    "only_for_host_os_tags": [],
+    "only_for_target_os_tags": [],
+    "process_script": "install",
+    "soft_uoa": "439b9f1757f27091",
+    "suggested_path": "model-tflite-mlperf-quantized",
+    "tags": [
+        "image-classification",
+        "tf",
+        "quantized-to",
+        "tflite",
+        "no-argmax"
+    ],
+    "variations": {
+        "resnet-int8": {
+            "on_by_default": "yes",
+            "extra_customize": {
+                "package_name": "TFLite Model Quantized Int8 (MLPerf ResNet)"
+            },
+            "extra_env": {
+                "MODEL_QUANTIZATION_LEVEL": "int8",
+                "PACKAGE_NAME": "resnet50_v1.no-argmax.int8.tflite"
+            },
+            "extra_tags": [
+                "resnet",
+                "int8"
+            ]
+        },
+        "resnet-fp16": {
+            "on_by_default": "no",
+            "extra_customize": {
+                "package_name": "TFLite Model Quantized FP16 (MLPerf ResNet)"
+            },
+            "extra_env": {
+                "MODEL_QUANTIZATION_LEVEL": "fp16",
+                "PACKAGE_NAME": "resnet50_v1.no-argmax.fp16.tflite"
+            },
+            "extra_tags": [
+                "resnet",
+                "fp16"
+            ]
+        }
+    }
+}
