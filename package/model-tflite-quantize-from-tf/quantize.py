@@ -42,8 +42,14 @@ def quantize(saved_model_filepath, tflite_model_file, quantization_level):
     converter = tf.lite.TFLiteConverter.from_saved_model(saved_model_filepath)
 
     if quantization_level == "int8":
-        converter.optimizations = [tf.lite.Optimize.DEFAULT]
         converter.representative_dataset = representative_dataset
+        converter.optimizations = [tf.lite.Optimize.DEFAULT]
+        # Enforce full integer quantization for all ops including the input and output
+        # converter.target_spec.supported_ops = [tf.lite.OpsSet.TFLITE_BUILTINS_INT8]
+        # converter.target_spec.supported_types = [tf.int8]
+        # converter.inference_type = tf.int8
+        # converter.inference_input_type = tf.int8
+        # converter.inference_output_type = tf.int8
     else:
         converter.optimizations = [tf.lite.Optimize.DEFAULT]
         converter.target_spec.supported_types = [tf.float16]
@@ -58,13 +64,18 @@ def quantize(saved_model_filepath, tflite_model_file, quantization_level):
 
 def representative_dataset():
     import tensorflow as tf
-    representative_dataset_path = os.environ['CK_ENV_DATASET_IMAGENET_PREPROCESSED_DIR']
-    representative_dataset_path = pathlib.Path(representative_dataset_path)
+    import glob
+    import numpy as np
 
-    for image in representative_dataset_path.glob('*/*.rgb8'):
-        data = tf.keras.preprocessing.image.load_img(image)
+    representative_dataset_path = os.environ['CK_DATASET_IMAGENET_CALIBRATION_ROOT']
+    height                      = int(os.environ['MODEL_IMAGE_HEIGHT'])
+    width                       = int(os.environ['MODEL_IMAGE_WIDTH'])
+
+    for file in glob.glob(representative_dataset_path + '/*.JPEG'):
+        data = tf.keras.preprocessing.image.load_img(file)
         data = tf.keras.preprocessing.image.img_to_array(data)
-        print(data.shape)
+        data = tf.image.resize(data, (height, width), method='nearest')
+        data = np.array(data).reshape(1, height, width, 3).astype(np.float32)
         yield [data]
 
 if __name__ == '__main__':

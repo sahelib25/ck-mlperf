@@ -76,7 +76,9 @@
             },
             "extra_env": {
                 "MODEL_QUANTIZATION_LEVEL": "int8",
-                "PACKAGE_NAME": "resnet50_v1.no-argmax.int8.tflite"
+                "PACKAGE_NAME": "resnet50_v1.no-argmax.int8.tflite",
+                "MODEL_IMAGE_HEIGHT": "224",
+                "MODEL_IMAGE_WIDTH": "224"
             },
             "extra_tags": [
                 "resnet",
@@ -90,7 +92,9 @@
             },
             "extra_env": {
                 "MODEL_QUANTIZATION_LEVEL": "fp16",
-                "PACKAGE_NAME": "resnet50_v1.no-argmax.fp16.tflite"
+                "PACKAGE_NAME": "resnet50_v1.no-argmax.fp16.tflite",
+                "MODEL_IMAGE_HEIGHT": "224",
+                "MODEL_IMAGE_WIDTH": "224"
             },
             "extra_tags": [
                 "resnet",
