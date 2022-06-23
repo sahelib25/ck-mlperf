@@ -99,6 +99,42 @@ class MV1_Params {
    std::vector<float> variance = {};
    std::vector<float> class_map = {};
 };
+class RX50_Params {
+  public:
+   const int NUM_CLASSES = 264;
+   const int MAX_BOXES_PER_CLASS = 100;
+   const int TOTAL_NUM_BOXES = 120087;
+
+   const int DATA_LENGTH_LOC = 480348;
+   const int DATA_LENGTH_CONF = 32183316;
+
+   const int BOX_ITR_0 = 0;
+   const int BOX_ITR_1 = (TOTAL_NUM_BOXES * 1);
+   const int BOX_ITR_2 = (TOTAL_NUM_BOXES * 2);
+   const int BOX_ITR_3 = (TOTAL_NUM_BOXES * 3);
+
+   const int OFFSET_CONF = 120087;
+   const int CLASSES_INDEX = 0;
+   const int BOXES_INDEX = 1;
+
+   const float LOC_OFFSET = 0.0f;
+   const float LOC_SCALE = 0.134f;
+   const float CONF_OFFSET = 0.0f;
+   const float CONF_SCALE = 1.0f;
+
+   const float CLASS_THRESHOLD = 0.05f;
+   const int CLASS_THRESHOLD_UINT8 = 0;  // fixme
+   const int CLASS_THRESHOLD_FP16 = 10854;
+   const float NMS_THRESHOLD = 0.5f;
+   const int MAX_DETECTIONS_PER_IMAGE = 600;
+   const int MAX_DETECTIONS_PER_CLASS = 100;
+
+   const char* priorName = "retinanet_priors.bin";
+   const bool MAP_CLASSES = false;
+   const bool PREPROCESS_PRIOR = false;
+   std::vector<float> variance = {};
+   std::vector<float> class_map = {};
+};
 
 #define CONVERT_TO_INT8(x) ((int8_t)((int16_t)x - 128))
 #define CLASS_POSITION 6

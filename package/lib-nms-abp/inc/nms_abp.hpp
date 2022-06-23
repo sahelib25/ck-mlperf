@@ -96,7 +96,7 @@ class NMS_ABP {
       const Loc *locPtr = locTensor;
 
       float const *priorPtr = priorTensor;
-#ifdef MODEL_R34
+#if defined(MODEL_R34)
 #ifdef __amd64__
       for (uint32_t ci = 1; ci < modelParams.NUM_CLASSES; ci++) {
 #else
@@ -109,14 +109,14 @@ class NMS_ABP {
          locPtr = locTensor;
          priorPtr = priorTensor;
 #ifdef __amd64__
-      for (uint32_t bi = 0; bi < modelParams.TOTAL_NUM_BOXES;
-#else
+         for (uint32_t bi = 0; bi < modelParams.TOTAL_NUM_BOXES;
+#else // MobileNet or Retinanet
          for (uint32_t bi = 0; bi < 15130;
 #endif
            ++bi, confPtr++, locPtr++, priorPtr++) {
 
             Conf confidence = confPtr[confItr];
-	    if(confidence < 10854) continue;
+            if(confidence < 10854) continue;
             //if (!above_Class_Threshold(confidence)) continue;
             float cf = get_Score_Val(confidence);
             bbox cBox = { get_Loc_Val(locPtr[modelParams.BOX_ITR_0]),
@@ -158,8 +158,8 @@ class NMS_ABP {
 
 
             Conf confidence = confPtr[confItr + ci];
-	    if(confidence < 76) continue;
-            //if (!above_Class_Threshold(confidence)) continue;
+            //if(confidence < 76) continue;
+            if (!above_Class_Threshold(confidence)) continue;
             float cf = get_Score_Val(confidence);
             bbox cBox = { get_Loc_Val(locPtr[0]),
                           get_Loc_Val(locPtr[1]),
@@ -215,6 +215,7 @@ class NMS_ABP {
    inline float get_Score_Val(float x) { return x; }
    bbox decodeLocationTensor(const bbox &loc, const float *const prior,
                              const float *const var) {
+
      float x = prior[modelParams.BOX_ITR_0] +
                loc[0] * var[0] * prior[modelParams.BOX_ITR_2];
      float y = prior[modelParams.BOX_ITR_1] +
@@ -228,12 +229,13 @@ class NMS_ABP {
 
       return {x, y, w, h};
    }
+#ifdef MODEL_MV1
    bbox decodeLocationTensor(const bbox &loc, const float *const prior) {
 
      float w = prior[3] - prior[1];
      float h = prior[2] - prior[0];
      float cent_x = prior[1] + 0.5f * w;
-     float cent_y = prior[0] + 0.5 * h;
+     float cent_y = prior[0] + 0.5f * h;
 
      float dy = loc[0] / 10.0f;
      float dx = loc[1] / 10.0f;
@@ -248,6 +250,30 @@ class NMS_ABP {
      return { pred_cent_x - 0.5f * pred_w, pred_cent_y - 0.5f * pred_h,
               pred_cent_x + 0.5f * pred_w, pred_cent_y + 0.5f * pred_h };
    }
+#endif
+
+#ifdef MODEL_RX50
+   bbox decodeLocationTensor(const bbox &loc, const float *const prior) {
+
+     float w = prior[2] - prior[0];
+     float h = prior[3] - prior[1];
+     float cent_x = prior[0] + 0.5f * w;
+     float cent_y = prior[1] + 0.5f * h;
+
+     float dx = loc[0];
+     float dy = loc[1];
+     float dw = loc[2];
+     float dh = loc[3];
+
+     float pred_cent_x = dx * w + cent_x;
+     float pred_cent_y = dy * h + cent_y;
+     float pred_w = expf(dw) * w;
+     float pred_h = expf(dh) * h;
+
+     return { (pred_cent_x - 0.5f * pred_w) / 800.0f, (pred_cent_y - 0.5f * pred_h) / 800.0f,
+              (pred_cent_x + 0.5f * pred_w) / 800.0f, (pred_cent_y + 0.5f * pred_h) / 800.0f};
+   }
+#endif
 
    template <typename A, typename B>
    void pack(const std::vector<A> &part1, const std::vector<B> &part2,

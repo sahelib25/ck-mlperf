@@ -13,7 +13,7 @@
     "limit_recursion_dir_search": {
       "linux": 5
     },
-    "soft_file_universal": "info.json",
+    "soft_file_universal": "open-images-v6-mlperf/info.json",
     "version": "1.0"
   },
   "soft_name": "OpenImages for MLPerf Inference",

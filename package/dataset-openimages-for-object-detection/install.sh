@@ -7,7 +7,15 @@
 # if centos7, also -
 #  pip install fiftyone-db-rhel7
 
-cd ${CK_ENV_MLPERF_INFERENCE}/vision/classification_and_detection/tools/
-./openimages_mlperf.sh
+rm -rf ${INSTALL_DIR}/open-images-v6-mlperf
 
-mv ../open-images-v6-mlperf ${INSTALL_DIR}
+cd ${CK_ENV_MLPERF_INFERENCE}/vision/classification_and_detection/tools/
+
+if [ "${DATASET_CALIBRATION}" == "yes" ]; then
+    ln -s -f ${CK_ENV_MLPERF_INFERENCE}/calibration .
+    ./openimages_calibration_mlperf.sh -d ${INSTALL_DIR}
+else # validation
+    ./openimages_mlperf.sh -d ${INSTALL_DIR}
+fi
+
+

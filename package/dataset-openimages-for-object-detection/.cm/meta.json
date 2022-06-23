@@ -2,7 +2,7 @@
   "check_exit_status": "yes",
   "customize": {
     "install_env": {
-      "*PACKAGE_VERSION": "0"
+      "*PACKAGE_VERSION": "1.0"
     },
     "no_os_in_suggested_path": "yes",
     "no_ver_in_suggested_path": "yes",
@@ -24,7 +24,7 @@
       "tags": "compiler,python"
     }
   },
-  "end_full_path_universal": "open-images-v6-mlperf/info.json",
+  "end_full_path_universal": "info.json",
   "only_for_host_os_tags": [],
   "only_for_target_os_tags": [],
   "process_script": "install",
@@ -34,13 +34,25 @@
     "dataset",
     "openimages",
     "subset",
-    "mlperf"
+    "mlperf",
+    "original"
   ],
   "variations": {
     "calibration": {
       "extra_env": {
         "DATASET_CALIBRATION": "yes"
-      }
+      },
+      "extra_tags": [
+        "cal"
+      ]
+    },
+    "validation": {
+      "extra_env": {
+        "DATASET_VALIDATION": "yes"
+      },
+      "extra_tags": [
+        "val"
+      ]
     }
   }
 }
