@@ -42,26 +42,27 @@ class NMS_ABP {
       binPath = std::getenv("PRIOR_BIN_PATH");
       if (binPath == "") binPath = ".";
       readPriors();
+      if(modelParams.PREPROCESS_PRIOR)
+         preprocessPrior();
    }
    ~NMS_ABP() {
       delete priorTensor;
    };
    void preprocessPrior() {
-     for (uint32_t i = 0; i < modelParams.TOTAL_NUM_BOXES; i++) {
-       float *prior = &priorTensor[NUM_COORDINATES * i];
-       float box_y1 = prior[0];
-       float box_x1 = prior[1];
-       float box_y2 = prior[2];
-       float box_x2 = prior[3];
-       float w = box_x2 - box_x1;
-       float h = box_y2 - box_y1;
-       float cent_x = box_x1 + 0.5f * w;
-       float cent_y = box_y1 + 0.5f * h;
-       prior[0] = w;
-       prior[1] = h;
-       prior[2] = cent_x;
-       prior[3] = cent_y;
-     }
+
+      for (uint32_t i = 0; i < modelParams.TOTAL_NUM_BOXES; i++) {
+
+         float *prior = &priorTensor[NUM_COORDINATES * i];
+         float w = prior[2] - prior[0];
+         float h = prior[3] - prior[1];
+         float cent_x = prior[0] + 0.5f * w;
+         float cent_y = prior[1] + 0.5f * h;
+
+         prior[0] = w;
+         prior[1] = h;
+         prior[2] = cent_x;
+         prior[3] = cent_y;
+      }
    }
    float *read(std::string priorFilename, uint32_t tensorLength) {
       std::ifstream fs(binPath + "/" + priorFilename, std::ifstream::binary);
@@ -97,11 +98,9 @@ class NMS_ABP {
 
       float const *priorPtr = priorTensor;
 #if defined(MODEL_R34)
-#ifdef __amd64__
-      for (uint32_t ci = 1; ci < modelParams.NUM_CLASSES; ci++) {
-#else
-      for (uint32_t ci = 1; ci < 81; ci++) {
-#endif
+
+      for (uint32_t ci = modelParams.CLASSES_OFFSET; ci < modelParams.NUM_CLASSES; ci++) {
+
          uint32_t confItr = ci * modelParams.OFFSET_CONF;
          std::vector<bbox> result;
          std::vector<bbox> selected;
@@ -139,26 +138,15 @@ class NMS_ABP {
                modelParams.class_map);
          }
       }
-#else
-#ifdef __amd64__
+#else // MV1 and RX50
       std::vector<bbox> result[modelParams.NUM_CLASSES];
       std::vector<bbox> selected[modelParams.NUM_CLASSES];
       for (uint32_t bi = 0; bi < modelParams.TOTAL_NUM_BOXES;
            bi++, locPtr += 4, priorPtr += 4) {
          uint32_t confItr = bi * modelParams.NUM_CLASSES;
-         for (uint32_t ci = 1; ci < modelParams.NUM_CLASSES; ci++) {
-#else
-      std::vector<bbox> result[91];
-      std::vector<bbox> selected[91];
-      for (uint32_t bi = 0; bi < 1917;
-           bi++, locPtr += 4, priorPtr += 4) {
-         uint32_t confItr = bi * 91;
-         for (uint32_t ci = 1; ci < 91; ci++) {
-#endif
-
+         for (uint32_t ci = modelParams.CLASSES_OFFSET; ci < modelParams.NUM_CLASSES; ci++) {
 
             Conf confidence = confPtr[confItr + ci];
-            //if(confidence < 76) continue;
             if (!above_Class_Threshold(confidence)) continue;
             float cf = get_Score_Val(confidence);
             bbox cBox = { get_Loc_Val(locPtr[0]),
@@ -175,7 +163,7 @@ class NMS_ABP {
             });
          }
       }
-      for (uint32_t ci = 1; ci < modelParams.NUM_CLASSES; ci++) {
+      for (uint32_t ci = modelParams.CLASSES_OFFSET; ci < modelParams.NUM_CLASSES; ci++) {
          if (result[ci].size()) {
            NMS(result[ci], modelParams.NMS_THRESHOLD,
                modelParams.MAX_BOXES_PER_CLASS, selected[ci], selectedAll,
@@ -229,7 +217,29 @@ class NMS_ABP {
 
       return {x, y, w, h};
    }
-#ifdef MODEL_MV1
+
+#ifdef MODEL_RX50
+   bbox decodeLocationTensor(const bbox &loc, const float *const prior) {
+
+     float w = prior[0];
+     float h = prior[1];
+     float cent_x = prior[2];
+     float cent_y = prior[3];
+
+     float dx = loc[0];
+     float dy = loc[1];
+     float dw = loc[2];
+     float dh = loc[3];
+
+     float pred_cent_x = dx * w + cent_x;
+     float pred_cent_y = dy * h + cent_y;
+     float pred_w = expf(dw) * w;
+     float pred_h = expf(dh) * h;
+
+     return { (pred_cent_x - 0.5f * pred_w) * modelParams.BOX_SCALE, (pred_cent_y - 0.5f * pred_h) * modelParams.BOX_SCALE,
+              (pred_cent_x + 0.5f * pred_w) * modelParams.BOX_SCALE, (pred_cent_y + 0.5f * pred_h) * modelParams.BOX_SCALE};
+   }
+#else
    bbox decodeLocationTensor(const bbox &loc, const float *const prior) {
 
      float w = prior[3] - prior[1];
@@ -249,29 +259,6 @@ class NMS_ABP {
 
      return { pred_cent_x - 0.5f * pred_w, pred_cent_y - 0.5f * pred_h,
               pred_cent_x + 0.5f * pred_w, pred_cent_y + 0.5f * pred_h };
-   }
-#endif
-
-#ifdef MODEL_RX50
-   bbox decodeLocationTensor(const bbox &loc, const float *const prior) {
-
-     float w = prior[2] - prior[0];
-     float h = prior[3] - prior[1];
-     float cent_x = prior[0] + 0.5f * w;
-     float cent_y = prior[1] + 0.5f * h;
-
-     float dx = loc[0];
-     float dy = loc[1];
-     float dw = loc[2];
-     float dh = loc[3];
-
-     float pred_cent_x = dx * w + cent_x;
-     float pred_cent_y = dy * h + cent_y;
-     float pred_w = expf(dw) * w;
-     float pred_h = expf(dh) * h;
-
-     return { (pred_cent_x - 0.5f * pred_w) / 800.0f, (pred_cent_y - 0.5f * pred_h) / 800.0f,
-              (pred_cent_x + 0.5f * pred_w) / 800.0f, (pred_cent_y + 0.5f * pred_h) / 800.0f};
    }
 #endif
 

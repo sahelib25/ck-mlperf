@@ -40,6 +40,8 @@ class R34_Params {
    const int BOXES_INDEX = 0;
    const int CLASSES_INDEX = 1;
 
+   const int CLASSES_OFFSET = 1;
+
    const float LOC_OFFSET = 0.0f;
    const float LOC_SCALE = 0.134f;
    const float CONF_OFFSET = 0.0f;
@@ -81,6 +83,8 @@ class MV1_Params {
    const int BOXES_INDEX = 1;
    const int CLASSES_INDEX = 0;
 
+   const int CLASSES_OFFSET = 1;
+
    const float LOC_OFFSET = 0.0f;
    const float LOC_SCALE = 0.144255146f;
    const float CONF_OFFSET = -128.0f;
@@ -95,7 +99,7 @@ class MV1_Params {
 
    const char* priorName = "MV1_priors.bin";
    const bool MAP_CLASSES = false;
-   const bool PREPROCESS_PRIOR = true;
+   const bool PREPROCESS_PRIOR = false;
    std::vector<float> variance = {};
    std::vector<float> class_map = {};
 };
@@ -117,21 +121,25 @@ class RX50_Params {
    const int CLASSES_INDEX = 0;
    const int BOXES_INDEX = 1;
 
+   const int CLASSES_OFFSET = 0;
+
    const float LOC_OFFSET = 0.0f;
-   const float LOC_SCALE = 0.134f;
-   const float CONF_OFFSET = 0.0f;
-   const float CONF_SCALE = 1.0f;
+   const float LOC_SCALE = 0.020147156f;
+   const float CONF_OFFSET = -128.0f;
+   const float CONF_SCALE = 0.00388179976f;
 
    const float CLASS_THRESHOLD = 0.05f;
-   const int CLASS_THRESHOLD_UINT8 = 0;  // fixme
+   const int CLASS_THRESHOLD_UINT8 = 5;
    const int CLASS_THRESHOLD_FP16 = 10854;
    const float NMS_THRESHOLD = 0.5f;
-   const int MAX_DETECTIONS_PER_IMAGE = 600;
+   const int MAX_DETECTIONS_PER_IMAGE = 300;
    const int MAX_DETECTIONS_PER_CLASS = 100;
+
+   const float BOX_SCALE = 0.00125f;
 
    const char* priorName = "retinanet_priors.bin";
    const bool MAP_CLASSES = false;
-   const bool PREPROCESS_PRIOR = false;
+   const bool PREPROCESS_PRIOR = true;
    std::vector<float> variance = {};
    std::vector<float> class_map = {};
 };
