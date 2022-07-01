@@ -36,7 +36,7 @@
             "update_tags_if_env": {
                 "mlperf,resnet": [
                     {
-                        "ML_MODEL_TO_CONVERT": "resnet50_v1.5,from-zenodo"
+                        "ML_MODEL_TO_CONVERT": "resnet50,no-argmax"
                     }
                 ]
             }

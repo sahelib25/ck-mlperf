@@ -14,9 +14,9 @@ And, only these quantization modes are supported:
 ## ResNet
 Quantize to `int 8`
 ```
-$ ck install package --tags=image-classification,tf,quantized-to,tflite,resnet-int8
+$ ck install package --tags=image-classification,tf,quantized-to,tflite,no-argmax,resnet-int8
 ```
 Quantize to `fp 16`
 ```
-$ ck install package --tags=image-classification,tf,quantized-to,tflite,resnet-fp16
+$ ck install package --tags=image-classification,tf,quantized-to,tflite,no-argmax,resnet-fp16
 ```
