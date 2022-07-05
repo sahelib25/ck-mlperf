@@ -173,9 +173,11 @@ def benchmark_using_loadgen():
     try:
         import torchvision
         torchvision_version = ':v' + torchvision.__version__
+        torchvision_version = torchvision_version.split('+')[0]     # remove the +cu113 trailing bit from CUDA-specific builds
     except Exception:
         pass
 
+    #torch.hub._validate_not_a_forked_repo=lambda a,b,c: True   # suggested here: https://stackoverflow.com/questions/68901236/urllib-error-httperror-http-error-403-rate-limit-exceeded-when-loading-resnet1
     model = torch.hub.load('pytorch/vision' + torchvision_version, MODEL_NAME, pretrained=True)
     model.eval()
 
