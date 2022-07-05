@@ -66,11 +66,11 @@
       "sort": 60,
       "tags": "lib,python-package,pillow"
     },
-    "lib-python-torch": {
+    "lib-python-torchvision": {
       "local": "yes",
       "name": "PyTorch library",
       "sort": 70,
-      "tags": "lib,python-package,torch"
+      "tags": "lib,python-package,torchvision"
     },
     "mlperf-inference-src": {
       "add_to_path": "no",
