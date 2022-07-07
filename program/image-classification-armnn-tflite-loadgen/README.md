@@ -24,11 +24,11 @@ xavier$ ck benchmark program:image-classification-armnn-tflite-loadgen \
 --env.CK_LOADGEN_MODE=PerformanceOnly \
 --env.CK_LOADGEN_DATASET_SIZE=1024 \
 --env.CK_LOADGEN_BUFFER_SIZE=1024 \
---dep_add_tags.library=armnn,tflite,neon,rel.21.05 \
+--dep_add_tags.library=armnn,tflite,neon,rel.22.05 \
 --dep_add_tags.images=side.224,preprocessed \
 --dep_add_tags.weights=tflite,resnet \
---dep_add_tags.compiler=gcc,v7 \
---dep_add_tags.python=v3.6
+--dep_add_tags.compiler=gcc,v11 \
+--dep_add_tags.python=v3.7
 ...
 ------------------------------------------------------------
 |            LATENCIES (in nanoseconds and fps)            |
@@ -52,11 +52,11 @@ firefly$ ck benchmark program:image-classification-armnn-tflite-loadgen \
 --env.CK_LOADGEN_MODE=PerformanceOnly \
 --env.CK_LOADGEN_DATASET_SIZE=1024 \
 --env.CK_LOADGEN_BUFFER_SIZE=1024 \
---dep_add_tags.library=armnn,tflite,opencl,rel.21.05 \
+--dep_add_tags.library=armnn,tflite,opencl,rel.22.05 \
 --dep_add_tags.images=side.224,preprocessed \
 --dep_add_tags.weights=tflite,resnet \
---dep_add_tags.compiler=gcc,v7 \
---dep_add_tags.python=v3
+--dep_add_tags.compiler=gcc,v11 \
+--dep_add_tags.python=v3.7
 ...
 ```
 
@@ -69,7 +69,7 @@ firefly$ ck benchmark program:image-classification-armnn-tflite-loadgen \
 ##### Neon
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-neon \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v22.05-neon \
 --scenario=singlestream --mode=performance --model=resnet50 --target_latency=55 \
 --verbose --sut=xavier
 ```
@@ -77,7 +77,7 @@ $ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v2
 ##### OpenCL
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v21.05-opencl \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=armnn-v22.05-opencl \
 --scenario=singlestream --mode=performance --model=resnet50 --target_latency=400 \
 --verbose --sut=firefly
 ```

@@ -236,7 +236,7 @@ public:
     }
   }
 
-  void ReportLatencyResults(const std::vector<mlperf::QuerySampleLatency>& latencies_ns) override {
+  void ReportLatencyResults(const std::vector<mlperf::QuerySampleLatency>& latencies_ns) {
 
     size_t size = latencies_ns.size();
     uint64_t avg = accumulate(latencies_ns.begin(), latencies_ns.end(), uint64_t(0) )/size;

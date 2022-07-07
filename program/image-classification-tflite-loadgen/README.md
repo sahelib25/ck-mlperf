@@ -86,11 +86,11 @@ firefly$ ck benchmark program:image-classification-tflite-loadgen \
 --env.CK_LOADGEN_MODE=PerformanceOnly \
 --env.CK_LOADGEN_DATASET_SIZE=1024 \
 --env.CK_LOADGEN_BUFFER_SIZE=1024 \
---dep_add_tags.library=tflite,v2.5 \
+--dep_add_tags.library=tflite,v2.7 \
 --dep_add_tags.images=side.224,preprocessed \
 --dep_add_tags.weights=tflite,resnet \
---dep_add_tags.compiler=gcc,v7 \
---dep_add_tags.python=v3
+--dep_add_tags.compiler=gcc,v11 \
+--dep_add_tags.python=v3.7
 ...
 ```
 
@@ -101,7 +101,7 @@ firefly$ ck benchmark program:image-classification-tflite-loadgen \
 #### Performance
 
 ```bash
-$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=tflite-v2.5.0-ruy \
+$ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=tflite-v2.7.0-ruy \
 --scenario=singlestream --mode=performance --model=resnet50 --target_latency=70 \
 --verbose --sut=xavier
 ```
