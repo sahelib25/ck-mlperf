@@ -20,10 +20,15 @@ The following table gives some measured `--target_latency` values.
 
 | `--sut`     | `--library` (+version+backend) | `--target_latency` (ms) | Round                                              | Notes                            |
 |-------------|--------------------------------|-------------------------|----------------------------------------------------|----------------------------------|
-| `xavier`    | `armnn-v21.11-neon`            | 58                      | v2.x                                               | -16-20% vs v0.5-v1.1.            |
-| `odroid`    | `armnn-v21.11-neon`            | 341                     | v2.x                                               | +10% vs `rpi4` despite 2.2 GHz vs 1.5 GHz? |
-|             | `armnn-v21.11-opencl`          | 246                     | v2.x                                               | Mali-G52 MP2 is faster than CPU. |
-| `rpi4`      | `armnn-v21.11-neon`            | 314                     | v2.x                                               | Fan: on.                         |
+| `firefly`   | `armnn-v22.05-neon`            | 128                     | v2.x                                               | RK3588S (RK3399 previously).     |
+|             | `armnn-v22.05-opencl`          | 82                      | v2.x                                               |                                  |
+| `vim4`      | `armnn-v22.05-neon`            | 195                     | v2.x                                               |                                  |
+|             | `armnn-v22.05-opencl`          | 148                     | v2.x                                               |                                  |
+| `xavier`    | `armnn-v21.11-neon`            | 66                      | [v2.0](https://mlcommons.org/en/inference-edge-20) | Observed 58 ms (up to -20% vs v0.5-v1.1).  |
+| `odroid`    | `armnn-v21.11-neon`            | 339                     | [v2.0](https://mlcommons.org/en/inference-edge-20) | +10% vs `rpi4` [despite](https://github.com/ARM-software/armnn/issues/600) 2.2 GHz vs 1.5 GHz? |
+|             | `armnn-v21.11-opencl`          | 246                     | [v2.0](https://mlcommons.org/en/inference-edge-20) | Mali-G52 MP2 is faster than CPU. |
+| `rpi4`      | `armnn-v21.11-neon`            | 349                     | [v2.0](https://mlcommons.org/en/inference-edge-20) | Fan: on.                         |
+| `rpi3`      | `armnn-v21.11-neon`            | 2311                    | [v2.0](https://mlcommons.org/en/inference-edge-20) |                                  |
 | `rpi4`      | `armnn-v21.05-neon`            | 312                     | [v1.1](https://mlcommons.org/en/inference-edge-11) | Fan: on.                         |
 |             |                                | 313                     | [v1.1](https://mlcommons.org/en/inference-edge-11) | Fan: off.                        |
 | `xavier`    | `armnn-v21.05-neon`            | 72                      | [v1.1](https://mlcommons.org/en/inference-edge-11) | Power mode: MAXN.                |
