@@ -45,7 +45,7 @@
         "compiler_tags": "gcc,v7"
       },
       "firefly": {
-        "compiler_tags": "gcc,v7"
+        "compiler_tags": "gcc,v9"
       },
       "xavier": {
         "compiler_tags": "gcc,v7"
@@ -64,6 +64,9 @@
       },
       "rpi4coral": {
         "compiler_tags": "gcc,v9"
+      },
+      "vim4": {
+        "compiler_tags": "gcc,v11"
       },
       "###": {
         "compiler_tags": "gcc"

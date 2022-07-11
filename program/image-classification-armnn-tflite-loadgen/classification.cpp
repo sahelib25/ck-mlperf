@@ -68,7 +68,7 @@ public:
     // Optimize the network for a specific runtime compute device, e.g. CpuAcc, GpuAcc
     //std::vector<armnn::BackendId> optOptions = {armnn::Compute::CpuAcc, armnn::Compute::GpuAcc};
     std::vector<armnn::BackendId> optOptions = {armnn::Compute::CpuRef};
-    if( use_neon && use_opencl) {
+    if ( use_neon && use_opencl ) {
         optOptions = {armnn::Compute::CpuAcc, armnn::Compute::GpuAcc};
     } else if( use_neon ) {
         optOptions = {armnn::Compute::CpuAcc};
