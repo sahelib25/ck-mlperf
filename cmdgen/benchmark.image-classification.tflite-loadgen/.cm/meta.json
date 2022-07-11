@@ -106,7 +106,7 @@
     "library": {
        "armnn-v22.05-neon": {
          "ck_env": "--env.USE_NEON=1 --env.USE_OPENCL=0",
-         "deps": "--dep_add_tags.library=armnn,rel.22.05,neon,no-opencl",
+         "deps": "--dep_add_tags.library=armnn,rel.22.05,neon",
          "program_name": "image-classification-armnn-tflite-loadgen",
          "record_tags": [
            "inference_engine.armnn",
@@ -126,7 +126,7 @@
       },
        "armnn-v21.11-neon": {
          "ck_env": "--env.USE_NEON=1 --env.USE_OPENCL=0",
-         "deps": "--dep_add_tags.library=armnn,rel.21.11,neon,no-opencl",
+         "deps": "--dep_add_tags.library=armnn,rel.21.11,neon",
          "program_name": "image-classification-armnn-tflite-loadgen",
          "record_tags": [
            "inference_engine.armnn",
@@ -146,7 +146,7 @@
       },
       "armnn-v21.08-neon": {
         "ck_env": "--env.USE_NEON=1 --env.USE_OPENCL=0",
-        "deps": "--dep_add_tags.library=armnn,rel.21.08,neon,no-opencl",
+        "deps": "--dep_add_tags.library=armnn,rel.21.08,neon",
         "program_name": "image-classification-armnn-tflite-loadgen",
         "record_tags": [
           "inference_engine.armnn",
@@ -166,7 +166,7 @@
       },
       "armnn-v21.05-neon": {
         "ck_env": "--env.USE_NEON=1 --env.USE_OPENCL=0",
-        "deps": "--dep_add_tags.library=armnn,rel.21.05,neon,no-opencl",
+        "deps": "--dep_add_tags.library=armnn,rel.21.05,neon",
         "program_name": "image-classification-armnn-tflite-loadgen",
         "record_tags": [
           "inference_engine.armnn",
@@ -186,7 +186,7 @@
       },
       "armnn-v21.02-neon": {
         "ck_env": "--env.USE_NEON=1",
-        "deps": "--dep_add_tags.library=armnn,rel.21.02,neon,no-opencl",
+        "deps": "--dep_add_tags.library=armnn,rel.21.02,neon",
         "program_name": "image-classification-armnn-tflite-loadgen",
         "record_tags": [
           "inference_engine.armnn",
@@ -206,7 +206,7 @@
       },
       "armnn-v20.08-neon": {
         "ck_env": "--env.USE_NEON=1",
-        "deps": "--dep_add_tags.library=armnn,rel.20.08,neon,no-opencl",
+        "deps": "--dep_add_tags.library=armnn,rel.20.08,neon",
         "program_name": "image-classification-armnn-tflite-loadgen",
         "record_tags": [
           "inference_engine.armnn",
