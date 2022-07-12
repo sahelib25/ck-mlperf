@@ -15,7 +15,7 @@
       "local": "yes",
       "name": "MLPerf Inference source",
       "sort": 70,
-      "tags": "mlperf,inference,source,upstream.master"
+      "tags": "mlperf,inference,source"
     },
     "python": {
       "local": "yes",
