@@ -1,11 +1,10 @@
 #!/bin/bash
 
-if [ "$DATASET_CALIBRATION" == "yes" ]
-then
-wget https://raw.githubusercontent.com/mlcommons/inference/master/calibration/SQuAD-v1.1/bert-calibration.txt -P ${INSTALL_DIR}/calib/
-DATASET_CALIBRATION_FILE=${INSTALL_DIR}/calib/bert-calibration.txt
+if [[ "$DATASET_CALIBRATION" == "yes" ]]; then
+  wget https://raw.githubusercontent.com/mlcommons/inference/master/calibration/SQuAD-v1.1/bert_calibration_features.txt -P ${INSTALL_DIR}/calib/
+  DATASET_CALIBRATION_FILE=${INSTALL_DIR}/calib/bert_calibration_features.txt
 else
-DATASET_CALIBRATION_FILE=""
+  DATASET_CALIBRATION_FILE=""
 fi
 
 "$CK_ENV_COMPILER_PYTHON_FILE" "${PACKAGE_DIR}/tokenize_and_pack.py" \
