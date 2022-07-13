@@ -3,7 +3,7 @@
   "customize": {
     "install_env": {
       "ML_MODEL_DATA_LAYOUT": "NCHW",
-      "ML_MODEL_MODEL_NAME": "Retinanet ResNext50",
+      "ML_MODEL_MODEL_NAME": "Retinanet",
       "MODEL_IMAGE_HEIGHT": "800",
       "MODEL_IMAGE_WIDTH": "800",
       "PACKAGE_NAME": "retinanet_model_10.zip",
@@ -21,16 +21,15 @@
   "end_full_path_universal": "retinanet_model_10.pth",
   "only_for_host_os_tags": [],
   "only_for_target_os_tags": [],
-  "package_extra_name": " (MLPerf Retinanet ResNext50 Pytorch)",
+  "package_extra_name": " (MLPerf Retinanet Pytorch)",
   "process_script": "install",
   "soft_uoa": "019c75bd62700599",
-  "suggested_path": "model-pytorch-retinanet-resnext50-mlperf-downloaded",
+  "suggested_path": "model-pytorch-retinanet-mlperf-downloaded",
   "tags": [
     "model",
     "object-detection",
     "pytorch",
     "nchw",
-    "resnext50",
     "retinanet",
     "side.800",
     "mlperf",
