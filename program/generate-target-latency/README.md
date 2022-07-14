@@ -36,7 +36,7 @@ Alternatively:
 
 ```bash
 $ cd $(ck find program:generate-target-latency) && ./run.py \
-  --repo-uoa local \
+  --repo_uoa local \
   --tags foo,bar \
   --out $(pwd)/target_latency.txt
 ```
