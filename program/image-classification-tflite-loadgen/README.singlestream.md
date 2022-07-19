@@ -165,7 +165,7 @@ time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=tflit
 time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=tflite-v2.7.1-ruy \
 --model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v1 --variation_prefix=v1- --separator=:) \
 --model_extra_tags,=non-quantized,quantized \
---mode=performance --scenario=range_singlestream --max_query_count=256 \
+--mode=performance --scenario=range_singlestream --max_query_count=1024 \
 --verbose --sut=odroid
 ```
 
@@ -223,7 +223,7 @@ time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=tflit
 time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=tflite-v2.7.1-ruy \
 --model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v2 --variation_prefix=v2- --separator=:) \
 --model_extra_tags,=non-quantized,quantized \
---mode=performance --scenario=range_singlestream --max_query_count=256 \
+--mode=performance --scenario=range_singlestream --max_query_count=1024 \
 --verbose --sut=odroid
 ```
 
@@ -280,7 +280,7 @@ time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=tflit
 ```bash
 time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=tflite-v2.7.1-ruy \
 --model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v3 --variation_prefix=v3- --separator=:) \
---mode=performance --scenario=range_singlestream --max_query_count=256 \
+--mode=performance --scenario=range_singlestream --max_query_count=1024 \
 --verbose --sut=odroid
 ```
 
