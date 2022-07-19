@@ -40,13 +40,21 @@ def parse_mlperf_log_detail(lines):
 
 
 def main(args):
+    if(args.mode == "accuracy"):
+        mode_tags="mode.accuracy"
+    elif(args.mode == "performance"):
+        mode_tags="mode.performance,scenario.range_singlestream"
+    else:
+        print("Please provide valid argument for mode.")
+        exit(1)
+    tags="mlperf," + mode_tags + ("," + args.tags if args.tags else "")
+
     experiments = ck_access(
-        repo_uoa=args.repo_uoa,
-        action="search",
-        module_uoa="experiment",
-        tags="mlperf,scenario.range_singlestream"
-        + ("," + args.tags if args.tags else ""),
-    )["lst"]
+            repo_uoa=args.repo_uoa,
+            action="search",
+            module_uoa="experiment",
+            tags=tags,
+        )["lst"]
 
     for experiment in experiments:
         pipeline = ck_access(
@@ -81,20 +89,27 @@ def main(args):
                 point_data_raw = json.load(point_file)
 
             for characteristic in point_data_raw["characteristics_list"]:
-                detail = parse_mlperf_log_detail(
-                    characteristic["run"]["mlperf_log"]["detail"]
-                )
-                latency_ms = math.ceil(detail["result_mean_latency_ns"] / 10 ** 6)
-                query_count = tags.get("max_query_count", tags.get("query_count"))
+                if(args.mode == "accuracy"):
+                    metric = characteristic["run"]["accuracy"]
+                    comment_value = characteristic["run"]["total"]
+                    comment = "total"
+                elif(args.mode == "performance"):
+                    detail = parse_mlperf_log_detail(
+                        characteristic["run"]["mlperf_log"]["detail"]
+                    )
+                    metric = math.ceil(detail["result_mean_latency_ns"] / 10 ** 6)
+                    comment_value = tags.get("max_query_count", tags.get("query_count"))
+                    comment = "max query count"
                 print(
-                    "{:35} {:-4} # max_query_count={}".format(
+                    "{:35} {:-4} # {}={}".format(
                         tags["platform"]
                         + ","
                         + library_backend
                         + ","
                         + tags["workload"],
-                        latency_ms,
-                        query_count,
+                        metric,
+                        comment,
+                        comment_value
                     ),
                     file=args.out,
                 )
@@ -120,5 +135,12 @@ if __name__ == "__main__":
         metavar="FILE",
         type=argparse.FileType("w"),
         default=sys.stdout,
+    )
+    parser.add_argument(
+        "--mode",
+        metavar="MODE",
+        type=str,
+        default="performance",
+        help="defaults to 'performance'"
     )
     main(parser.parse_args())

@@ -84,3 +84,12 @@ $ ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=tflite-v
 --target_latency_file=$(ck find program:image-classification-tflite-loadgen)/target_latency.rpi4coral.txt \
 --power=yes --power_server_port=4951 --power_server_ip=192.168.0.3
 ```
+
+## Bonus: extract accuracy
+You can provide an argument called `--mode`. It defaults to `performance`, however, you can explicitly state either `--mode accuracy` or `--mode performance`.
+
+### Example
+
+```bash
+$ python3 ./run.py --repo_uoa local --tags platform.firefly --mode accuracy --out $(pwd)/accuracy.txt  
+```
