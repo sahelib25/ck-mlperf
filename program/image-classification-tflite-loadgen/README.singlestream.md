@@ -228,13 +228,13 @@ time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=tflit
 ```
 
 ```bash
-$(ck find program:generate-target-latency)/run.py --tags=inference_engine.tflite,inference_engine_version.v2.5.0 | \
+$(ck find program:generate-target-latency)/run.py --tags=inference_engine.tflite,inference_engine_version.v2.7.1 | \
 sort | tee $(ck find program:image-classification-tflite-loadgen)/target_latency.txt
 ```
 
 ```bash
 time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=tflite-v2.7.1-ruy \
---model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v1 --variation_prefix=v1- --separator=:) \
+--model:=$(ck list_variations misc --query_module_uoa=package --tags=model,tflite,mobilenet-v2 --variation_prefix=v2- --separator=:) \
 --model_extra_tags,=non-quantized,quantized \
 --mode=performance --scenario=singlestream \
 --target_latency_file=$(ck find program:image-classification-tflite-loadgen)/target_latency.txt \

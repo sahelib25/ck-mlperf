@@ -91,5 +91,5 @@ You can provide an argument called `--mode`. It defaults to `performance`, howev
 ### Example
 
 ```bash
-$ python3 ./run.py --repo_uoa local --tags platform.firefly --mode accuracy --out $(pwd)/accuracy.txt  
+$ python3 ./run.py --repo_uoa local --tags platform.firefly --mode accuracy --out $(pwd)/accuracy.txt
 ```
