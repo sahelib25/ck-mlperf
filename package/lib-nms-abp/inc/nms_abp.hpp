@@ -89,6 +89,7 @@ class NMS_ABP {
          read(modelParams.priorName,
               modelParams.TOTAL_NUM_BOXES * NUM_COORDINATES * sizeof(float));
    }
+
    void anchorBoxProcessing(const Loc *const locTensor,
                             const Conf *const confTensor,
                             std::vector<bbox> &selectedAll, const float idx) {
@@ -109,7 +110,7 @@ class NMS_ABP {
          priorPtr = priorTensor;
 #ifdef __amd64__
          for (uint32_t bi = 0; bi < modelParams.TOTAL_NUM_BOXES;
-#else // MobileNet or Retinanet
+#else
          for (uint32_t bi = 0; bi < 15130;
 #endif
            ++bi, confPtr++, locPtr++, priorPtr++) {
@@ -163,6 +164,7 @@ class NMS_ABP {
             });
          }
       }
+
       for (uint32_t ci = modelParams.CLASSES_OFFSET; ci < modelParams.NUM_CLASSES; ci++) {
          if (result[ci].size()) {
            NMS(result[ci], modelParams.NMS_THRESHOLD,
@@ -180,11 +182,74 @@ class NMS_ABP {
         return a[SCORE_POSITION] > b[SCORE_POSITION];
       });
    }
+
+#if defined(MODEL_RX50)
+   void anchorBoxProcessing(const Loc **const locTensor,
+                            const Conf **const confTensor,
+                            const uint64_t **const topkTensor,
+                            std::vector<bbox> &selectedAll, const float idx) {
+
+      std::vector<bbox> result[modelParams.NUM_CLASSES];
+      std::vector<bbox> selected[modelParams.NUM_CLASSES];
+
+      uint32_t prior_offset = 0;
+
+      for (uint32_t gi=0 ; gi<modelParams.OUTPUT_LEVELS ; ++gi) {
+         prior_offset += modelParams.OUTPUT_DELTAS[gi];
+
+         const Loc *locPtr = locTensor[gi];
+
+         for (uint32_t bi = 0; bi < modelParams.OUTPUT_BOXES_PER_LEVEL; ++bi, locPtr+=4) {
+
+            bbox cBox = { get_Loc_Val(locPtr[0]),
+                          get_Loc_Val(locPtr[1]),
+                          get_Loc_Val(locPtr[2]),
+                          get_Loc_Val(locPtr[3]) };
+
+            uint32_t cls = (uint32_t)topkTensor[gi][bi]%modelParams.NUM_CLASSES;
+            uint32_t off = prior_offset + (uint32_t)topkTensor[gi][bi]/modelParams.NUM_CLASSES;
+            float cf = get_Score_Val(confTensor[gi][bi]);
+            if (!above_Class_Threshold(cf)) continue;
+
+            if (modelParams.variance.data() != NULL)
+               cBox = decodeLocationTensor(cBox, &priorTensor[off*4],
+                                          modelParams.variance.data());
+            else
+               cBox = decodeLocationTensor(cBox, &priorTensor[off*4]);
+
+            result[cls].emplace_back(std::initializer_list<float>{
+               idx, cBox[1], cBox[0], cBox[3], cBox[2], cf, (float)cls });
+         }
+      }
+
+      for (uint32_t ci = modelParams.CLASSES_OFFSET; ci < modelParams.NUM_CLASSES; ci++) {
+         if (result[ci].size()) {
+           NMS(result[ci], modelParams.NMS_THRESHOLD,
+               modelParams.MAX_BOXES_PER_CLASS, selected[ci], selectedAll,
+               modelParams.class_map);
+         }
+      }
+
+      int middle = selectedAll.size();
+      if (middle > modelParams.MAX_DETECTIONS_PER_IMAGE) {
+         middle = modelParams.MAX_DETECTIONS_PER_IMAGE;
+      }
+      std::partial_sort(selectedAll.begin(), selectedAll.begin() + middle,
+                        selectedAll.end(), [](const bbox &a, const bbox &b) {
+        return a[SCORE_POSITION] > b[SCORE_POSITION];
+      });
+   }
+#endif
+
    inline Conf above_Class_Threshold(uint8_t score) {
       return score > modelParams.CLASS_THRESHOLD_UINT8;
    }
+   inline Conf above_Class_Threshold(int8_t score) {
+      return score > modelParams.CLASS_THRESHOLD_UINT8;
+   }
    inline Conf above_Class_Threshold(uint16_t score) {
-      return score > modelParams.CLASS_THRESHOLD_FP16;
+//      return score > modelParams.CLASS_THRESHOLD_FP16;
+      return fp16_ieee_to_fp32_value(score) > modelParams.CLASS_THRESHOLD;
    }
    inline Conf above_Class_Threshold(float score) {
       return score > modelParams.CLASS_THRESHOLD;
@@ -193,12 +258,20 @@ class NMS_ABP {
      return CONVERT_UINT8_FP32(x, modelParams.LOC_OFFSET,
                                modelParams.LOC_SCALE);
    }
+   inline float get_Loc_Val(int8_t x) {
+     return CONVERT_INT8_FP32(x, modelParams.LOC_OFFSET,
+                               modelParams.LOC_SCALE);
+   }
    inline float get_Loc_Val(float x) { return x; }
+   inline float get_Loc_Val(uint16_t x) { return fp16_ieee_to_fp32_value(x); }
    inline float get_Score_Val(uint16_t x) { return fp16_ieee_to_fp32_value(x); }
    inline float get_Score_Val(uint8_t x) {
      return CONVERT_UINT8_FP32(x, modelParams.CONF_OFFSET,
                                modelParams.CONF_SCALE);
-      ;
+   }
+   inline float get_Score_Val(int8_t x) {
+     return CONVERT_INT8_FP32(x, modelParams.CONF_OFFSET,
+                               modelParams.CONF_SCALE);
    }
    inline float get_Score_Val(float x) { return x; }
    bbox decodeLocationTensor(const bbox &loc, const float *const prior,
@@ -218,7 +291,7 @@ class NMS_ABP {
       return {x, y, w, h};
    }
 
-#ifdef MODEL_RX50
+#if defined(MODEL_RX50)
    bbox decodeLocationTensor(const bbox &loc, const float *const prior) {
 
      float w = prior[0];
@@ -236,8 +309,8 @@ class NMS_ABP {
      float pred_w = expf(dw) * w;
      float pred_h = expf(dh) * h;
 
-     return { (pred_cent_x - 0.5f * pred_w) * modelParams.BOX_SCALE, (pred_cent_y - 0.5f * pred_h) * modelParams.BOX_SCALE,
-              (pred_cent_x + 0.5f * pred_w) * modelParams.BOX_SCALE, (pred_cent_y + 0.5f * pred_h) * modelParams.BOX_SCALE};
+     return { (pred_cent_x - 0.5f * pred_w) / modelParams.BOX_SCALE, (pred_cent_y - 0.5f * pred_h) / modelParams.BOX_SCALE,
+              (pred_cent_x + 0.5f * pred_w) / modelParams.BOX_SCALE, (pred_cent_y + 0.5f * pred_h) / modelParams.BOX_SCALE};
    }
 #else
    bbox decodeLocationTensor(const bbox &loc, const float *const prior) {

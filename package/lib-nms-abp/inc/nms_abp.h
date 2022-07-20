@@ -103,10 +103,11 @@ class MV1_Params {
    std::vector<float> variance = {};
    std::vector<float> class_map = {};
 };
+
 class RX50_Params {
   public:
    const int NUM_CLASSES = 264;
-   const int MAX_BOXES_PER_CLASS = 100;
+   const int MAX_BOXES_PER_CLASS = 200;
    const int TOTAL_NUM_BOXES = 120087;
 
    const int DATA_LENGTH_LOC = 480348;
@@ -118,13 +119,20 @@ class RX50_Params {
    const int BOX_ITR_3 = (TOTAL_NUM_BOXES * 3);
 
    const int OFFSET_CONF = 120087;
+
    const int CLASSES_INDEX = 0;
-   const int BOXES_INDEX = 1;
+   const int BOXES_INDEX = 5;
+   const int TOPK_INDEX = 10;
 
    const int CLASSES_OFFSET = 0;
 
-   const float LOC_OFFSET = 0.0f;
-   const float LOC_SCALE = 0.020147156f;
+   const int OUTPUT_LEVELS = 5;
+   const int OUTPUT_BOXES_PER_LEVEL = 1000;
+   const int OUTPUT_DELTAS[5] = {0,90000,22500,5625,1521};
+
+
+   const float LOC_OFFSET = 25.0f;
+   const float LOC_SCALE = 0.01684683f;
    const float CONF_OFFSET = -128.0f;
    const float CONF_SCALE = 0.00388179976f;
 
@@ -132,10 +140,11 @@ class RX50_Params {
    const int CLASS_THRESHOLD_UINT8 = 5;
    const int CLASS_THRESHOLD_FP16 = 10854;
    const float NMS_THRESHOLD = 0.5f;
-   const int MAX_DETECTIONS_PER_IMAGE = 300;
-   const int MAX_DETECTIONS_PER_CLASS = 100;
+   const int MAX_DETECTIONS_PER_IMAGE = 1000;
+   const int MAX_DETECTIONS_PER_CLASS = 1000;
 
-   const float BOX_SCALE = 0.00125f;
+//   const float BOX_SCALE = 0.00125f;
+   const float BOX_SCALE = 800.0f;
 
    const char* priorName = "retinanet_priors.bin";
    const bool MAP_CLASSES = false;
@@ -150,6 +159,9 @@ class RX50_Params {
 #define NUM_COORDINATES 4
 #define CONVERT_UINT8_FP32(x, offset, scale) \
    ((CONVERT_TO_INT8(x) - offset) * scale)
+
+#define CONVERT_INT8_FP32(x, offset, scale) \
+   ((x - offset) * scale)
 
 using bbox = std::vector<float>;
 #include "nms_abp.hpp"
