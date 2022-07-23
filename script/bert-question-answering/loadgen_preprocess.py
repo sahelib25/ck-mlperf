@@ -57,7 +57,7 @@ def user_conf_and_audit_config(i):
         inference_src_dep   = deps.get('mlperf-inference-src') or deps.get('lib-python-loadgen')['dict']['deps']['mlperf-inference-src']
         inference_root      = inference_src_dep['dict']['env'].get('CK_ENV_MLPERF_INFERENCE')
         if inference_root != '':
-            if compliance_test in [ 'TEST01', 'TEST04-A', 'TEST04-B', 'TEST05' ]:
+            if compliance_test in [ 'TEST01', 'TEST05' ]:
                 compliance_test_source_dir = os.path.join(inference_root, 'compliance', 'nvidia', compliance_test)
                 if compliance_test in [ 'TEST01' ]: compliance_test_source_dir = os.path.join(compliance_test_source_dir, model_name)
                 compliance_test_config_source_path = os.path.join(compliance_test_source_dir, compliance_test_config)
