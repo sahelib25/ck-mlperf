@@ -543,16 +543,14 @@
       {"mode": "accuracy"},
       {"mode": "performance"},
       {"compliance": "TEST01"},
-      {"compliance": "TEST04-A"},
-      {"compliance": "TEST04-B"},
+      {"compliance": "TEST04"},
       {"compliance": "TEST05"}
     ],
     "closed_power": [
       {"mode": "accuracy"},
       {"mode": "performance", "power": "yes"},
       {"compliance": "TEST01"},
-      {"compliance": "TEST04-A"},
-      {"compliance": "TEST04-B"},
+      {"compliance": "TEST04"},
       {"compliance": "TEST05"}
     ],
     "open_power": [
