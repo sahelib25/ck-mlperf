@@ -36,7 +36,7 @@ Support models from TensorFlow Detection Model Zoos: [tf1-zoo](https://github.co
 Specifying `--group.closed` runs the benchmark in the following modes required for the Closed division:
 - Accuracy with the given `--dataset_size`.
 - Performance with the given `--target_latency`.
-- Compliance tests (TEST01, TEST04-A/B, TEST05) with the given `--target_latency`.
+- Compliance tests (TEST01, TEST04, TEST05) with the given `--target_latency`.
 
 Specifying `--group.open` runs the benchmark in the following modes required for the Open division:
 - Accuracy with the given `--dataset_size`.
@@ -78,5 +78,5 @@ time ck run cmdgen:benchmark.mlperf-inference-vision --verbose --sut=chai --mode
 
 <!-- #### Compliance
 ```
-time ck run cmdgen:benchmark.mlperf-inference-vision --verbose --sut=chai --model=ssd_mobilenet_v1_coco --library=tensorflow-v2.7.1-gpu --device_ids=0 --scenario=singlestream --group.open --dataset_size=5000  --batch_size=1 --target_latency_file=/home/krai/CK_REPOS/ck-mlperf/program/mlperf-inference-vision/target_latency.chai.txt --container=$CONTAINER_ID --compliance,=TEST04-A,TEST04-B,TEST05,TEST01
+time ck run cmdgen:benchmark.mlperf-inference-vision --verbose --sut=chai --model=ssd_mobilenet_v1_coco --library=tensorflow-v2.7.1-gpu --device_ids=0 --scenario=singlestream --group.open --dataset_size=5000  --batch_size=1 --target_latency_file=/home/krai/CK_REPOS/ck-mlperf/program/mlperf-inference-vision/target_latency.chai.txt --container=$CONTAINER_ID --compliance,=TEST04,TEST05,TEST01
 ``` -->

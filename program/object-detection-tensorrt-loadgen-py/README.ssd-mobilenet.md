@@ -36,7 +36,7 @@ $ ck run cmdgen:benchmark.tensorrt-loadgen --verbose \
 ```bash
 $ ck run cmdgen:benchmark.tensorrt-loadgen --verbose \
 --model=ssd-mobilenet --scenario=singlestream \
---compliance,=TEST04-A,TEST04-B,TEST01,TEST05 --target_latency=1.50
+--compliance,=TEST04,TEST01,TEST05 --target_latency=1.50
 ```
 
 
@@ -64,7 +64,7 @@ $ ck run cmdgen:benchmark.tensorrt-loadgen --verbose \
 ```bash
 $ ck run cmdgen:benchmark.tensorrt-loadgen --verbose \
 --model=ssd-mobilenet --scenario=offline --batch_size=128 \
---compliance,=TEST04-A,TEST04-B,TEST01,TEST05 --target_qps=1500
+--compliance,=TEST04,TEST01,TEST05 --target_qps=1500
 ```
 
 
@@ -92,5 +92,5 @@ $ ck run cmdgen:benchmark.tensorrt-loadgen --verbose \
 ```bash
 $ ck run cmdgen:benchmark.tensorrt-loadgen --verbose \
 --model=ssd-mobilenet --scenario=multistream --batch_size=75 --nstreams={{{batch_size}}} \
---compliance,=TEST04-A,TEST04-B,TEST01,TEST05 --max_query_count=272160
+--compliance,=TEST04,TEST01,TEST05 --max_query_count=272160
 ```

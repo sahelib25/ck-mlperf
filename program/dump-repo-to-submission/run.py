@@ -1478,7 +1478,7 @@ def check_experimental_results(repo_uoa, module_uoa='experiment', tags='mlperf',
         # Create a compliance directory structure.
         if compliance:
             # Deal with a subset of tests.
-#             if test not in [ 'TEST03' ]: # [ 'TEST01', 'TEST03', 'TEST04-A', 'TEST04-B', 'TEST05' ]:
+#             if test not in [ 'TEST03' ]: # [ 'TEST01', 'TEST03', 'TEST04', 'TEST05' ]:
 #                 continue
             # Save the accuracy and performance dirs for the corresponding submission experiment.
             accuracy_dir = os.path.join(scenario_dir, 'accuracy')
@@ -1650,23 +1650,22 @@ def check_experimental_results(repo_uoa, module_uoa='experiment', tags='mlperf',
                             verify_performance_txt_file.write(verify_performance_txt)
                             print('%s' % test_dir)
                             print('  |_ %s' % verify_performance_txt_name)
-                    if test in [ 'TEST04-A', 'TEST04-B' ]:
-                        test04a_summary_txt_path = os.path.join(scenario_dir, 'TEST04-A', 'performance', 'run_1', summary_txt_name)
-                        test04b_summary_txt_path = os.path.join(scenario_dir, 'TEST04-B', 'performance', 'run_1', summary_txt_name)
-                        if os.path.exists(test04a_summary_txt_path) and os.path.exists(test04b_summary_txt_path):
+                    if test in [ 'TEST04' ]:
+                        test04_summary_txt_path = os.path.join(scenario_dir, 'TEST04', 'performance', 'run_1', summary_txt_name)
+                        if os.path.exists(test04_summary_txt_path):
                             # If both tests have been processed, verify that their performance matches.
                             if version == 'v0.5':
-                                verify_performance_py = os.path.join(upstream_path, 'v0.5', 'audit', 'nvidia', 'TEST04-A', 'verify_test4_performance.py')
+                                verify_performance_py = os.path.join(upstream_path, 'v0.5', 'audit', 'nvidia', 'TEST04', 'verify_test4_performance.py')
                             else:
-                                verify_performance_py = os.path.join(upstream_path, 'compliance', 'nvidia', 'TEST04-A', 'verify_test4_performance.py')
-                            #print("python3 {} -u {} -s {}".format(verify_performance_py, test04a_summary_txt_path, test04b_summary_txt_path))
-                            verify_performance_txt = subprocess.getoutput('python3 {} -u {} -s {}'.format(verify_performance_py, test04a_summary_txt_path, test04b_summary_txt_path))
+                                verify_performance_py = os.path.join(upstream_path, 'compliance', 'nvidia', 'TEST04', 'verify_test4_performance.py')
+                            #print("python3 {} -u {} -s {}".format(verify_performance_py, test04_summary_txt_path))
+                            verify_performance_txt = subprocess.getoutput('python3 {} -u {} -s {}'.format(verify_performance_py, test04_summary_txt_path))
                             #print(verify_performance_txt)
                             verify_performance_txt_name = 'verify_performance.txt'
-                            verify_performance_txt_path = os.path.join(scenario_dir, 'TEST04-A', verify_performance_txt_name)
+                            verify_performance_txt_path = os.path.join(scenario_dir, 'TEST04', verify_performance_txt_name)
                             with open(verify_performance_txt_path, 'w') as verify_performance_txt_file:
                                 verify_performance_txt_file.write(verify_performance_txt)
-                                print('%s' % os.path.join(scenario_dir, 'TEST04-A'))
+                                print('%s' % os.path.join(scenario_dir, 'TEST04'))
                                 print('  |_ %s' % verify_performance_txt_name)
                         else:
                             # Need both A/B tests to be processed. Wait for the other one.

@@ -344,8 +344,7 @@
 		  {"mode": "accuracy"},
 		  {"mode": "performance"},
 		  {"compliance": "TEST01"},
-		  {"compliance": "TEST04-A"},
-		  {"compliance": "TEST04-B"},
+		  {"compliance": "TEST04"},
 		  {"compliance": "TEST05"}
 	  ]
   }

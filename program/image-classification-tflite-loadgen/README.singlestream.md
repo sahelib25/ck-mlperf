@@ -18,7 +18,7 @@
 Specifying `--group.closed` runs the benchmark in the following modes required for the Closed division:
 - Accuracy with the given `--dataset_size`.
 - Performance with the given `--target_latency`.
-- Compliance tests (TEST01, TEST04-A/B, TEST05) with the given `--target_latency`.
+- Compliance tests (TEST01, TEST04, TEST05) with the given `--target_latency`.
 
 Specifying `--group.open` runs the benchmark in the following modes required for the Open division:
 - Accuracy with the given `--dataset_size`.
@@ -63,7 +63,7 @@ time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=tflit
 
 ```bash
 time ck run cmdgen:benchmark.image-classification.tflite-loadgen --library=tflite-v2.7.1-ruy \
---model=resnet50 --scenario=singlestream --compliance,=TEST04-A,TEST04-B,TEST05,TEST01 \
+--model=resnet50 --scenario=singlestream --compliance,=TEST04,TEST05,TEST01 \
 --verbose --sut=odroid
 ```
 

@@ -30,7 +30,7 @@ $ ck run cmdgen:benchmark.tensorrt-loadgen --verbose \
 ```bash
 $ ck run cmdgen:benchmark.tensorrt-loadgen --verbose \
 --model=resnet50 --scenario=singlestream \
---compliance,=TEST04-A,TEST04-B,TEST01,TEST05 --target_latency=2.04
+--compliance,=TEST04,TEST01,TEST05 --target_latency=2.04
 ```
 
 
@@ -58,7 +58,7 @@ $ ck run cmdgen:benchmark.tensorrt-loadgen --verbose \
 ```bash
 $ ck run cmdgen:benchmark.tensorrt-loadgen --verbose \
 --model=resnet50 --scenario=offline --batch_size=64 \
---compliance,=TEST04-A,TEST04-B,TEST01,TEST05 --target_qps=1400
+--compliance,=TEST04,TEST01,TEST05 --target_qps=1400
 ```
 
 
@@ -86,5 +86,5 @@ $ ck run cmdgen:benchmark.tensorrt-loadgen --verbose \
 ```bash
 $ ck run cmdgen:benchmark.tensorrt-loadgen --verbose \
 --model=resnet50 --scenario=multistream --batch_size=70 --nstreams={{{batch_size}}} \
---compliance,=TEST04-A,TEST04-B,TEST01,TEST05 --max_query_count=272160
+--compliance,=TEST04,TEST01,TEST05 --max_query_count=272160
 ```

@@ -36,7 +36,7 @@ $ ck run cmdgen:benchmark.tensorrt-loadgen --verbose \
 ```bash
 $ ck run cmdgen:benchmark.tensorrt-loadgen --verbose \
 --model=ssd-resnet34 --scenario=singlestream \
---compliance,=TEST04-A,TEST04-B,TEST01,TEST05 --target_latency=29.43
+--compliance,=TEST04,TEST01,TEST05 --target_latency=29.43
 ```
 
 
@@ -64,7 +64,7 @@ $ ck run cmdgen:benchmark.tensorrt-loadgen --verbose \
 ```bash
 $ ck run cmdgen:benchmark.tensorrt-loadgen --verbose \
 --model=ssd-resnet34 --scenario=offline --batch_size=2 \
---compliance,=TEST04-A,TEST04-B,TEST01,TEST05 --target_qps=50
+--compliance,=TEST04,TEST01,TEST05 --target_qps=50
 ```
 
 <a name="multistream"></a>
@@ -91,5 +91,5 @@ $ ck run cmdgen:benchmark.tensorrt-loadgen --verbose \
 ```bash
 $ ck run cmdgen:benchmark.tensorrt-loadgen --verbose \
 --model=ssd-resnet34 --scenario=multistream --batch_size=2 --nstreams={{{batch_size}}} \
---compliance,=TEST04-A,TEST04-B,TEST01,TEST05 --max_query_count=272160
+--compliance,=TEST04,TEST01,TEST05 --max_query_count=272160
 ```

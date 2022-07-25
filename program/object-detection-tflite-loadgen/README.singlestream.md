@@ -53,6 +53,6 @@ $ ck run cmdgen:benchmark.object-detection.tflite-loadgen --verbose \
 $ ck run cmdgen:benchmark.object-detection.tflite-loadgen --verbose \
 --library=tflite-v2.5.0-ruy --model:=non-quantized \
 --scenario=singlestream --target_latency=170 \
---compliance,=TEST04-A,TEST04-B,TEST01,TEST05 \
+--compliance,=TEST04,TEST01,TEST05 \
 --sut=rpi4coral
 ```

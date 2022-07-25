@@ -56,22 +56,13 @@
         "soft_file_universal": "audit$#sep#$nvidia$#sep#$TEST01$#sep#$audit.config"
       }
     },
-    "test04a": {
+    "test04": {
       "extra_env": {
         "LOADGEN_CONFIG_SOURCE": "MLPERF_INFERENCE_GIT_CHECKOUT"
       },
       "extra_customize": {
-        "soft_name": "LoadGen Config for audit TEST04-A",
-        "soft_file_universal": "audit$#sep#$nvidia$#sep#$TEST04-A$#sep#$audit.config"
-      }
-    },
-    "test04b": {
-      "extra_env": {
-        "LOADGEN_CONFIG_SOURCE": "MLPERF_INFERENCE_GIT_CHECKOUT"
-      },
-      "extra_customize": {
-        "soft_name": "LoadGen Config for audit TEST04-B",
-        "soft_file_universal": "audit$#sep#$nvidia$#sep#$TEST04-B$#sep#$audit.config"
+        "soft_name": "LoadGen Config for audit TEST04",
+        "soft_file_universal": "audit$#sep#$nvidia$#sep#$TEST04$#sep#$audit.config"
       }
     },
     "test05": {
