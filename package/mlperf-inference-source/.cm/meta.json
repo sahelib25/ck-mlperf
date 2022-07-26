@@ -37,10 +37,10 @@
       "on_by_default": "yes",
       "extra_env": {
         "PACKAGE_URL": "https://github.com/mlcommons/inference",
-        "PACKAGE_GIT_CHECKOUT": "r2.1"
+        "PACKAGE_GIT_CHECKOUT": "67eb6a0d0e067dcc314a9f60388c0ed98ee86013"
       },
       "extra_customize": {
-        "package_extra_name": " (official v2.1 branch)",
+        "package_extra_name": " (official v2.1 branch: Tue Jul 19 00:29:24 2022 +0900)",
         "version": "r2.1"
       }
     },
