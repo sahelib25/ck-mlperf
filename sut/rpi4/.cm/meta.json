@@ -34,8 +34,8 @@
     "hw_notes": "https://www.raspberrypi.org/products/raspberry-pi-4-model-b/specifications/",
 
     "framework": "",
-    "operating_system": "Ubuntu 21.10; kernel rpi4 5.15.0-1011-raspi #13-Ubuntu SMP PREEMPT (Thu Jun 2 11:44:34 UTC 2022)",
-    "other_software_stack": "GCC 11.2.0; Python 3.10.4",
+    "operating_system": "Ubuntu 22.04; kernel rpi4 5.15.0-1011-raspi #13-Ubuntu SMP PREEMPT (Thu Jun 2 11:44:34 UTC 2022)",
+    "other_software_stack": "GCC 11.2.0; Python 3.9.13",
     "sw_notes": ""
   }
 }
