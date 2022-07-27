@@ -238,8 +238,21 @@ class NMS_ABP {
                         selectedAll.end(), [](const bbox &a, const bbox &b) {
         return a[SCORE_POSITION] > b[SCORE_POSITION];
       });
+
+      for(uint32_t b=0 ; b<selectedAll.size() ; ++b) {
+         postproc(selectedAll[b][1]);
+         postproc(selectedAll[b][2]);
+         postproc(selectedAll[b][3]);
+         postproc(selectedAll[b][4]);
+      }
    }
 #endif
+
+   inline void postproc(float& box) {
+      box /= modelParams.BOX_SCALE;
+      if(box < 0.0f) box = 0.0f;
+      if(box > 1.0f) box = 1.0f;
+   }
 
    inline Conf above_Class_Threshold(uint8_t score) {
       return score > modelParams.CLASS_THRESHOLD_UINT8;
@@ -309,8 +322,8 @@ class NMS_ABP {
      float pred_w = expf(dw) * w;
      float pred_h = expf(dh) * h;
 
-     return { (pred_cent_x - 0.5f * pred_w) / modelParams.BOX_SCALE, (pred_cent_y - 0.5f * pred_h) / modelParams.BOX_SCALE,
-              (pred_cent_x + 0.5f * pred_w) / modelParams.BOX_SCALE, (pred_cent_y + 0.5f * pred_h) / modelParams.BOX_SCALE};
+     return { (pred_cent_x - 0.5f * pred_w), (pred_cent_y - 0.5f * pred_h),
+              (pred_cent_x + 0.5f * pred_w), (pred_cent_y + 0.5f * pred_h)};
    }
 #else
    bbox decodeLocationTensor(const bbox &loc, const float *const prior) {
