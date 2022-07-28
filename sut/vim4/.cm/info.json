@@ -1,0 +1,15 @@
+{
+  "backup_data_uid": "ae41b48ef415fbb8",
+  "backup_module_uid": "194e44c4cacd5101",
+  "backup_module_uoa": "sut",
+  "control": {
+    "engine": "CK",
+    "iso_datetime": "2022-07-28T10:03:47.964091",
+    "version": [
+      "2",
+      "5",
+      "8"
+    ]
+  },
+  "data_name": "vim4"
+}
