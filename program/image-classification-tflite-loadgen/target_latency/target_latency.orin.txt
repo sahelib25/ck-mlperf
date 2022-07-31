@@ -1,6 +1,7 @@
 orin,tflite-v2.7.1-ruy,efficientnet-lite0-non-quantized    9 # max query count=256
 orin,tflite-v2.7.1-ruy,efficientnet-lite0-quantized    6 # max query count=256
 orin,tflite-v2.7.1-ruy,efficientnet-lite1-non-quantized   12 # max query count=256
+orin,tflite-v2.7.1-ruy,efficientnet-lite1-quantized    9 # max query count=256
 orin,tflite-v2.7.1-ruy,efficientnet-lite2-non-quantized   15 # max query count=256
 orin,tflite-v2.7.1-ruy,efficientnet-lite2-quantized   12 # max query count=256
 orin,tflite-v2.7.1-ruy,efficientnet-lite3-non-quantized   21 # max query count=256
