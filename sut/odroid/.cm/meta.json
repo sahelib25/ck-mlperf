@@ -1,6 +1,6 @@
 {
   "data": {
-    "division": "closed",
+    "division": "",
     "submitter": "Krai",
     "status": "available",
     "system_type": "edge",
@@ -36,6 +36,6 @@
 
     "framework": "",
     "operating_system": "Ubuntu 18.04.6 LTS; kernel 4.9.241-77 #1 (Mon Mar 29 23:04:14 -03 2021)",
-    "other_software_stack": "Python v3.8.12; Collective Knowledge v2.6.1; OpenCL v2.0 git.c8adbf9.122c9daed32dbba4b3056f41a2f23c58"
+    "other_software_stack": "Python v3.8.13; Collective Knowledge v2.6.1; OpenCL v2.0 git.c8adbf9.122c9daed32dbba4b3056f41a2f23c58"
   }
 }
