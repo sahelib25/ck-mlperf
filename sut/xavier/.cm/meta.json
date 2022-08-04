@@ -1,7 +1,7 @@
 {
   "data": {
-    "division": "closed",
-    "submitter": "NVIDIA",
+    "division": "",
+    "submitter": "Krai",
     "status": "available",
     "system_type": "edge",
     "system_name": "NVIDIA Jetson AGX Xavier",
@@ -34,7 +34,7 @@
 
     "framework": "",
     "operating_system": "Ubuntu 18.04.6 LTS; kernel xavier 4.9.253-tegra #1 SMP PREEMPT (Mon Jul 26 12:19:28 PDT 2021)",
-    "other_software_stack": "Python v3.8.12; Collective Knowledge v2.6.1",
+    "other_software_stack": "Python v3.8.0; Collective Knowledge v2.6.1",
     "sw_notes": ""
   }
 }
