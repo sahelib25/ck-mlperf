@@ -29,10 +29,10 @@ def ck_postprocess(i):
   include_trace     = env.get('CK_LOADGEN_INCLUDE_TRACE', '') in ('YES', 'Yes', 'yes', 'TRUE', 'True', 'true', 'ON', 'On', 'on', '1')
   model_env         = deps['weights']['dict']['env']
   use_inv_map       = model_env.get('ML_MODEL_USE_INV_MAP', '') in ("YES", "Yes", "yes", "TRUE", "True", "true", "ON", "On", "on", "1", 1)
-
   inference_src_env = deps['mlperf-inference-src']['dict']['env']
   MLPERF_MAIN_CONF  = inference_src_env['CK_ENV_MLPERF_INFERENCE_MLPERF_CONF']
 
+  skip_accuracy_calc = env.get('CK_ENV_SKIP_ACCURACY_CALC', 'no')
 
   save_dict = {}
 
@@ -68,46 +68,47 @@ def ck_postprocess(i):
       with open(conf_path, 'r') as conf_fd:
         mlperf_conf_dict[ os.path.basename(conf_path) ] = conf_fd.readlines()
 
-  # Check accuracy in accuracy mode.
-  # NB: Used to be just (mlperf_log_dict['accuracy'] != []) but this proved
-  # to be unreliable with compliance TEST01 which samples accuracy.
-  accuracy_mode = (save_dict['parsed_summary'] == {})
-  if accuracy_mode:
-    accuracy_script = os.path.join( inference_src_env['CK_ENV_MLPERF_INFERENCE_VLATEST'],
-                                    'classification_and_detection', 'tools', 'accuracy-openimages.py' )
+  if skip_accuracy_calc == 'no':
+    # Check accuracy in accuracy mode.
+    # NB: Used to be just (mlperf_log_dict['accuracy'] != []) but this proved
+    # to be unreliable with compliance TEST01 which samples accuracy.
+    accuracy_mode = (save_dict['parsed_summary'] == {})
+    if accuracy_mode:
+      accuracy_script = os.path.join( inference_src_env['CK_ENV_MLPERF_INFERENCE_VLATEST'],
+                                      'classification_and_detection', 'tools', 'accuracy-openimages.py' )
 
-    dataset_source = deps['dataset']['dict']['deps'].get('dataset-source',{})
-    if dataset_source != {}: # preprocessed
-        openimages_dir = dataset_source['dict']['env']['CK_ENV_DATASET_OPENIMAGES_MLPERF_ROOT']
-    elif dataset_source == {} and deps['dataset']['dict']['env'].get('CK_ENV_DATASET_OPENIMAGES_MLPERF_ROOT','') == '': # preprocessed and detected
-        openimages_annotations_file = deps['dataset']['dict']['env']['CK_ENV_DATASET_ANNOTATIONS'] # asked during detection
-        openimages_annotations_dir = os.path.dirname(openimages_annotations_file)
-        openimages_dir = os.path.dirname(openimages_annotations_dir)
-    else: # original
-        openimages_dir = deps['dataset']['dict']['env']['CK_ENV_DATASET_OPENIMAGES_MLPERF_ROOT']
+      dataset_source = deps['dataset']['dict']['deps'].get('dataset-source',{})
+      if dataset_source != {}: # preprocessed
+          openimages_dir = dataset_source['dict']['env']['CK_ENV_DATASET_OPENIMAGES_MLPERF_ROOT']
+      elif dataset_source == {} and deps['dataset']['dict']['env'].get('CK_ENV_DATASET_OPENIMAGES_MLPERF_ROOT','') == '': # preprocessed and detected
+          openimages_annotations_file = deps['dataset']['dict']['env']['CK_ENV_DATASET_ANNOTATIONS'] # asked during detection
+          openimages_annotations_dir = os.path.dirname(openimages_annotations_file)
+          openimages_dir = os.path.dirname(openimages_annotations_dir)
+      else: # original
+          openimages_dir = deps['dataset']['dict']['env']['CK_ENV_DATASET_OPENIMAGES_MLPERF_ROOT']
 
-    for python_dep_name in ('lib-python-numpy', 'tool-coco', 'lib-python-matplotlib'):
-        os.environ['PYTHONPATH'] = deps[python_dep_name]['dict']['env']['PYTHONPATH'].split(':')[0] +':'+os.environ.get('PYTHONPATH','')
+      for python_dep_name in ('lib-python-numpy', 'tool-coco', 'lib-python-matplotlib'):
+          os.environ['PYTHONPATH'] = deps[python_dep_name]['dict']['env']['PYTHONPATH'].split(':')[0] +':'+os.environ.get('PYTHONPATH','')
 
-    command = [ deps['python']['dict']['env']['CK_ENV_COMPILER_PYTHON_FILE'], accuracy_script,
-              '--openimages-dir', openimages_dir,
-              '--mlperf-accuracy-file', MLPERF_LOG_ACCURACY_JSON,
-    ]
-    if use_inv_map:
-        command.append( '--use-inv-map' )
+      command = [ deps['python']['dict']['env']['CK_ENV_COMPILER_PYTHON_FILE'], accuracy_script,
+                '--openimages-dir', openimages_dir,
+                '--mlperf-accuracy-file', MLPERF_LOG_ACCURACY_JSON,
+      ]
+      if use_inv_map:
+          command.append( '--use-inv-map' )
 
-    print(command)
-    
-    output = check_output(command).decode('ascii')
+      print(command)
+      
+      output = check_output(command).decode('ascii')
 
-    print(output)
+      print(output)
 
-    with open(ACCURACY_TXT, 'w') as accuracy_file:
-        accuracy_file.write(output)
-    
-    searchObj = re.search('mAP=(.+)%', output)
+      with open(ACCURACY_TXT, 'w') as accuracy_file:
+          accuracy_file.write(output)
+      
+      searchObj = re.search('mAP=(.+)%', output)
 
-    save_dict['mAP'] = float( searchObj.group(1) )
+      save_dict['mAP'] = float( searchObj.group(1) )
     
   # for scenario in [ 'SingleStream', 'MultiStream', 'Server', 'Offline' ]:
   #   scenario_key = 'TestScenario.%s' % scenario
